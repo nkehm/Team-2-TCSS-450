@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FragmentsLab</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_first_red">Red Fragment</string>
+    <string name="button_first_green">Green Fragment</string>
+    <string name="button_first_blue">Blue Fragment</string>
+    <string name="color_text">Color</string>
+</resources>
