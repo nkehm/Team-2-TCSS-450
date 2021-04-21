@@ -11,10 +11,11 @@
 
     <Button
         android:id="@+id/button_red"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
+        android:backgroundTint="#C62424"
         android:text="@string/button_first_red"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="51dp" />
