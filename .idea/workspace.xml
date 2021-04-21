@@ -20,9 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="838ec651-17d8-4ec0-8c2b-79c4dbcf32d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Team-2-TCSS-450.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/androidTest/java/edu/uw/tcss450/nkehm/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/androidTest/java/edu/uw/tcss450/nkehm/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/edu/uw/tcss450/nkehm/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/edu/uw/tcss450/nkehm/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/ColorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/ColorFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/FirstFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/FirstFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,18 +71,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618980239836">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="386" y="208" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618983531981">
+      <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.-541.1080.1880@0.0.1920.1040" timestamp="1618980239836" />
+    <state x="386" y="208" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1618983531981" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1618980285822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-541.1080.1880@0.0.1920.1040" timestamp="1618980285822" />
+    <state x="907" y="354" key="RollbackChangesDialog" timestamp="1618983521525">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="907" y="354" key="RollbackChangesDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1618983521525" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1618983650964">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state width="500" height="445" key="SwitcherDM/0.23.1792.1097@0.23.1792.1097" timestamp="1618983650964" />
   </component>
 </project>
