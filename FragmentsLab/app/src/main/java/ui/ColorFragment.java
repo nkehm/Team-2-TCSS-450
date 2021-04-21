@@ -2,21 +2,17 @@ package ui;
 //NOAH WAS HERE
 //Daniel
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewbinding.ViewBinding;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tcss450.nkehm.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import edu.uw.tcss450.nkehm.databinding.FragmentColorBinding;
-import edu.uw.tcss450.nkehm.databinding.FragmentFirstBinding;
 
-
+// Nam Hoang was here 
 public class ColorFragment extends Fragment {
     private FragmentColorBinding binding;
 

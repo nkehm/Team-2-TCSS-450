@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="ChangeListManager">
-    <list default="true" id="25a43440-de3a-4b71-8ee8-6c1d327cc229" name="Default Changelist" comment="" />
-=======
+
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -24,11 +21,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="838ec651-17d8-4ec0-8c2b-79c4dbcf32d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Team-2-TCSS-450.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/androidTest/java/edu/uw/tcss450/nkehm/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/androidTest/java/edu/uw/tcss450/nkehm/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/edu/uw/tcss450/nkehm/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/edu/uw/tcss450/nkehm/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/ColorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/ColorFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/FirstFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FragmentsLab/app/src/main/java/ui/FirstFragment.java" afterDir="false" />
     </list>
->>>>>>> origin/caleb
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,23 +35,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
-  <component name="ProjectId" id="1rSuCyz0UHvm6RLjQggWpiss860" />
-=======
   <component name="ProjectId" id="1rSr9JW7iKOItBSepFoYKLErpyW" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
->>>>>>> origin/caleb
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-<<<<<<< HEAD
-=======
+
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
->>>>>>> origin/caleb
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/FragmentsLab" />
@@ -63,7 +55,6 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-<<<<<<< HEAD
       <changelist id="25a43440-de3a-4b71-8ee8-6c1d327cc229" name="Default Changelist" comment="" />
       <created>1618981688049</created>
       <option name="number" value="Default" />
@@ -77,7 +68,6 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="723" y="450" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1618981703093" />
-=======
       <changelist id="838ec651-17d8-4ec0-8c2b-79c4dbcf32d5" name="Default Changelist" comment="" />
       <created>1618980178235</created>
       <option name="number" value="Default" />
@@ -96,19 +86,29 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618980239836">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="386" y="208" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618983531981">
+      <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.-541.1080.1880@0.0.1920.1040" timestamp="1618980239836" />
+    <state x="386" y="208" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1618983531981" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1618980285822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-541.1080.1880@0.0.1920.1040" timestamp="1618980285822" />
->>>>>>> origin/caleb
+
+    <state x="907" y="354" key="RollbackChangesDialog" timestamp="1618983521525">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="907" y="354" key="RollbackChangesDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1618983521525" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1618983650964">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state width="500" height="445" key="SwitcherDM/0.23.1792.1097@0.23.1792.1097" timestamp="1618983650964" />
   </component>
 </project>
