@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import edu.uw.tcss450.nkehm.databinding.FragmentColorBinding;
 
-// Nam Hoang was here 
 public class ColorFragment extends Fragment {
     private FragmentColorBinding binding;
 

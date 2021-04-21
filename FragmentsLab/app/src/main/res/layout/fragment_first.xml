@@ -11,21 +11,25 @@
 
     <Button
         android:id="@+id/button_red"
+        style="@style/Widget.MaterialComponents.Button"
         style="@style/Widget.AppCompat.Button.Colored"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
+        android:backgroundTint="#F3CBCB"
         android:text="@string/button_first_red"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="51dp" />
 
     <Button
         android:id="@+id/button_green"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#066C0B"
         android:text="@string/button_first_green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_red" />
@@ -37,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:layout_marginTop="16dp"
-        android:text="@string/button_first_blue"
+        android:text="Blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_green" />
 
