@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_color.xml",
+        "source": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\src\\main\\res\\layout\\fragment_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_first.xml",
+        "source": "C:\\Users\\Nathan\\AndroidStudioProjects\\Team-2-TCSS-450\\FragmentsLab\\app\\src\\main\\res\\layout\\fragment_first.xml"
+    }
+]
