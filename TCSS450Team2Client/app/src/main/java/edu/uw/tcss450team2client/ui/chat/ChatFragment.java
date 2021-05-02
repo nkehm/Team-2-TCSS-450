@@ -15,7 +15,6 @@ import edu.uw.tcss450team2client.R;
  */
 public class ChatFragment extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
