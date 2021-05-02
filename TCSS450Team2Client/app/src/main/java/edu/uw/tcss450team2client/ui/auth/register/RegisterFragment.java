@@ -58,7 +58,7 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater);
         return binding.getRoot();
@@ -127,13 +127,14 @@ public class RegisterFragment extends Fragment {
     }
 
     private void navigateToLogin() {
-        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
-                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
-
-        directions.setEmail(binding.editEmail.getText().toString());
-        directions.setPassword(binding.editPassword1.getText().toString());
-
-        Navigation.findNavController(getView()).navigate(directions);
+// TODO: commented out for build error, waiting on sign-in (login) implementation
+//        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
+//                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
+//
+//        directions.setEmail(binding.editEmail.getText().toString());
+//        directions.setPassword(binding.editPassword1.getText().toString());
+//
+//        Navigation.findNavController(getView()).navigate(directions);
 
     }
 
