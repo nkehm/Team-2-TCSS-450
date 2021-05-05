@@ -8,7 +8,11 @@
         android:id="@+id/navigation_home"
         android:name="edu.uw.tcss450team2client.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_secondHomeFragment"
+            app:destination="@id/secondHomeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_chat"
         android:name="edu.uw.tcss450team2client.ui.chat.ChatFragment"
@@ -24,4 +28,9 @@
         android:name="edu.uw.tcss450team2client.ui.weather.WeatherFragment"
         android:label="@string/title_weather"
         tools:layout="@layout/fragment_weather" />
+    <fragment
+        android:id="@+id/secondHomeFragment"
+        android:name="edu.uw.tcss450team2client.ui.home.SecondHomeFragment"
+        android:label="@string/title_second_home"
+        tools:layout="@layout/fragment_second_home" />
 </navigation>

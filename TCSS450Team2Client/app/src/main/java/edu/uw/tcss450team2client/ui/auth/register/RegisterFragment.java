@@ -127,14 +127,13 @@ public class RegisterFragment extends Fragment {
     }
 
     private void navigateToLogin() {
-// TODO: commented out for build error, waiting on sign-in (login) implementation
-//        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
-//                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
-//
-//        directions.setEmail(binding.editEmail.getText().toString());
-//        directions.setPassword(binding.editPassword1.getText().toString());
-//
-//        Navigation.findNavController(getView()).navigate(directions);
+        RegisterFragmentDirections.ActionRegisterFragmentToSignInFragment directions =
+                RegisterFragmentDirections.actionRegisterFragmentToSignInFragment();
+
+        directions.setEmail(binding.editEmail.getText().toString());
+        directions.setPassword(binding.editPassword1.getText().toString());
+
+        Navigation.findNavController(getView()).navigate(directions);
 
     }
 
