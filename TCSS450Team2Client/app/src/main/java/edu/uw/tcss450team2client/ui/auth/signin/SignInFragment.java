@@ -70,9 +70,9 @@ public class SignInFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeResponse);
 
-        /*SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
+        SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
         binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());*/
+        binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
     }
 
     private void attemptSignIn(final View button) {
@@ -106,11 +106,11 @@ public class SignInFragment extends Fragment {
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
-    /*private void navigateToSuccess(final String email, final String jwt) {
+    private void navigateToSuccess(final String email, final String jwt) {
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
-                        .actionLoginFragmentToMainActivity(email, jwt));
-    }*/
+                        .actionSignInFragmentToMainActivity(email, jwt));
+    }
 
     /**
      * An observer on the HTTP Response from the web server. This observer should be
@@ -129,13 +129,13 @@ public class SignInFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                /*try {
+                try {
                     navigateToSuccess(
                             binding.editEmail.getText().toString(),
                             response.getString("token") );
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
-                }*/
+                }
             }
         } else {
             Log.d("JSON Response", "No Response");

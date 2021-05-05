@@ -8,13 +8,17 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_register_short">Register</string>
     <string name="title_home">Home</string>
+    <string name="title_second_home">2nd Home</string>
+    <string name="action_next">Next</string>
     <string name="title_chat">Chat</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_weather">Weather</string>
     <string name="action_signin">Sign In</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
->>>>>>> Stashed changes
+    >>>>>>> Stashed changes
 </resources>
