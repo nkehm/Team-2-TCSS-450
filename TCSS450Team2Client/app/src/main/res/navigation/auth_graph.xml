@@ -16,7 +16,7 @@
         android:label="MainActivity" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="edu.uw.tcss450team2client.ui.auth.sign_in.SignInFragment"
+        android:name="edu.uw.tcss450team2client.ui.auth.signin.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action

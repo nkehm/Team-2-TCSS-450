@@ -1,4 +1,4 @@
-package edu.uw.tcss450team2client.ui.auth.sign_in;
+package edu.uw.tcss450team2client.ui.auth.signin;
 
 import android.app.Application;
 import android.util.Base64;
@@ -41,9 +41,6 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
 
-
-
-
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -69,7 +66,7 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     public void connect(final String email, final String password) {
-        String url = "https://cfb3-tcss450-labs-2021sp.herokuapp.com/auth";
+        String url = "https://tcss450-team2-server.herokuapp.com/auth";
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,

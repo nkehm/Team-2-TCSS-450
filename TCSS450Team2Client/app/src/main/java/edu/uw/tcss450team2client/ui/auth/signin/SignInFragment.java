@@ -1,4 +1,4 @@
-package edu.uw.tcss450team2client.ui.auth.sign_in;
+package edu.uw.tcss450team2client.ui.auth.signin;
 
 import static edu.uw.tcss450team2client.utils.PasswordValidator.*;
 
