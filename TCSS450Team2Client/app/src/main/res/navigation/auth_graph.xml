@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/registerFragment"
@@ -14,4 +14,13 @@
         android:id="@+id/mainActivity"
         android:name="edu.uw.tcss450team2client.MainActivity"
         android:label="MainActivity" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="edu.uw.tcss450team2client.ui.auth.sign_in.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
 </navigation>
