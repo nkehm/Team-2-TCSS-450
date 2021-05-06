@@ -12,14 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsViewModel extends AndroidViewModel {
+
     private MutableLiveData<List<Contact>> mContacts;
+
     public ContactsViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
         mContacts.setValue(new ArrayList<>());
     }
 
-    public void addBlogListObserver(@NonNull LifecycleOwner owner,
+    public void addContactsObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super List<Contact>> observer) {
         mContacts.observe(owner, observer);
     }

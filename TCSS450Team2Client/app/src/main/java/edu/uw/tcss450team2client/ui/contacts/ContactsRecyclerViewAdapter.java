@@ -24,8 +24,27 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     public ContactsRecyclerViewAdapter(List<Contact> items) {
         this.mContacts = items;
         mExpandedFlags = mContacts.stream()
-                .collect(Collectors.toMap(Function.identity(), blog -> false));
+                .collect(Collectors.toMap(Function.identity(), contacts -> false));
     }
+
+    @NonNull
+    @Override
+    public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ContactsViewHolder(LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.fragment_contact_card, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ContactsViewHolder holder, int position) {
+        holder.setContact(mContacts.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mContacts.size();
+    }
+
     /**
      * Objects from this class represent an Individual row View from the List
      * of rows in the Blog Recycler View.
@@ -56,8 +75,6 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 //            displayPreview();
         }
 
-
-
         void setContact(final Contact contact) {
             mContact = contact;
             // For contact profile
@@ -71,22 +88,4 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         }
     }
 
-
-    @NonNull
-    @Override
-    public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactsViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_card, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ContactsViewHolder holder, int position) {
-        holder.setContact(mContacts.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mContacts.size();
-    }
 }
