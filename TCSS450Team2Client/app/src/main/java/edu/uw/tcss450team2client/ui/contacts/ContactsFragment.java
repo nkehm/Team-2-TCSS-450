@@ -1,5 +1,6 @@
 package edu.uw.tcss450team2client.ui.contacts;
 
+import android.media.MediaRouter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentContactsBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +36,8 @@ public class ContactsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mModel = new ViewModelProvider(getActivity()).get(ContactsViewModel.class);
+        UserInfoViewModel model = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
 //        mModel.connectGet();
     }
 
@@ -44,11 +48,11 @@ public class ContactsFragment extends Fragment {
 
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
 
-        mModel.addBlogListObserver(getViewLifecycleOwner(), contacts -> {
+        mModel.addContactsObserver(getViewLifecycleOwner(), contacts -> {
             if (!contacts.isEmpty()) {
                 binding.listRoot.setAdapter(
 //                        new ui.contacts.ContactsRecyclerViewAdapter(blogList)
-                        new edu.uw.tcss450team2client.ui.contacts.ContactsRecyclerViewAdapter(contacts)
+                        new ContactsRecyclerViewAdapter(contacts)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

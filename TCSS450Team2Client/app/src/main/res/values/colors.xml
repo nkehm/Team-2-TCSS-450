@@ -8,4 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <!-- Copied from Lab 5 Chat - Need to update for our own design/theme -->
+    <color name="primaryColor">#4527a0</color>
+    <color name="primaryLightColor">#7953d2</color>
+    <color name="primaryDarkColor">#000070</color>
+    <color name="secondaryColor">#b7a57a</color>
+    <color name="secondaryLightColor">#ead6a9</color>
+    <color name="secondaryDarkColor">#86764e</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="secondaryTextColorFade">#222222</color>
+
+    <color name="colorPrimary">@color/primaryColor</color>
+    <color name="colorPrimaryDark">@color/primaryDarkColor</color>
+
 </resources>
