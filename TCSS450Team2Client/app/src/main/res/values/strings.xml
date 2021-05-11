@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">TCSS 450 Team 2 Client</string>
+    <string name="app_name">T4G2</string>
+    <string name="app_logo">Logo</string>
 
     <!-- Register -->
     <string name="hint_first">First Name</string>
