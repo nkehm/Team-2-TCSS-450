@@ -19,12 +19,9 @@ import edu.uw.tcss450team2client.databinding.FragmentContactCardBinding;
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactsViewHolder>{
 
     private final List<Contact> mContacts;
-    private final Map<Contact, Boolean> mExpandedFlags;
 
     public ContactsRecyclerViewAdapter(List<Contact> items) {
         this.mContacts = items;
-        mExpandedFlags = mContacts.stream()
-                .collect(Collectors.toMap(Function.identity(), contacts -> false));
     }
 
     @NonNull
@@ -63,17 +60,6 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 //            mView.setOnClickListener(this::handleMoreOrLess);
         }
 
-        /**
-         * When the button is clicked in the more state, expand the card to display
-         * the blog preview and switch the icon to the less state.  When the button
-         * is clicked in the less state, shrink the card and switch the icon to the
-         * more state.
-         * @param button the button that was clicked
-         */
-        private void handleMoreOrLess(final View button) {
-            mExpandedFlags.put(mContact, !mExpandedFlags.get(mContact));
-//            displayPreview();
-        }
 
         void setContact(final Contact contact) {
             mContact = contact;

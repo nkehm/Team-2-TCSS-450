@@ -16,7 +16,7 @@ public class Contact implements Serializable {
      * @author Charles Bryan
      */
 
-    private Contact(String mFName, String mLName, String mEmail, String mUserName) {
+    public Contact(String mFName, String mLName, String mEmail, String mUserName) {
         this.mFirstName = mFName;
         this.mLastName = mLName;
         this.mEmail = mEmail;
@@ -28,17 +28,13 @@ public class Contact implements Serializable {
         return mFirstName;
     }
 
-    public String getLastName() {
-        return mLastName;
-    }
+    public String getLastName() { return mLastName; }
 
     public String getEmail() {
         return mEmail;
     }
 
-    public String getUserName() {
-        return mUserName;
-    }
+    public String getUserName() { return mUserName; }
 
 
 
