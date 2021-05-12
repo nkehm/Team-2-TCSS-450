@@ -16,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -27,16 +29,19 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 public class ChatListViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<ChatRoom>> mChatList;
+    private MutableLiveData<List<Message>> mChatList;
+    private final MutableLiveData<JSONObject> mResponse;
 
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();
         mChatList.setValue(new ArrayList<>());
+        mResponse = new MutableLiveData<>();
+        mResponse.setValue(new JSONObject());
     }
 
     public void addChatListObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super List<ChatRoom>> observer) {
+                                    @NonNull Observer<? super List<Message>> observer) {
         mChatList.observe(owner, observer);
     }
 
@@ -48,7 +53,21 @@ public class ChatListViewModel extends AndroidViewModel {
     }
 
     public void handleResult(final JSONObject result) {
-
+        ArrayList<Message> temp = new ArrayList<>();
+        try {
+            JSONArray messages = result.getJSONArray("chats");
+            for (int i = 0; i < messages.length(); i++) {
+                JSONObject message = messages.getJSONObject(i);
+                String name = message.getString("name");
+                int key = message.getInt("chat");
+                Message post = new Message(name, key);
+                temp.add(post);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handle Success ChatViewModel");
+            Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
+        }
+        mChatList.setValue(temp);
     }
 
     public void connectGet() {
