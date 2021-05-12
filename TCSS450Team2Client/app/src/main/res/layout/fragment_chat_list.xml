@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
-    android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,14 +20,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/list_root"
-        android:name="edu.uw.team7project.ui.messages.MessageListFragment"
+        android:name="edu.uw.tcss450team2client.chat.ChatListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         android:orientation="vertical"
-        tools:context="edu.uw.team7project.ui.messages.MessageListFragment"
+        tools:context="edu.uw.tcss450team2client.chat.ChatListFragment"
         tools:listitem="@layout/fragment_chat_card"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_wait"
