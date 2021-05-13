@@ -30,11 +30,17 @@ public class UserInfoViewModel extends ViewModel {
         return mJwt;
     }
 
-    public String getFName() { return mFName; }
+    public String getFName() {
+        return mFName;
+    }
 
-    public String getLName() { return mLName; }
+    public String getLName() {
+        return mLName;
+    }
 
-    public String getUsername() { return mUsername; }
+    public String getUsername() {
+        return mUsername;
+    }
 
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {
 

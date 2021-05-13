@@ -48,8 +48,8 @@ public class ChatListViewModel extends AndroidViewModel {
     private void handleError(final VolleyError error) {
         //you should add much better error handling in a production release.
         //i.e. YOUR PROJECT
-        Log.e("CONNECTION ERROR", error.getLocalizedMessage());
-        throw new IllegalStateException(error.getMessage());
+        Log.e("CONNECTION ERROR", "No chats");
+        //throw new IllegalStateException(error.getMessage());
     }
 
     public void handleResult(final JSONObject result) {

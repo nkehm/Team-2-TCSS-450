@@ -13,7 +13,6 @@ import java.util.List;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentChatCardBinding;
-import edu.uw.tcss450team2client.databinding.FragmentChatListBinding;
 
 public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.ChatListViewHolder> {
 
