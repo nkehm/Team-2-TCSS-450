@@ -2,19 +2,15 @@ package edu.uw.tcss450team2client.ui.contacts;
 
 import java.io.Serializable;
 
+/**
+ * Contact Object
+ */
 public class Contact implements Serializable {
 
     private final String mFirstName;
     private final String mLastName;
     private final String mEmail;
     private final String mUserName;
-
-
-    /**
-     * Helper class for building Credentials.
-     *
-     * @author Charles Bryan
-     */
 
     public Contact(String mFName, String mLName, String mEmail, String mUserName) {
         this.mFirstName = mFName;

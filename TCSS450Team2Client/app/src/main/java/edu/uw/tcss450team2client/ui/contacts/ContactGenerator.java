@@ -23,5 +23,5 @@ public class ContactGenerator {
         return Arrays.copyOf(CONTACTS, CONTACTS.length);
     }
 
-    private ContactGenerator() { }
+    public ContactGenerator() { }
 }

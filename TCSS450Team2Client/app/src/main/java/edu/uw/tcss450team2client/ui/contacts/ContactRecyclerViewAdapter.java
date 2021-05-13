@@ -1,39 +1,47 @@
 package edu.uw.tcss450team2client.ui.contacts;
 
-import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
+import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentContactCardBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
-public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactsViewHolder>{
+public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder>{
 
     private final List<Contact> mContacts;
+    private RecyclerView mRecyclerView;
+    private UserInfoViewModel mUserInfoViewModel;
+    private final int mPosition;
+    private ContactListViewModel mContactListViewModel;
 
-    public ContactsRecyclerViewAdapter(List<Contact> items) {
+    public ContactRecyclerViewAdapter(List<Contact> items, int postition, MainActivity mainActivity) {
         this.mContacts = items;
+        mPosition = postition;
+
+        // TODO check if not passing Activity will work
+        mContactListViewModel = new ViewModelProvider(mainActivity).get(ContactListViewModel.class);
     }
 
     @NonNull
     @Override
-    public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactsViewHolder(LayoutInflater
+    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ContactViewHolder(LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.fragment_contact_card, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContactsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
     }
 
@@ -42,27 +50,33 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         return mContacts.size();
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
     /**
      * Objects from this class represent an Individual row View from the List
      * of rows in the Blog Recycler View.
      */
-    public class ContactsViewHolder extends RecyclerView.ViewHolder {
+    public class ContactViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        private Contact mContact;
         public FragmentContactCardBinding binding;
         //Store all of the blogs to present
 
-        public ContactsViewHolder(View view) {
+        public ContactViewHolder(View view) {
             super(view);
             mView = view;
             binding = FragmentContactCardBinding.bind(view);
-//            binding.buittonMore.setOnClickListener(this::handleMoreOrLess);
-//            mView.setOnClickListener(this::handleMoreOrLess);
+            binding.cardRoot.setOnClickListener(this::onClick);
         }
 
+        private void onClick(View view) {
+            Log.d("Card onclick", "Card has been clicked");
+        }
 
         void setContact(final Contact contact) {
-            mContact = contact;
             // For contact profile
 //            binding.textContactUsername.setOnClickListener(view -> {
 //                Navigation.findNavController(mView).navigate(
@@ -71,7 +85,11 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 //            });
             binding.textContactName.setText(contact.getFirstName());
             binding.textContactUsername.setText(contact.getUserName());
+
+
         }
+
     }
+
 
 }
