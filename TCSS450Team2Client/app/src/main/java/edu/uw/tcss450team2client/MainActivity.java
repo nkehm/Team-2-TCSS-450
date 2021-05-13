@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.auth0.android.jwt.JWT;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
@@ -22,8 +23,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+
+        JWT jwt = new JWT(args.getJwt());
+        String username = jwt.getClaim("username").asString();
+        String firstName = jwt.getClaim("firstname").asString();
+        String lastName = jwt.getClaim("lastname").asString();
+
         new ViewModelProvider(this,
-                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt()))
+                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(), firstName,
+                        lastName, username))
                 .get(UserInfoViewModel.class);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

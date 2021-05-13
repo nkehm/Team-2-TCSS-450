@@ -56,7 +56,7 @@ public class ChatListFragment extends Fragment {
 
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             // if (!chatList.isEmpty()) {
-            mAdapter = new ChatListRecyclerViewAdapter(chatList);
+            mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
             binding.listRoot.setAdapter(mAdapter);
             binding.layoutWait.setVisibility(View.GONE);
         });
