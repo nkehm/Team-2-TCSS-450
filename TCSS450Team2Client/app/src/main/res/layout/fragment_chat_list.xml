@@ -29,6 +29,7 @@
         android:orientation="vertical"
         tools:context="edu.uw.tcss450team2client.chat.ChatListFragment"
         tools:listitem="@layout/fragment_chat_card"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_wait"
         android:layout_width="match_parent"
@@ -36,8 +37,11 @@
         android:background="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
