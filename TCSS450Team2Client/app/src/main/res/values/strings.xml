@@ -1,0 +1,40 @@
+<resources>
+
+    <string name="app_name">T4G2</string>
+    <string name="app_logo">Logo</string>
+
+    <!-- Register -->
+    <string name="hint_first">First Name</string>
+    <string name="hint_last">Last Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_password_again">Retype Password</string>
+    <string name="action_register_short">Register</string>
+
+    <!-- Sign In -->
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_signin">Sign In</string>
+
+    <!-- Home Page -->
+    <string name="title_home">Home</string>
+    <string name="title_second_home">2nd Home</string>
+    <string name="action_next">Next</string>
+
+    <!-- Contacts -->
+    <string name="title_contacts">Contacts</string>
+
+    <!-- Weather -->
+    <string name="title_weather">Weather</string>
+
+    <!-- Chat -->
+    <string name="title_chat">Chat</string>
+    <string name="title_chat_room">Chat room</string>
+    <string name="string_chat_sendDescription">Sends the message</string>
+    <string name="string_chat_messageEntryDescription">Message</string>
+    <string name="text_delete">Delete</string>
+
+    <!-- Server Base URL -->
+    <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+
+</resources>
