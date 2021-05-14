@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.io.RequestQueueSingleton;
 
 public class ContactListViewModel extends AndroidViewModel {
@@ -45,13 +46,16 @@ public class ContactListViewModel extends AndroidViewModel {
         ContactGenerator contactGenerator = new ContactGenerator();
         // Setup MutableLiveData for all the fields that are being used in Contact List
         mFriends = new MutableLiveData<>();
-        mFriends.setValue(contactGenerator.getContactList());
+        mFriends.setValue(new ArrayList<>());
+
+        // Set local dummy data for testing
+//        mFriends.setValue(contactGenerator.getContactList());
 
         mPendings = new MutableLiveData<>();
         mPendings.setValue(new ArrayList<>());
 
         mInvites = new MutableLiveData<>();
-        mInviteHandler = new ArrayList<>();
+        mInvites.setValue(new ArrayList<>());
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
@@ -104,6 +108,52 @@ public class ContactListViewModel extends AndroidViewModel {
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
         }
 
+        try {
+            JSONArray contactsArray = result.getJSONArray("sentRequests");
+            List<String> temp2 = new ArrayList<>();
+            for (int i = 0; i < contactsArray.length(); i++) {
+                temp2.add(contactsArray.getJSONObject(i).getString("email"));
+                temp2.add(contactsArray.getJSONObject(i).getString("firstname"));
+                temp2.add(contactsArray.getJSONObject(i).getString("lastname"));
+                temp2.add(contactsArray.getJSONObject(i).getString("username"));
+
+            }
+            mPendingHandler = new ArrayList<>();
+            for (int i = 0; i < temp2.size(); i += 4) {
+                mPendingHandler.add(new Contact(temp2.get(i), temp2.get(i + 1), temp2.get(i + 2), temp2.get(i + 3)));
+            }
+            if (mPendingHandler.equals(mPendings)) { // If equal, then not update the data to prevent scrolling issue - Hung Vu
+                return;
+            }
+            mPendings.setValue(mPendingHandler);
+        } catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handle Success Connection list VM");
+            Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
+        }
+
+        try {
+            JSONArray contactsArray = result.getJSONArray("receivedRequests");
+            List<String> temp3 = new ArrayList<>();
+            for (int i = 0; i < contactsArray.length(); i++) {
+                temp3.add(contactsArray.getJSONObject(i).getString("email"));
+                temp3.add(contactsArray.getJSONObject(i).getString("firstname"));
+                temp3.add(contactsArray.getJSONObject(i).getString("lastname"));
+                temp3.add(contactsArray.getJSONObject(i).getString("username"));
+
+            }
+            mInviteHandler = new ArrayList<>();
+            for (int i = 0; i < temp3.size(); i += 4) {
+                mInviteHandler.add(new Contact(temp3.get(i), temp3.get(i + 1), temp3.get(i + 2), temp3.get(i + 3)));
+            }
+            if (mInviteHandler.equals(mInvites)) { // If equal, then not update the data to prevent scrolling issue - Hung Vu
+                return;
+            }
+            mInvites.setValue(mInviteHandler);
+        } catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handle Success Connection list VM");
+            Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
+        }
+
     }
 
     public void getAllContacts(final String email, final String jwt) {
@@ -111,7 +161,8 @@ public class ContactListViewModel extends AndroidViewModel {
         mEmail = email;
         // Due to timer task in home, these keep getting printed to logcat, so I comment out - Hung Vu
 //        Log.i("JWT", mJwt);
-        String url = mEmail;
+//        String url = getApplication().getResources().getString(R.string.base_url) + mEmail;
+        String url = "localhost:5000/" + mEmail;
         JSONObject j = new JSONObject();
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
