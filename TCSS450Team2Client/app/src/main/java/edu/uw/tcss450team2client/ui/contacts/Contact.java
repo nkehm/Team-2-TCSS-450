@@ -11,12 +11,14 @@ public class Contact implements Serializable {
     private final String mLastName;
     private final String mEmail;
     private final String mUserName;
+    private final int mMemberID;
 
-    public Contact(String mFName, String mLName, String mEmail, String mUserName) {
+    public Contact(final String mFName, final String mLName, final String mEmail, final String mUserName, final int id) {
         this.mFirstName = mFName;
         this.mLastName = mLName;
         this.mEmail = mEmail;
         this.mUserName = mUserName;
+        this.mMemberID = id;
 
     }
 
@@ -32,6 +34,5 @@ public class Contact implements Serializable {
 
     public String getUserName() { return mUserName; }
 
-
-
+    public int getMemberID() { return mMemberID; }
 }

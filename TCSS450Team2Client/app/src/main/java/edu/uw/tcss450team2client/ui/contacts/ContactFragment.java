@@ -5,7 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -16,46 +19,99 @@ import android.widget.TableLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uw.tcss450team2client.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ContactFragment extends Fragment {
+    /**layout component*/
+    TabLayout tabLayout;
+    /**View component*/
+    ViewPager viewPager;
 
-    private ContactListViewModel mContactListViewModel;
-
-    // For the tab view content
-    private ViewPager2 mViewPager;
-    private ContactStateAdapter contactStateAdapter;
-    private View mView;
+    public ContactFragment() {
+        //Constructor.
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContactListViewModel = new ViewModelProvider(getActivity())
-                .get(ContactListViewModel.class);
     }
 
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        contactStateAdapter = new ContactStateAdapter(this);
-        mViewPager = view.findViewById(R.id.contact_viewpager);
-        mViewPager.setAdapter(contactStateAdapter);
-        mView = view;
-        TabLayout tabLayout = view.findViewById(R.id.contact_tabLayout);
-        String[] tabNames = {"Friend", "Pending", "Invite"};
-        new TabLayoutMediator(tabLayout, mViewPager, (tab, position) ->
-                tab.setText(tabNames[position])).attach();
+
+        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.pager);
+
+        //attach tablayout with viewpager
+        tabLayout.setupWithViewPager(viewPager);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), 1);
+
+        // add fragments
+        adapter.addFrag(new ContactRequestListFragment(), "Request");
+        adapter.addFrag(new ContactListFragment(), "All");
+        adapter.addFrag(new ContactFavoriteListFragment(), "Favorite");
+        adapter.addFrag(new SearchFragment(), "Search");
+
+        viewPager.setAdapter(adapter);
+        //Set homepage to ALL
+        viewPager.setCurrentItem(1);
+
+        //update every tab change.
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.getAdapter().notifyDataSetChanged();
+            }
+        });
+    }
+}
+class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
+
+    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
     }
 
-    //TODO: SEARCHING FUNCTIONALITY
+    @Override
+    public Fragment getItem(int position) {
+        return mFragmentList.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return mFragmentList.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitleList.get(position);
+    }
+
+
+    public void addFrag(Fragment fragment, String title) {
+        mFragmentList.add(fragment);
+        mFragmentTitleList.add(title);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 }
+

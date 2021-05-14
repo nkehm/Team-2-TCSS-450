@@ -11,13 +11,13 @@ public class ContactGenerator {
     static {
         CONTACTS = new Contact[COUNT];
         for (int i = 5; i < CONTACTS.length; i++) {
-            CONTACTS[i] = new Contact("fname", "lname", "email", "username");
+            CONTACTS[i] = new Contact("fname", "lname", "email", "username", i);
         }
-        CONTACTS[0] = new Contact("Nathan", "Stickler", "nstick@fake.com", "nathan");
-        CONTACTS[1] = new Contact("Nam", "Hong", "nstick@fake.com", "nam");
-        CONTACTS[2] = new Contact("Caleb", "Chang", "nstick@fake.com", "caleb");
-        CONTACTS[3] = new Contact("Noah", "Kehm", "nstick@fake.com", "noah");
-        CONTACTS[4] = new Contact("Daniel", "Ty", "nstick@fake.com", "Daniel");
+        CONTACTS[0] = new Contact("Nathan", "Stickler", "nstick@fake.com", "nathan", 0);
+        CONTACTS[1] = new Contact("Nam", "Hong", "nstick@fake.com", "nam",1);
+        CONTACTS[2] = new Contact("Caleb", "Chang", "nstick@fake.com", "caleb",2);
+        CONTACTS[3] = new Contact("Noah", "Kehm", "nstick@fake.com", "noah",3);
+        CONTACTS[4] = new Contact("Daniel", "Ty", "nstick@fake.com", "Daniel",4);
 
     }
 

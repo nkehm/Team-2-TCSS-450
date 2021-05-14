@@ -11,26 +11,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentContactListBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ContactListFragment extends Fragment {
+public class ContactListFragment extends Fragment  {
 
-    public static final String TAB_POSITION = "position";
+    private ContactListViewModel mModel;
+    private UserInfoViewModel mInfoModel;
+    private int mChatID;
+    private boolean mThroughChat;
 
-    private ContactListViewModel mContactListViewModel;
-    private UserInfoViewModel mUserInfoViewModel;
+
+
+    public ContactListFragment() {
+        // empty constructor
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContactListViewModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        mUserInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+
+        mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
+
+        mInfoModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+
+        /*Chat id*/
+//        if(getArguments() != null) {
+//            ContactListFragmentArgs args = ContactListFragmentArgs.fromBundle(getArguments());
+//            mChatID = args.getChatid();
+//            mThroughChat = args.getThroughChat();
+//        }
+
+        mModel.connectGet(mInfoModel.getJwt());
+
+//        mModel.connectPusher(mInfoModel.getJwt(), mInfoModel.getEmail());
     }
 
     @Override
@@ -43,24 +61,20 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         FragmentContactListBinding binding = FragmentContactListBinding.bind(getView());
-        Bundle mArgs = getArguments();
-        mContactListViewModel.getAllContacts(mUserInfoViewModel.getEmail(),mUserInfoViewModel.getJwt());
 
-        if (mArgs.getInt(TAB_POSITION) == 1) {
-            mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), connectionList -> binding.listRoot.setAdapter(
-                    new ContactRecyclerViewAdapter(connectionList, 1, (MainActivity) ContactListFragment.this.getActivity())));
-        }
-
-        if (mArgs.getInt(TAB_POSITION) == 2) {
-            mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), connectionList -> binding.listRoot.setAdapter(
-                    new ContactRecyclerViewAdapter(connectionList, 2, (MainActivity) ContactListFragment.this.getActivity())));
-        }
-
-        if (mArgs.getInt(TAB_POSITION) == 3) {
-            mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), connectionList -> binding.listRoot.setAdapter(
-                    new ContactRecyclerViewAdapter(connectionList, 3, (MainActivity) ContactListFragment.this.getActivity())));
-        }
-
+//        FloatingActionButton fab = view.findViewById(R.id.contact_add_float_button);
+//
+//        mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+//            binding.listRoot.setAdapter(
+//                    new ContactRecyclerViewAdapter(contactList, this.getContext(),
+//                            getChildFragmentManager(), mInfoModel, mModel, mChatID, mThroughChat));
+//            fab.setOnClickListener(v -> {
+//                ContactAddDialog dialog = new ContactAddDialog(mInfoModel, mModel);
+//                dialog.show(getChildFragmentManager(), "add");
+//            });
+//
+//        });
     }
 }
