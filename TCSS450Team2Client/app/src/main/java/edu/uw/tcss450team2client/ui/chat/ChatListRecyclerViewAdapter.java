@@ -10,13 +10,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentChatCardBinding;
 
 public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.ChatListViewHolder> {
 
-    private List<Message> mMessages;
+    private final List<Message> mMessages;
     private final FragmentManager mFrag;
 
     public ChatListRecyclerViewAdapter(List<Message> items, FragmentManager fm) {
@@ -33,7 +34,7 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatListRecyclerViewAdapter.ChatListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatListViewHolder holder, int position) {
         holder.setMessage(mMessages.get(position));
     }
 
@@ -41,6 +42,7 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
     public int getItemCount() {
         return mMessages.size();
     }
+
 
     public class ChatListViewHolder extends RecyclerView.ViewHolder {
 

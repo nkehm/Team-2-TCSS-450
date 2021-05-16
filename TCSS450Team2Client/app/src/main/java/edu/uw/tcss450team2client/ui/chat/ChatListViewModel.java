@@ -75,9 +75,9 @@ public class ChatListViewModel extends AndroidViewModel {
         mChatList.setValue(temp);
     }
 
-    public void connectGet() {
+    public void connectGet(String jwt) {
         String url =
-                "https://tcss450-team2-server.herokuapp.com/chats/"; //+ chatId + "/" + email;
+                "https://tcss450-team2-server.herokuapp.com/chats/";
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
