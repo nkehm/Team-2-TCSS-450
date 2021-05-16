@@ -32,6 +32,11 @@ public class ChatListViewModel extends AndroidViewModel {
     private MutableLiveData<List<Message>> mChatList;
     private final MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * UserInfoViewModel object.
+     * */
+    private UserInfoViewModel mUserInfoViewModel;
+
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();

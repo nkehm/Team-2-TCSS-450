@@ -27,19 +27,40 @@ import edu.uw.tcss450team2client.io.RequestQueueSingleton;
 
 public class ChatSendViewModel extends AndroidViewModel {
 
+    /**
+     * MutableLiveData object of type JSONObject.
+     */
     private final MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor of chatSendViewModel.
+     *
+     * @param application
+     */
     public ChatSendViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Method to  add a response observer.
+     *
+     * @param owner
+     * @param observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Method to send message.
+     *
+     * @param chatId
+     * @param jwt
+     * @param message
+     */
     public void sendMessage(final int chatId, final String jwt, final String message) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "messages";
