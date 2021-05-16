@@ -35,7 +35,7 @@ public class ChatListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        mModel.connectGet();
+        mModel.connectGet(model.getJwt());
     }
 
     @Override
