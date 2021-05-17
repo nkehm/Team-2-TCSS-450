@@ -53,9 +53,12 @@ public class ContactListViewModel extends AndroidViewModel {
     public ContactListViewModel(@NonNull Application application) {
         super(application);
         ContactGenerator contactGenerator = new ContactGenerator();
-        mContactList = new MutableLiveData<>(contactGenerator.getContactList());
+//        mContactList = new MutableLiveData<>(contactGenerator.getContactList());
 //        mFavoriteList = new MutableLiveData<>(contactGenerator.getContactList());
-        mContactListFull = new MutableLiveData<>(contactGenerator.getContactList());
+//        mContactListFull = new MutableLiveData<>(contactGenerator.getContactList());
+
+        mContactList = new MutableLiveData<>(new ArrayList<>());
+        mContactListFull = new MutableLiveData<>(new ArrayList<>());
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
@@ -133,7 +136,9 @@ public class ContactListViewModel extends AndroidViewModel {
      * @param jwt authorization token
      */
     public void connectGet(String jwt) {
-        String url = "https://mobileapp-group-backend.herokuapp.com/contact";
+        String url = "https://tcss450-team2-server.herokuapp.com/contacts";
+//        String url = "http://localhost:5000/contacts";
+
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -391,11 +396,12 @@ public class ContactListViewModel extends AndroidViewModel {
 
     /**
      * connect to the webservice and get contact list
-     *
      * @param jwt authorization token
      */
     public void connectGetAll(String jwt) {
-        String url = "https://mobileapp-group-backend.herokuapp.com/contact/all";
+//        String url = "https://mobileapp-group-backend.herokuapp.com/contact/all";
+        String url = "https//localhost:5000/contact/all";
+
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -443,7 +449,6 @@ public class ContactListViewModel extends AndroidViewModel {
 
     /**
      * handle a success connection to the back-end
-     *
      * @param result result
      */
     private void handleSuccess(final JSONObject result) {

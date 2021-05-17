@@ -13,7 +13,7 @@ public class Contact implements Serializable {
     private final String mUserName;
     private final int mMemberID;
 
-    public Contact(final String mFName, final String mLName, final String mEmail, final String mUserName, final int id) {
+    public Contact(final String mEmail, final String mFName, final String mLName, final String mUserName, final int id) {
         this.mFirstName = mFName;
         this.mLastName = mLName;
         this.mEmail = mEmail;

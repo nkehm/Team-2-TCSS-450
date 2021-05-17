@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.126"
-            app:srcCompat="@drawable/ic_contacts_all_24" />
+            app:srcCompat="@drawable/ic_request" />
 
         <TextView
             android:id="@+id/contact_username_request"
