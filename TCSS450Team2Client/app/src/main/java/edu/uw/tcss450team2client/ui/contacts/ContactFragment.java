@@ -64,7 +64,7 @@ public class ContactFragment extends Fragment {
         // add fragments
         adapter.addFrag(new ContactRequestListFragment(), "Request");
         adapter.addFrag(new ContactListFragment(), "All");
-        adapter.addFrag(new ContactFavoriteListFragment(), "Favorite");
+//        adapter.addFrag(new ContactFavoriteListFragment(), "Favorite");
         adapter.addFrag(new SearchFragment(), "Search");
 
         viewPager.setAdapter(adapter);

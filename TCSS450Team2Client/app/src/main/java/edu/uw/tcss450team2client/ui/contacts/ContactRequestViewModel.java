@@ -36,7 +36,11 @@ public class ContactRequestViewModel extends AndroidViewModel {
      */
     public ContactRequestViewModel(@NonNull Application application) {
         super(application);
-        mRequestList = new MutableLiveData<>(new ArrayList<>());
+        RequestGenerator requestGenerator = new RequestGenerator();
+
+        mRequestList = new MutableLiveData<>(requestGenerator.getRequestList());
+//        mRequestList = new MutableLiveData<>(new ArrayList<>());
+
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }

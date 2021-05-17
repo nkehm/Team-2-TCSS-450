@@ -52,9 +52,10 @@ public class ContactListViewModel extends AndroidViewModel {
      */
     public ContactListViewModel(@NonNull Application application) {
         super(application);
-        mContactList = new MutableLiveData<>(new ArrayList<>());
-        mFavoriteList = new MutableLiveData<>(new ArrayList<>());
-        mContactListFull = new MutableLiveData<>(new ArrayList<>());
+        ContactGenerator contactGenerator = new ContactGenerator();
+        mContactList = new MutableLiveData<>(contactGenerator.getContactList());
+//        mFavoriteList = new MutableLiveData<>(contactGenerator.getContactList());
+        mContactListFull = new MutableLiveData<>(contactGenerator.getContactList());
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
