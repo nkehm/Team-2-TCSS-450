@@ -1,5 +1,7 @@
 package edu.uw.tcss450team2client;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -7,11 +9,24 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,4 +69,61 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    /**
+     * Toolbar menu with defined functions.
+     *
+     * @param menu the options menu where we place the items.
+     * @return boolean to determine if menu is to be displayed.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d("Theme", "onOptionsItemSelected");
+        switch (item.getItemId()) {
+
+            case R.id.navigate_button_password:
+                //navController.navigate(R.id.changePasswordFragment);
+                ChangePassword();
+                break;
+
+            case R.id.action_sign_out:
+                signOut();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void ChangePassword() {
+
+    }
+
+    /**
+     * Allows user to sign out in app.
+     */
+    private void signOut() {
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        //End the app completely
+//        finishAndRemoveTask();
+
+        PushyTokenViewModel model = new ViewModelProvider(this)
+                .get(PushyTokenViewModel.class);
+        //when we hear back from the web service quit
+        model.addResponseObserver(this, result -> finishAndRemoveTask());
+        model.deleteTokenFromWebservice(
+                new ViewModelProvider(this)
+                        .get(UserInfoViewModel.class)
+                        .getJwt()
+        );
+
+    }
 }

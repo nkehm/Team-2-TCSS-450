@@ -40,7 +40,19 @@ public class ChatListViewModel extends AndroidViewModel {
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();
-        mChatList.setValue(new ArrayList<>());
+        mChatList.setValue(new ArrayList(){{
+            add(new Message("User 1", 0));
+            add(new Message("User 2", 1));
+            add(new Message("User 3", 3));
+
+            add(new Message("User 4", 0));
+            add(new Message("User 5", 1));
+            add(new Message("User 6", 3));
+
+            add(new Message("User 7", 0));
+            add(new Message("User 8", 1));
+            add(new Message("User 9", 3));
+        }});
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
