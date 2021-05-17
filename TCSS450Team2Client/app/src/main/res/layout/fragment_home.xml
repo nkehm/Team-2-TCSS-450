@@ -10,21 +10,11 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/signin_logo2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/home_logo"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:contentDescription="@string/app_logo"
         android:src="@mipmap/ic_logo_foreground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/title_home"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +23,11 @@
         android:id="@+id/layout_inner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_home_email">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/imageMessageIcon"
@@ -54,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageMessageIcon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +58,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:text="Most recent message display."
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageMessageIcon"
             app:layout_constraintTop_toBottomOf="@+id/textMessageName" />
@@ -78,11 +69,32 @@
         android:id="@+id/textview_home_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:text="@string/title_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_logo2" />
+        app:layout_constraintTop_toBottomOf="@+id/home_logo" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="93dp"
+        android:layout_height="102dp"
+        android:src="@drawable/sunny"
+        app:layout_constraintBottom_toTopOf="@+id/layout_inner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_home_email" />
+
+    <TextView
+        android:id="@+id/textview_home_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

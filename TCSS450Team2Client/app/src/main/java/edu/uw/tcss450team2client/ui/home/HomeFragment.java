@@ -38,5 +38,6 @@ public class HomeFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         binding.textviewHomeEmail.setText("Welcome Home " + model.getEmail() + "!");
+        binding.textviewHomeWeather.setText("Current Weather: 75°f");
     }
 }
