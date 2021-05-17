@@ -54,4 +54,13 @@
             android:id="@+id/action_navigation_chat_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="edu.uw.tcss450team2client.ui.settings.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" >
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default" />
+    </fragment>
 </navigation>

@@ -39,6 +39,9 @@
 
     <!-- Settings -->
     <string name="buttons_setting_changePassword">Change Password</string>
+    <string name="text_change_password">Change Password</string>
+    <string name="hint_current_password">Current Password</string>
+    <string name="hint_new_password">New Password</string>
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>

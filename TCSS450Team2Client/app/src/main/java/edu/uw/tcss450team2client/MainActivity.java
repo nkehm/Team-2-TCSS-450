@@ -1,6 +1,7 @@
 package edu.uw.tcss450team2client;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -15,8 +16,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigate_button_password:
                 //navController.navigate(R.id.changePasswordFragment);
-               // createChangePasswordDialog();
+                ChangePassword();
                 break;
 
             case R.id.action_sign_out:
@@ -89,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void ChangePassword() {
+
     }
 
     /**
