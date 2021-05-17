@@ -27,7 +27,7 @@ public class ChatFragment extends Fragment {
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
     private ChatSendViewModel mSendModel;
-    private int mChatId;
+    private int mChatID;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -41,7 +41,7 @@ public class ChatFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatViewModel.class);
         mSendModel = provider.get(ChatSendViewModel.class);
-        mChatId = args.getChatID();
+        mChatID = args.getChatID();
     }
 
     @Override
@@ -64,17 +64,17 @@ public class ChatFragment extends Fragment {
         //Set the Adapter to hold a reference to the list FOR THIS chat ID that the ViewModel
         //holds.
         rv.setAdapter(new ChatRecyclerViewAdapter(
-                mChatModel.getMessageListByChatId(mChatId),
+                mChatModel.getMessageListByChatId(mChatID),
                 mUserModel.getEmail()));
 
 
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
         //The user is out of messages, go out to the service and get more
         binding.swipeContainer.setOnRefreshListener(() -> {
-            mChatModel.getNextMessages(mChatId, mUserModel.getJwt());
+            mChatModel.getNextMessages(mChatID, mUserModel.getJwt());
         });
 
-        mChatModel.addMessageObserver(mChatId, getViewLifecycleOwner(),
+        mChatModel.addMessageObserver(mChatID, getViewLifecycleOwner(),
                 list -> {
                     /*
                      * This solution needs work on the scroll position. As a group,
@@ -90,7 +90,7 @@ public class ChatFragment extends Fragment {
 
         //Send button was clicked. Send the message via the SendViewModel
         binding.buttonSend.setOnClickListener(button -> {
-            mSendModel.sendMessage(mChatId,
+            mSendModel.sendMessage(mChatID,
                     mUserModel.getJwt(),
                     binding.editMessage.getText().toString());
         });
