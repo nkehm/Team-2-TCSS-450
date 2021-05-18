@@ -48,7 +48,8 @@
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="edu.uw.tcss450team2client.ui.settings.ChangePasswordFragment"
-        android:label="ChangePasswordFragment" >
+        android:label="ChangePasswordFragment"
+        android:layout="@layout/fragment_settings_changepassword" >
         <argument
             android:name="email"
             app:argType="string"

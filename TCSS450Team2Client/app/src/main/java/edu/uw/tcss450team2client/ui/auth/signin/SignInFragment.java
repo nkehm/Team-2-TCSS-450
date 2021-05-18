@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +67,9 @@ public class SignInFragment extends Fragment {
 
         binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
+        binding.buttonRecoverPassword.setOnClickListener((button ->
+                Navigation.findNavController(getView()).navigate(SignInFragmentDirections.actionSignInFragmentToFragmentRecoverPassword())));
+
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeResponse);
@@ -73,6 +77,7 @@ public class SignInFragment extends Fragment {
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
         binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
         binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+
     }
 
     private void attemptSignIn(final View button) {
