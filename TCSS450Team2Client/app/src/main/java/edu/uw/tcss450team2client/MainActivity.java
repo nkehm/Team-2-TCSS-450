@@ -3,6 +3,7 @@ package edu.uw.tcss450team2client;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
@@ -26,11 +28,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
+import java.util.Objects;
+
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
     private AppBarConfiguration mAppBarConfiguration;
+
+    NavController navController;
+
+    private MainActivityArgs mArgs;
+
+    private MutableLiveData<JSONObject> mResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigate_button_password:
                 //navController.navigate(R.id.changePasswordFragment);
-                ChangePassword();
+                changePasswordDialogue();
                 break;
 
             case R.id.action_sign_out:
@@ -99,8 +111,69 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void ChangePassword() {
+    /**
+     * Creates a popup dialog box that prompts users to change their password.
+     */
+    private void changePasswordDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.textview_changePassword_headMessage);
+        builder.setMessage(R.string.textview_changePassword_description);
+        builder.setPositiveButton(R.string.button_changePassword_change, (dialog, which) -> {
+            Log.d("ChangeP", "User wants to change password");
+            connectChangePassword();
+        });
+        builder.setNegativeButton(R.string.button_changePassword_cancel, (dialog, which) -> {
+            Log.d("changeP", "cancel change");
+            //do nothing
+        });
+        builder.create();
+        builder.show();
+    }
 
+    /**
+     * Method that connects to a webservice that sends a email to change password.
+     */
+    private void connectChangePassword() {
+        String url = "https://tcss450-team2-server.herokuapp.com/";  // Need to update
+        String email = mArgs.getEmail();
+        JSONObject body = new JSONObject();
+        try {
+            body.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
+        request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
+    }
+
+    /**
+     * Server credential authentication error handling.
+     *
+     * @param error message
+     */
+    private void handleError(final VolleyError error) {
+        if (Objects.isNull(error.networkResponse)) {
+            try {
+                mResponse.setValue(new JSONObject("{" +
+                        "error:\"" + error.getMessage() +
+                        "\"}"));
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        } else {
+            String data = new String(error.networkResponse.data, Charset.defaultCharset())
+                    .replace('\"', '\'');
+            try {
+                mResponse.setValue(new JSONObject("{" +
+                        "code:" + error.networkResponse.statusCode +
+                        ", data:\"" + data +
+                        "\"}"));
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        }
     }
 
     /**

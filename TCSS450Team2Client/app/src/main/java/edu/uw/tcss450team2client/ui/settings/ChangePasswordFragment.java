@@ -92,8 +92,8 @@ public class ChangePasswordFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
 
-//        ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
-//        mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
+        ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
+        mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
 
         return binding.getRoot();
     }
