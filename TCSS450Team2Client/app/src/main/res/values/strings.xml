@@ -42,8 +42,14 @@
     <string name="text_change_password">Change Password</string>
     <string name="hint_current_password">Current Password</string>
     <string name="hint_new_password">New Password</string>
+    <string name="title_changePassword">Change Password</string>
+    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
+    <string name="textview_changePassword_description">If you accept, an email will be sent containing
+        further instructions for changing your password</string>
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+    <string name="button_changePassword_change">Accept</string>
+    <string name="button_changePassword_cancel">Decline</string>
 
 </resources>
