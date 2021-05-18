@@ -15,6 +15,9 @@
     <!-- Sign In -->
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_signin">Sign In</string>
+    <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
+    <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
+    <string name="action_sign_out">Sign Out</string>
 
     <!-- Home Page -->
     <string name="title_home">Home</string>
@@ -34,7 +37,19 @@
     <string name="string_chat_messageEntryDescription">Message</string>
     <string name="text_delete">Delete</string>
 
+    <!-- Settings -->
+    <string name="buttons_setting_changePassword">Change Password</string>
+    <string name="text_change_password">Change Password</string>
+    <string name="hint_current_password">Current Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="title_changePassword">Change Password</string>
+    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
+    <string name="textview_changePassword_description">If you accept, an email will be sent containing
+        further instructions for changing your password</string>
+
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+    <string name="button_changePassword_change">Accept</string>
+    <string name="button_changePassword_cancel">Decline</string>
 
 </resources>
