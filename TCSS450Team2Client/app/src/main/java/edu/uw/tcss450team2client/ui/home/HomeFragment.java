@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         binding.textHomeWelcome.setText("Welcome Home " + model.getEmail() + "!");
-        binding.textHomeTemp.setText("Current Weather: 75°f");
+        binding.textHomeTemp.setText("Current Temperature: 75°f");
 
         mLocationModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
