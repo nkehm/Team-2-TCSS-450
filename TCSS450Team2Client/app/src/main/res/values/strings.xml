@@ -31,6 +31,10 @@
 
     <!-- Contacts -->
     <string name="title_contacts">Contacts</string>
+    <string name="contact_card_email">Email</string>
+    <string name="contact_add_text">Please enter the name you would like to add</string>
+    <string name="username_hint">Username</string>
+    <string name="add_text">Add</string>
 
     <!-- Weather -->
     <string name="title_weather">Weather</string>
@@ -56,6 +60,17 @@
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_popup_menu">Favorite</string>
+    <string name="delete">Delete</string>
+    <string name="contact_icon">contact_icon</string>
+    <string name="add">ADD</string>
+    <string name="delete_popup_menu">Delete</string>
+
+
 <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
+
 
 </resources>
