@@ -80,15 +80,19 @@ public class ContactRequestRecyclerViewAdapter extends
             declineButton = v.findViewById(R.id.contact_request_decline_button);
         }
 
+        /**
+         * Set the request in list
+         * @param request
+         */
         private void setRequest(final FriendRequest request) {
             mRequest = request;
             usernameTextView.setText(request.getUsername());
 
-            //Accept button on click listener
+            //TODO Accept button on click listener
             acceptButton.setOnClickListener(v -> {
 
             });
-            //Decline button on click listener
+            //TODO Decline button on click listener
             declineButton.setOnClickListener(v -> {
 
             });

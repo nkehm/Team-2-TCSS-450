@@ -14,8 +14,8 @@
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="16dp"
-        tools:listitem="@layout/fragment_contact_card"
-        tools:ignore="MissingConstraints" />
+        tools:listitem="@layout/contact_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

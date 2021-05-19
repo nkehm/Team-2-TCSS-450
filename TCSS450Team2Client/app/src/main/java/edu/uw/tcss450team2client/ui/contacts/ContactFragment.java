@@ -28,9 +28,9 @@ import edu.uw.tcss450team2client.R;
  * A simple {@link Fragment} subclass for Contact page.
  */
 public class ContactFragment extends Fragment {
-    /**layout component*/
+
     TabLayout tabLayout;
-    /**View component*/
+
     ViewPager viewPager;
 
     public ContactFragment() {
@@ -78,6 +78,10 @@ public class ContactFragment extends Fragment {
         });
     }
 }
+
+/**
+ * ViewPager for tab switching functionality
+ */
 class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();

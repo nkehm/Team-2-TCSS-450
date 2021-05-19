@@ -3,7 +3,7 @@ package edu.uw.tcss450team2client.ui.contacts;
 import java.io.Serializable;
 
 /**
- * Contact Object
+ * Contact class for contact object
  */
 public class Contact implements Serializable {
 

@@ -52,10 +52,6 @@ public class ContactListViewModel extends AndroidViewModel {
     public ContactListViewModel(@NonNull Application application) {
         super(application);
         ContactGenerator contactGenerator = new ContactGenerator();
-//        mContactList = new MutableLiveData<>(contactGenerator.getContactList());
-//        mFavoriteList = new MutableLiveData<>(contactGenerator.getContactList());
-//        mContactListFull = new MutableLiveData<>(contactGenerator.getContactList());
-
         mContactList = new MutableLiveData<>(new ArrayList<>());
         mContactListFull = new MutableLiveData<>(new ArrayList<>());
         mResponse = new MutableLiveData<>();
@@ -81,7 +77,6 @@ public class ContactListViewModel extends AndroidViewModel {
 
     /**
      * connect to the webservice and get contact list
-     *
      * @param jwt authorization token
      */
     public void connectGet(String jwt) {
@@ -112,8 +107,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     /**
-     * connect to the webservice and get contact list
-     *
+     * Connect to the webservice and get contact list
      * @param jwt authorization token
      */
     public void connectGetAllContacts(String jwt) {
@@ -143,6 +137,10 @@ public class ContactListViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * Handle the response from get all contact list request
+     * @param jsonObject
+     */
     private void handleSuccessAll(JSONObject jsonObject) {
         ArrayList<Contact> temp = new ArrayList<>();
         try {
@@ -154,8 +152,8 @@ public class ContactListViewModel extends AndroidViewModel {
                 String lastName = contact.getString("lastName");
                 String username = contact.getString("userName");
                 int memberID = contact.getInt("memberId");
-                Contact entry = new Contact(email, firstName, lastName, username, memberID);
-                temp.add(entry);
+                Contact tuple = new Contact(email, firstName, lastName, username, memberID);
+                temp.add(tuple);
             }
         } catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success ContactViewModel");
@@ -167,7 +165,6 @@ public class ContactListViewModel extends AndroidViewModel {
 
     /**
      * handle a success connection to the back-end
-     *
      * @param result result
      */
     private void handleSuccess(final JSONObject result) {
@@ -197,7 +194,6 @@ public class ContactListViewModel extends AndroidViewModel {
 
     /**
      * handle a failure connection to the back-end
-     *
      * @param error the error.
      */
     private void handleError(final VolleyError error) {
@@ -223,8 +219,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     /**
-     * http request for contact deletion
-     *
+     * Http request for contact deletion
      * @param jwt      JWT token
      * @param memberID to be deleted
      */

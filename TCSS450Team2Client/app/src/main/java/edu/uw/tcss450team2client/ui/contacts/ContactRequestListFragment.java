@@ -34,7 +34,7 @@ public class ContactRequestListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(ContactRequestViewModel.class);
 
         UserInfoViewModel model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
-        mModel.connectGet(model.getJwt());
+
     }
 
     @Override

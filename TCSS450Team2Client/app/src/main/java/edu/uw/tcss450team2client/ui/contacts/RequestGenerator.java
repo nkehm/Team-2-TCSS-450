@@ -3,6 +3,9 @@ package edu.uw.tcss450team2client.ui.contacts;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Simple class to generate fake request
+ */
 public class RequestGenerator {
     private static final FriendRequest[] REQUESTS;
     public static final int COUNT = 2;

@@ -3,6 +3,9 @@ package edu.uw.tcss450team2client.ui.contacts;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Simple class to construct a list of Contact object
+ */
 public class ContactGenerator {
     private static final Contact[] CONTACTS;
     public static final int COUNT = 10;
