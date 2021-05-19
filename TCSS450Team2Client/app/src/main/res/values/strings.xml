@@ -23,7 +23,9 @@
     <string name="text_email_reset">A link will be sent to your email to reset your password.</string>
     <string name="text_forgot_password">Recover Password</string>
     <string name="button_recoverPassword_send">Send</string>
+    <string name="switch_sign_in">Stay Signed in</string>
 
+    8. A Switch is a UI element that allows a two
     <!-- Home Page -->
     <string name="title_home">Home</string>
     <string name="title_second_home">2nd Home</string>
