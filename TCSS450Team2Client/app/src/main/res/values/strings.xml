@@ -28,8 +28,10 @@
     8. A Switch is a UI element that allows a two
     <!-- Home Page -->
     <string name="title_home">Home</string>
-    <string name="title_second_home">2nd Home</string>
-    <string name="action_next">Next</string>
+    <string name="text_welcomeHome">Welcome Home</string>
+    <string name="text_currentTemp">Current Temp</string>
+    <string name="text_currentLocation">Current Location</string>
+
 
     <!-- Contacts -->
     <string name="title_contacts">Contacts</string>
@@ -58,6 +60,7 @@
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
-<!--    <string name="button_recoverPassword_cancel">Decline</string>-->
+    <string name="title_activity_maps">Map</string>
+    <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 </resources>
