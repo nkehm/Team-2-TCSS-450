@@ -1,4 +1,4 @@
-package edu.uw.tcss450team2client.ui.auth.register;
+package edu.uw.tcss450team2client.ui.settings;
 
 import android.app.Application;
 import android.util.Log;
@@ -21,21 +21,31 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-public class RegisterViewModel extends AndroidViewModel {
+public class ChangePasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public ChangePasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Adds a response observer.
+     *
+     * @param owner the owner
+     * @param observer the observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Handles errors for connecting to a WebService endpoint.
+     * @param error
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -50,48 +60,37 @@ public class RegisterViewModel extends AndroidViewModel {
             String data = new String(error.networkResponse.data, Charset.defaultCharset())
                     .replace('\"', '\'');
             try {
-                JSONObject response = new JSONObject();
-                response.put("code", error.networkResponse.statusCode);
-                response.put("data", new JSONObject(data));
-                mResponse.setValue(response);
+                mResponse.setValue(new JSONObject("{" +
+                        "code:" + error.networkResponse.statusCode +
+                        ", data:\"" + data +
+                        "\"}"));
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
     }
 
-    public void connect(final String first,
-                        final String last,
-                        final String username,
-                        final String email,
-                        final String password) {
+    /**
+     * Server credential verification.
+     * *
+     * @param email    string user input value, email of user
+     * @param oldPassword string user input value, password to change from
+     * @param newPassword string user input value, password to change to
+     */
+    public void connect(final String email, final String oldPassword, final String newPassword) {
+        //TODO fix url
         String url = "https://tcss450-team2-server.herokuapp.com/auth";
-
         JSONObject body = new JSONObject();
         try {
-            body.put("first", first);
-            body.put("last", last);
-            body.put("username", username);
             body.put("email", email);
-            body.put("password", password);
+            body.put("oldPassword", oldPassword);
+            body.put("newPassword", newPassword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Request request = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                body,
-                mResponse::setValue,
-                this::handleError);
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
+        request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
+        Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
     }
 }
-

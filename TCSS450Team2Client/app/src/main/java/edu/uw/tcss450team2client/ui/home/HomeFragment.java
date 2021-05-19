@@ -38,12 +38,6 @@ public class HomeFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         binding.textviewHomeEmail.setText("Welcome Home " + model.getEmail() + "!");
-
-        //On button click, navigate to Second Home
-        binding.buttonNext.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        HomeFragmentDirections
-                                .actionNavigationHomeToSecondHomeFragment()));
-
+        binding.textviewHomeWeather.setText("Current Weather: 75°f");
     }
 }

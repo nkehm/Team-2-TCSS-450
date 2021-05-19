@@ -35,7 +35,7 @@ public class ChatListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        mModel.connectGet();
+        mModel.connectGet(model.getJwt());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ChatListFragment extends Fragment {
 
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             // if (!chatList.isEmpty()) {
-            mAdapter = new ChatListRecyclerViewAdapter(chatList);
+            mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
             binding.listRoot.setAdapter(mAdapter);
             binding.layoutRoot.setVisibility(View.GONE);
         });

@@ -1,4 +1,4 @@
-package edu.uw.tcss450team2client.ui.auth.register;
+package edu.uw.tcss450team2client.ui.auth.signin;
 
 import android.app.Application;
 import android.util.Log;
@@ -21,21 +21,31 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-public class RegisterViewModel extends AndroidViewModel {
+public class RecoverPasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public RecoverPasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Adds a response observer.
+     *
+     * @param owner the owner
+     * @param observer the observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Handles errors for connecting to a WebService endpoint.
+     * @param error
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -50,41 +60,35 @@ public class RegisterViewModel extends AndroidViewModel {
             String data = new String(error.networkResponse.data, Charset.defaultCharset())
                     .replace('\"', '\'');
             try {
-                JSONObject response = new JSONObject();
-                response.put("code", error.networkResponse.statusCode);
-                response.put("data", new JSONObject(data));
-                mResponse.setValue(response);
+                mResponse.setValue(new JSONObject("{" +
+                        "code:" + error.networkResponse.statusCode +
+                        ", data:\"" + data +
+                        "\"}"));
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
     }
 
-    public void connect(final String first,
-                        final String last,
-                        final String username,
-                        final String email,
-                        final String password) {
-        String url = "https://tcss450-team2-server.herokuapp.com/auth";
-
+    /**
+     * Connects to end point to send forgot password link to email.
+     *
+     * @param email registered email
+     */
+    public void connect(final String email) {
+        String url = "https://tcss450-team2-server.herokuapp.com";  // Does this use auth endpoint or new endpoint??
         JSONObject body = new JSONObject();
         try {
-            body.put("first", first);
-            body.put("last", last);
-            body.put("username", username);
             body.put("email", email);
-            body.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         Request request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
                 body,
                 mResponse::setValue,
                 this::handleError);
-
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -94,4 +98,3 @@ public class RegisterViewModel extends AndroidViewModel {
                 .add(request);
     }
 }
-
