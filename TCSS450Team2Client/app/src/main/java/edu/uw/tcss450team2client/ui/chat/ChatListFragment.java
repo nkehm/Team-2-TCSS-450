@@ -58,7 +58,7 @@ public class ChatListFragment extends Fragment {
             // if (!chatList.isEmpty()) {
             mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
             binding.listRoot.setAdapter(mAdapter);
-            binding.layoutWait.setVisibility(View.GONE);
+            binding.layoutRoot.setVisibility(View.GONE);
         });
     }
 }
