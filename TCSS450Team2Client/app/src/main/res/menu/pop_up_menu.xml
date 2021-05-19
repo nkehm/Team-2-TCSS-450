@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/favorite_pop_menu"
-        android:icon="@drawable/ic_contacts_favorite_24"
+        android:id="@+id/delete_pop_menu"
+        android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="100"
-        android:title="@string/favorite_popup_menu" />
+        android:title="@string/delete_popup_menu" />
 
 
 </menu>

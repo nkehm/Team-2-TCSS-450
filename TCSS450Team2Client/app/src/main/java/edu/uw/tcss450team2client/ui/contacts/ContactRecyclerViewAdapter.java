@@ -3,7 +3,6 @@ package edu.uw.tcss450team2client.ui.contacts;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.R;
-import edu.uw.tcss450team2client.databinding.FragmentContactCardBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 public class ContactRecyclerViewAdapter extends
@@ -84,15 +80,6 @@ public class ContactRecyclerViewAdapter extends
             nameTextView = v.findViewById(R.id.contact_name);
             usernameTextView = v.findViewById(R.id.contact_username);
             moreButtonView = v.findViewById(R.id.contact_more_button);
-
-            v.setOnClickListener(view -> {
-                ContactDetailDialog dialog = new ContactDetailDialog(mContact, mViewModel,
-                        mUserModel, mChatID, mThroughChat, this);
-                dialog.show(mFragMan, "detail");
-                if(!dialog.isVisible()) {
-                    notifyDataSetChanged();
-                }
-            });
         }
 
 
@@ -114,9 +101,9 @@ public class ContactRecyclerViewAdapter extends
                 popupMenu.getMenuInflater().inflate(R.menu.pop_up_menu, popupMenu.getMenu());
                 popupMenu.setForceShowIcon(true);
                 popupMenu.setOnMenuItemClickListener(item -> {
-                    if (item.getItemId() == R.id.favorite_pop_menu) {
-                        mViewModel.addFavorite(mUserModel.getJwt(), mContact.getMemberID());
-                        notifyDataSetChanged();
+                    if (item.getItemId() == R.id.delete_pop_menu) {
+                        mViewModel.deleteContact(mUserModel.getJwt(), mContact.getMemberID());
+                        this.deleteContact();
                         return true;
                     }
                     return false;

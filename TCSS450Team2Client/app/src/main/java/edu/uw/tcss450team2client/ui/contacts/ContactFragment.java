@@ -25,7 +25,7 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass for Contact page.
  */
 public class ContactFragment extends Fragment {
     /**layout component*/
@@ -61,14 +61,12 @@ public class ContactFragment extends Fragment {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), 1);
 
-        // add fragments
         adapter.addFrag(new ContactRequestListFragment(), "Request");
-        adapter.addFrag(new ContactListFragment(), "All");
-//        adapter.addFrag(new ContactFavoriteListFragment(), "Favorite");
+        adapter.addFrag(new ContactListFragment(), "Friends");
         adapter.addFrag(new SearchFragment(), "Search");
 
         viewPager.setAdapter(adapter);
-        //Set homepage to ALL
+        //Set homepage to Friends tab
         viewPager.setCurrentItem(1);
 
         //update every tab change.

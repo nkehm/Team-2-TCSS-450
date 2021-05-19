@@ -15,10 +15,6 @@ public class RequestGenerator {
 //        }
         REQUESTS[0] = new FriendRequest("Nathan",  0);
         REQUESTS[1] = new FriendRequest("Nam", 1);
-//        CONTACTS[2] = new Contact("Caleb", "Chang", "nstick@fake.com", "caleb",2);
-//        CONTACTS[3] = new Contact("Noah", "Kehm", "nstick@fake.com", "noah",3);
-//        CONTACTS[4] = new Contact("Daniel", "Ty", "nstick@fake.com", "Daniel",4);
-
     }
 
     public static List<FriendRequest> getRequestList() {

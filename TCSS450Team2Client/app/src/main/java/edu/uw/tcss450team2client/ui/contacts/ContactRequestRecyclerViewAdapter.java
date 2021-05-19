@@ -16,9 +16,6 @@ import java.util.List;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
-import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
-
-import java.util.List;
 
 public class ContactRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<ContactRequestRecyclerViewAdapter.RequestViewHolder> {
@@ -70,8 +67,8 @@ public class ContactRequestRecyclerViewAdapter extends
     public class RequestViewHolder extends RecyclerView.ViewHolder {
 
         private TextView usernameTextView;
-        private ImageButton acceptImageButton;
-        private ImageButton declineImageButton;
+        private ImageButton acceptButton;
+        private ImageButton declineButton;
         private final View mView;
         private FriendRequest mRequest;
 
@@ -79,8 +76,8 @@ public class ContactRequestRecyclerViewAdapter extends
             super(v);
             mView = v;
             usernameTextView = v.findViewById(R.id.contact_username_request);
-            acceptImageButton = v.findViewById(R.id.contact_request_accept_button);
-            declineImageButton = v.findViewById(R.id.contact_request_decline_button);
+            acceptButton = v.findViewById(R.id.contact_request_accept_button);
+            declineButton = v.findViewById(R.id.contact_request_decline_button);
         }
 
         private void setRequest(final FriendRequest request) {
@@ -88,20 +85,12 @@ public class ContactRequestRecyclerViewAdapter extends
             usernameTextView.setText(request.getUsername());
 
             //Accept button on click listener
-            acceptImageButton.setOnClickListener(v -> {
+            acceptButton.setOnClickListener(v -> {
 
-                mViewModel.acceptRequest(mInfoModel.getJwt(), mRequest.getMemberID());
-                // Notify change to data set
-                mFriendRequest.remove(mRequest);
-                notifyDataSetChanged();
             });
             //Decline button on click listener
-            declineImageButton.setOnClickListener(v -> {
-                mViewModel.declineRequest(mInfoModel.getJwt(),
-                        usernameTextView.getText().toString());
-                // Notify change to data set
-                mFriendRequest.remove(mRequest);
-                notifyDataSetChanged();
+            declineButton.setOnClickListener(v -> {
+
             });
         }
     }

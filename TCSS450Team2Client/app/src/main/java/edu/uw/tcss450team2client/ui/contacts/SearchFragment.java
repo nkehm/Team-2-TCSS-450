@@ -12,17 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSearchBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
-import edu.uw.tcss450team2client.ui.contacts.Contact;
-import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass for Search tab fragment.
  */
 public class SearchFragment extends Fragment {
     private ContactListViewModel mModel;
@@ -31,12 +26,9 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
-
-        mModel.connectGetAll(mUser.getJwt());
-
+        mModel.connectGetAllContacts(mUser.getJwt());
     }
 
 
@@ -55,6 +47,7 @@ public class SearchFragment extends Fragment {
                     SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(contactList, mUser, mModel);
                     binding.listRoot.setAdapter(adapter);
                     binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
                         @Override
                         public boolean onQueryTextSubmit(String query) {
                             return false;
@@ -67,8 +60,6 @@ public class SearchFragment extends Fragment {
                         }
                     });
                 }
-
         );
     }
-
 }
