@@ -23,11 +23,14 @@
     <string name="text_email_reset">A link will be sent to your email to reset your password.</string>
     <string name="text_forgot_password">Recover Password</string>
     <string name="button_recoverPassword_send">Send</string>
+    <string name="switch_sign_in">Stay Signed in</string>
 
     <!-- Home Page -->
     <string name="title_home">Home</string>
-    <string name="title_second_home">2nd Home</string>
-    <string name="action_next">Next</string>
+    <string name="text_welcomeHome">Welcome Home</string>
+    <string name="text_currentTemp">Current Temp</string>
+    <string name="text_currentLocation">Current Location</string>
+
 
     <!-- Contacts -->
     <string name="title_contacts">Contacts</string>
@@ -71,6 +74,5 @@
 
 
 <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
-
 
 </resources>
