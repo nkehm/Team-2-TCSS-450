@@ -18,17 +18,26 @@
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="action_forgot_password">Forgot Password</string>
+    <string name="text_forgot_password_description">Enter the email associated with your account.</string>
+    <string name="text_email_reset">A link will be sent to your email to reset your password.</string>
+    <string name="text_forgot_password">Recover Password</string>
+    <string name="button_recoverPassword_send">Send</string>
+    <string name="switch_sign_in">Stay Signed in</string>
 
     <!-- Home Page -->
     <string name="title_home">Home</string>
-    <string name="title_second_home">2nd Home</string>
-    <string name="action_next">Next</string>
+    <string name="text_welcomeHome">Welcome Home</string>
+    <string name="text_currentTemp">Current Temp</string>
+    <string name="text_currentLocation">Current Location</string>
+
 
     <!-- Contacts -->
     <string name="title_contacts">Contacts</string>
-
-    <!-- Weather -->
-    <string name="title_weather">Weather</string>
+    <string name="contact_card_email">Email</string>
+    <string name="contact_add_text">Please enter the name you would like to add</string>
+    <string name="username_hint">Username</string>
+    <string name="add_text">Add</string>
 
     <!-- Chat -->
     <string name="title_chat">Chat</string>
@@ -58,6 +67,8 @@
     <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
     <string name="textview_changePassword_description">If you accept, an email will be sent containing
         further instructions for changing your password</string>
+    <string name="button_changePassword_change">Accept</string>
+    <string name="button_changePassword_cancel">Decline</string>
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
@@ -65,5 +76,30 @@
     <string name="button_changePassword_cancel">Decline</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_popup_menu">Favorite</string>
+    <string name="delete">Delete</string>
+    <string name="contact_icon">contact_icon</string>
+    <string name="add">ADD</string>
+    <string name="delete_popup_menu">Delete</string>
+
+    <!-- Weather -->
+    <string name="textview_weatherWeekCard_low">Low</string>
+    <string name="textview_weatherWeekCard_high">High</string>
+    <string name="textview_weatherCard_temperature">Temperature</string>
+    <string name="textview_weatherList_currentForecast">Current Forecast:</string>
+    <string name="textview_weatherList_todayForecast">Today\'s Forecast</string>
+    <string name="textview_weatherList_weeklyForecast">Weekly Forecast</string>
+    <string name="textview_weatherList_location">Location:</string>
+    <string name="textview_weatherList_textDefault">Getting Data...</string>
+    <string name="label_location">Current location:</string>
+    <string name="fragment_weather_map">Map Selection</string>
+    <string name="imagelabel_weather_weatherIconDescription">The type of current weather</string>
+    <string name="title_weather">Weather</string>
+
+
 
 </resources>

@@ -2,6 +2,8 @@ package edu.uw.tcss450team2client.ui.auth.signin;
 
 import static edu.uw.tcss450team2client.utils.PasswordValidator.*;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.auth0.android.jwt.JWT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSignInBinding;
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
@@ -33,6 +39,7 @@ public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
     private SignInViewModel mSignInModel;
+    private String jwtP;
 
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
@@ -74,6 +81,9 @@ public class SignInFragment extends Fragment {
 
         binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
+        binding.buttonRecoverPassword.setOnClickListener((button ->
+                Navigation.findNavController(getView()).navigate(SignInFragmentDirections.actionSignInFragmentToFragmentRecoverPassword())));
+
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeResponse);
@@ -83,6 +93,7 @@ public class SignInFragment extends Fragment {
         binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
 
 
+
         //don't allow sign in until pushy token retrieved
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(),
                 token -> binding.buttonSignIn.setEnabled(!token.isEmpty()));
@@ -90,6 +101,28 @@ public class SignInFragment extends Fragment {
         mPushyTokenViewModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observePushyPutResponse);
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+            JWT jwt = new JWT(token);
+            // Check to see if the web token is still valid or not. To make a JWT expire after a
+            // longer or shorter time period, change the expiration time when the JWT is
+            // created on the web service.
+            if(!jwt.isExpired(0)) {
+                String email = jwt.getClaim("email").asString();
+                navigateToSuccess(email, token);
+                return;
+            }
+        }
     }
 
     private void attemptSignIn(final View button) {
@@ -123,12 +156,28 @@ public class SignInFragment extends Fragment {
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
+
     private void navigateToSuccess(final String email, final String jwt, final String fname, final String lname, final int memberid,final String user) {
+
+        if (binding.switchSignin.isChecked()) {
+            SharedPreferences prefs =
+                    getActivity().getSharedPreferences(
+                            getString(R.string.keys_shared_prefs),
+                            Context.MODE_PRIVATE);
+            //Store the credentials in SharedPrefs
+            prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+        }
+
+
+        jwtP = jwt;
+
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
                         .actionSignInFragmentToMainActivity(email, jwt, fname, lname, memberid,user));
 
+        //Remove THIS activity from the Task list. Pops off the backstack
         getActivity().finish();
+
     }
 
     /**
@@ -202,4 +251,5 @@ public class SignInFragment extends Fragment {
             }
         }
     }
+
 }

@@ -56,5 +56,21 @@
             android:name="password"
             app:argType="string"
             android:defaultValue="default" />
+        <action
+            android:id="@+id/action_signInFragment_to_fragmentRecoverPassword"
+            app:destination="@id/fragmentRecoverPassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRecoverPassword"
+        android:name="edu.uw.tcss450team2client.ui.auth.signin.FragmentRecoverPassword"
+        android:label="FragmentRecoverPassword"
+        android:layout="@layout/fragment_recover_password" >
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default" />
+        <action
+            android:id="@+id/action_fragmentRecoverPassword_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 </navigation>
