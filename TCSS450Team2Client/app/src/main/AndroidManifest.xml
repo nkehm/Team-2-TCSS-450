@@ -64,6 +64,12 @@
         <!-- </activity> -->
         <activity android:name=".MainActivity" />
         <activity android:name=".AuthActivity">
+
+
+
+<!--        <activity android:name="edu.uw.tcss450team2client.MainActivity"></activity>-->
+<!--        <activity android:name="edu.uw.tcss450team2client.AuthActivity">-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
