@@ -75,14 +75,14 @@ public class FragmentRecoverPassword extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
+        //binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
 
         mRecoverPasswordModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
 
         FragmentRecoverPasswordArgs args = FragmentRecoverPasswordArgs.fromBundle(getArguments());
 
-        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        //binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
     }
 
     /**
