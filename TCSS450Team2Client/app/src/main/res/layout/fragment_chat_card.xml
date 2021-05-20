@@ -59,11 +59,14 @@
 
         <Button
             android:id="@+id/buttonDelete"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:text="@string/text_delete"
             android:textColor="@color/primaryDarkColor"
+            android:textIsSelectable="false"
+            android:textSize="14sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
