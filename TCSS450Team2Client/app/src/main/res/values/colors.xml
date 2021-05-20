@@ -25,4 +25,5 @@
     <color name="colorPrimary">@color/primaryColor</color>
     <color name="colorPrimaryDark">@color/primaryDarkColor</color>
 
+
 </resources>

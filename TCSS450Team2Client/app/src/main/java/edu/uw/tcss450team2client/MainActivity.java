@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MutableLiveData<JSONObject> mResponse;
 
+
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     //The ViewModel that will store the current location
     private LocationViewModel mLocationModel;
 
+    private UserInfoViewModel userInfoViewModel;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         String firstName = jwt.getClaim("firstname").asString();
         String lastName = jwt.getClaim("lastname").asString();
 
-        new ViewModelProvider(this,
+        userInfoViewModel = new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(), firstName,
                         lastName, username))
                 .get(UserInfoViewModel.class);
@@ -292,5 +298,9 @@ public class MainActivity extends AppCompatActivity {
                         .get(UserInfoViewModel.class)
                         .getJwt()
         );
+    }
+
+    public UserInfoViewModel getUserInfoViewModel() {
+        return userInfoViewModel;
     }
 }

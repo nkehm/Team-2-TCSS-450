@@ -39,9 +39,6 @@
     <string name="username_hint">Username</string>
     <string name="add_text">Add</string>
 
-    <!-- Weather -->
-    <string name="title_weather">Weather</string>
-
     <!-- Chat -->
     <string name="title_chat">Chat</string>
     <string name="title_chat_room">Chat room</string>
@@ -72,7 +69,20 @@
     <string name="add">ADD</string>
     <string name="delete_popup_menu">Delete</string>
 
+    <!-- Weather -->
+    <string name="textview_weatherWeekCard_low">Low</string>
+    <string name="textview_weatherWeekCard_high">High</string>
+    <string name="textview_weatherCard_temperature">Temperature</string>
+    <string name="textview_weatherList_currentForecast">Current Forecast:</string>
+    <string name="textview_weatherList_todayForecast">Today\'s Forecast</string>
+    <string name="textview_weatherList_weeklyForecast">Weekly Forecast</string>
+    <string name="textview_weatherList_location">Location:</string>
+    <string name="textview_weatherList_textDefault">Getting Data...</string>
+    <string name="label_location">Current location:</string>
+    <string name="fragment_weather_map">Map Selection</string>
+    <string name="imagelabel_weather_weatherIconDescription">The type of current weather</string>
+    <string name="title_weather">Weather</string>
 
-<!--    <string name="button_recoverPassword_cancel">Decline</string>-->
+
 
 </resources>

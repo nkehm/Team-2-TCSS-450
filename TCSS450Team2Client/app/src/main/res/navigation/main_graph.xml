@@ -32,11 +32,6 @@
         android:label="@string/title_contacts"
         tools:layout="@layout/fragment_contact_list" />
     <fragment
-        android:id="@+id/navigation_weather"
-        android:name="edu.uw.tcss450team2client.ui.weather.WeatherFragment"
-        android:label="@string/title_weather"
-        tools:layout="@layout/fragment_weather" />
-    <fragment
         android:id="@+id/navigation_chat"
         android:name="edu.uw.tcss450team2client.ui.chat.ChatListFragment"
         android:label="@string/title_chat"
@@ -54,5 +49,23 @@
             android:name="email"
             app:argType="string"
             android:defaultValue="default" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="edu.uw.tcss450team2client.ui.weather.WeatherListFragment"
+        android:label="@string/title_weather"
+        tools:layout="@layout/fragment_weather_list">
+        <action
+            android:id="@+id/action_weatherListFragment_to_weatherMapFragment"
+            app:destination="@id/weatherMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherMapFragment"
+        android:name="edu.uw.tcss450team2client.ui.weather.WeatherMapFragment"
+        android:label="@string/title_weather"
+        tools:layout="@layout/fragment_weather_map">
+        <action
+            android:id="@+id/action_weatherMapFragment_to_weatherListFragment"
+            app:destination="@id/navigation_weather" />
     </fragment>
 </navigation>
