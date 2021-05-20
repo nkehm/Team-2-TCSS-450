@@ -10,18 +10,62 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/navigation_chat"
+        android:id="@+id/chatFragment"
         android:name="edu.uw.tcss450team2client.ui.chat.ChatFragment"
-        android:label="@string/title_chat"
-        tools:layout="@layout/fragment_chat" />
+        android:label="@string/title_chat_room"
+        tools:layout="@layout/fragment_chat">
+        <!--
+        <argument
+            android:name="chatroom"
+            app:argType="edu.uw.tcss450team2client.ui.chat.ChatRoom" />
+            -->
+        <argument
+            android:name="chatID"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="edu.uw.tcss450team2client.ui.contacts.ContactsFragment"
+        android:name="edu.uw.tcss450team2client.ui.contacts.ContactFragment"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/fragment_contact_list" />
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="edu.uw.tcss450team2client.ui.chat.ChatListFragment"
+        android:label="@string/title_chat"
+        tools:layout="@layout/fragment_chat_list" >
+        <action
+            android:id="@+id/action_navigation_chat_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="edu.uw.tcss450team2client.ui.settings.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        android:layout="@layout/fragment_settings_changepassword" >
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_weather"
-        android:name="edu.uw.tcss450team2client.ui.weather.WeatherFragment"
+        android:name="edu.uw.tcss450team2client.ui.weather.WeatherListFragment"
         android:label="@string/title_weather"
-        tools:layout="@layout/fragment_weather" />
+        tools:layout="@layout/fragment_weather_list">
+        <action
+            android:id="@+id/action_weatherListFragment_to_weatherMapFragment"
+            app:destination="@id/weatherMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherMapFragment"
+        android:name="edu.uw.tcss450team2client.ui.weather.WeatherMapFragment"
+        android:label="@string/title_weather"
+        tools:layout="@layout/fragment_weather_map">
+        <action
+            android:id="@+id/action_weatherMapFragment_to_weatherListFragment"
+            app:destination="@id/navigation_weather" />
+    </fragment>
 </navigation>
