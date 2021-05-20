@@ -28,7 +28,7 @@ public class ChatFragment extends Fragment {
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
     private ChatSendViewModel mSendModel;
-    private int mChatId = -1;
+    private int mChatId;
 
     public ChatFragment() {
         // Required empty public constructor
