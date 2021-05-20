@@ -6,11 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+
+import android.app.Notification;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -31,12 +38,23 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+import edu.uw.tcss450team2client.databinding.ActivityMainBinding;
+import edu.uw.tcss450team2client.model.NewMessageCountViewModel;
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import edu.uw.tcss450team2client.services.PushReceiver;
+import edu.uw.tcss450team2client.ui.chat.ChatMessage;
+import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private MainPushReceiver mPushReceiver;
+
+    private NewMessageCountViewModel mNewMessageModel;
+
+    private UserInfoViewModel userInfoViewModel;
 
     NavController navController;
 
@@ -44,33 +62,69 @@ public class MainActivity extends AppCompatActivity {
 
     private MutableLiveData<JSONObject> mResponse;
 
+    private ActivityMainBinding binding;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+        mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
-        JWT jwt = new JWT(args.getJwt());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        JWT jwt = new JWT(mArgs.getJwt());
         String username = jwt.getClaim("username").asString();
         String firstName = jwt.getClaim("firstname").asString();
         String lastName = jwt.getClaim("lastname").asString();
+        int memberId = jwt.getClaim("memberid").asInt();
 
-        new ViewModelProvider(this,
-                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(), firstName,
-                        lastName, username))
+        userInfoViewModel = new ViewModelProvider(this,
+                new UserInfoViewModel.UserInfoViewModelFactory(mArgs.getEmail(), mArgs.getJwt(), mArgs.getFirstname(),
+                        mArgs.getLastname(), mArgs.getMemberid(), mArgs.getUsername()))
                 .get(UserInfoViewModel.class);
+
+        mResponse = new MutableLiveData<>();
+        mResponse.setValue(new JSONObject());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
                 R.id.navigation_contacts, R.id.navigation_chat, R.id.navigation_weather).build();
-        NavController navController = Navigation.findNavController(this,
+        navController = Navigation.findNavController(this,
                 R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController,
                 mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.navigation_chat) {
+                //When the user navigates to the chats page, reset the new message count.
+                // This will need some extra logic for your project as it should have
+                // multiple chat rooms.
+                mNewMessageModel.reset();
+            }
+        });
+
+        mNewMessageModel.addMessageCountObserver(this, count -> {
+
+            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat); //THIS WAS NAV_CHAT BEFORE I CHANGED IT
+            badge.setMaxCharacterCount(2);
+            if (count > 0) {
+                //new messages! update and show the notification badge.
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
+
     }
 
     @Override
@@ -134,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
      * Method that connects to a webservice that sends a email to change password.
      */
     private void connectChangePassword() {
-        String url = "https://tcss450-team2-server.herokuapp.com/";  // Need to update
+        String url = "https://tcss450-team2-server.herokuapp.com/changePassword";  // Need to update
         String email = mArgs.getEmail();
         JSONObject body = new JSONObject();
         try {
@@ -198,5 +252,66 @@ public class MainActivity extends AppCompatActivity {
                         .getJwt()
         );
 
+    }
+
+    /**
+     * A BroadcastReceiver that listens for messages sent from PushReceiver
+     */
+    private class MainPushReceiver extends BroadcastReceiver {
+        private ChatViewModel mModel = new ViewModelProvider(MainActivity.this).get(ChatViewModel.class);
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Notification notification = new Notification();
+            NavController nc = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+            NavDestination nd = nc.getCurrentDestination();
+            Log.d("PUSHY", "result: " + intent.toString());
+            if (intent.hasExtra("chatMessage")) {
+                Log.d("PUSHY", "MainActivity has received chat message");
+                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
+                //If the user is not on the chat screen, update the
+                // NewMessageCountView Model
+                if (nd.getId() != R.id.chatFragment) {
+                    mNewMessageModel.increment();
+                }
+                //Inform the view model holding chatroom messages of the new
+                // message.
+                if (userInfoViewModel != null && userInfoViewModel.getUsername() != null) {
+                    Log.d("PUSHY", "Message from" + cm.getSender());
+                    if (!cm.getSender().equals(userInfoViewModel.getUsername())) {
+                        Log.d("PUSHY", "We didn't send this message!" + cm.getSender());
+                        userInfoViewModel.addNotifications(notification);
+                    }
+                }
+
+                mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+            }
+        }
+    }
+
+    /**
+     * Returns UserInfoViewModel.
+     */
+    public UserInfoViewModel getUserInfoViewModel() {
+        return userInfoViewModel;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPushReceiver == null) {
+            mPushReceiver = new MainPushReceiver();
+        }
+        IntentFilter iFilter = new IntentFilter();
+        iFilter.addAction(PushReceiver.RECEIVED_NEW_MESSAGE);
+        registerReceiver(mPushReceiver, iFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mPushReceiver != null) {
+            unregisterReceiver(mPushReceiver);
+        }
     }
 }

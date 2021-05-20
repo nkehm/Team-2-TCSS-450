@@ -10,23 +10,12 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 import edu.uw.tcss450team2client.AuthActivity;
 import edu.uw.tcss450team2client.R;
-import edu.uw.tcss450team2client.io.RequestQueueSingleton;
 import edu.uw.tcss450team2client.ui.chat.ChatMessage;
+
 import me.pushy.sdk.Pushy;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;

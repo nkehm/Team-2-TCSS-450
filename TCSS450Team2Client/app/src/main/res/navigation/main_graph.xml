@@ -14,17 +14,9 @@
         android:name="edu.uw.tcss450team2client.ui.chat.ChatFragment"
         android:label="@string/title_chat_room"
         tools:layout="@layout/fragment_chat">
-        <!--
         <argument
             android:name="chatroom"
             app:argType="edu.uw.tcss450team2client.ui.chat.ChatRoom" />
-            -->
-        <argument
-            android:name="chatID"
-            app:argType="integer" />
-        <argument
-            android:name="name"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/navigation_contacts"
@@ -44,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_addChatFragment"
+            app:destination="@id/addChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -53,5 +48,14 @@
             android:name="email"
             app:argType="string"
             android:defaultValue="default" />
+    </fragment>
+    <fragment
+        android:id="@+id/addChatFragment"
+        android:name="edu.uw.tcss450team2client.ui.chat.AddChatFragment"
+        android:label="fragment_add_chat"
+        tools:layout="@layout/fragment_add_chat" >
+        <action
+            android:id="@+id/action_addChatFragment_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
     </fragment>
 </navigation>
