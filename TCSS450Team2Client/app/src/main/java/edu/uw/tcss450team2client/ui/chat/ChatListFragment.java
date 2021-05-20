@@ -12,18 +12,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tcss450team2client.R;
-import edu.uw.tcss450team2client.databinding.FragmentChatListBinding;
-import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import edu.uw.tcss450team2client.MainActivity;
+import edu.uw.tcss450team2client.databinding.FragmentChatListBinding;
+
 public class ChatListFragment extends Fragment {
 
+    /**
+     * Chat List View Model.
+     */
     private ChatListViewModel mModel;
-    private ChatListRecyclerViewAdapter mAdapter;
+    /**
+     * Binding for Chat List.
+     */
+    private FragmentChatListBinding binding;
 
+    private ChatListRecyclerViewAdapter chatListRecyclerViewAdapter;
+
+    /**
+     * Empty public constructor.
+     */
     public ChatListFragment() {
         // Required empty public constructor
     }
@@ -31,34 +40,48 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
-        mModel.connectGet(model.getJwt());
+        if (getActivity() instanceof MainActivity) {
+            MainActivity activity = (MainActivity) getActivity();
+            mModel.setUserInfoViewModel(activity.getUserInfoViewModel());
+        }
+        mModel.connectGet();
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_list, container, false);
+
+        binding = FragmentChatListBinding.inflate(inflater);
+
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
-
-//        binding.buttonAddChat.setOnClickListener(button -> Navigation.findNavController(getView())
-//                .navigate(ChatListFragmentDirections.actionChatListFragmentToAddChatFragment()));
-
-        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-            // if (!chatList.isEmpty()) {
-            mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
-            binding.listRoot.setAdapter(mAdapter);
-            binding.layoutRoot.setVisibility(View.GONE);
+        //TODO: Figure out how to implement adding chat name to chat room.
+        binding.buttonAddChat.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(ChatListFragmentDirections.actionNavigationChatToAddChatFragment()));
+        chatListRecyclerViewAdapter = new ChatListRecyclerViewAdapter(new ArrayList<>(), this);
+        binding.listRoot.setAdapter(chatListRecyclerViewAdapter);
+        mModel.addChatListObserver(getViewLifecycleOwner(), chatRoomList -> {
+            chatListRecyclerViewAdapter.setChatRooms(chatRoomList);
         });
+
+    }
+
+
+    public void deleteChat(final int chatId) {
+        mModel.connectDeleteChat(chatId);
+//         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+//             // if (!chatList.isEmpty()) {
+//             mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
+//             binding.listRoot.setAdapter(mAdapter);
+//             binding.layoutRoot.setVisibility(View.GONE);
+//         });
     }
 }

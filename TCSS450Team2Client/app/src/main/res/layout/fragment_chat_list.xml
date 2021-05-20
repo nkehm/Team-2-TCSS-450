@@ -19,7 +19,9 @@
         tools:context="edu.uw.tcss450team2client.chat.ChatListFragment"
         tools:listitem="@layout/fragment_chat_card"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_wait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,4 +42,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</RelativeLayout> -->

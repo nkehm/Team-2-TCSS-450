@@ -24,6 +24,18 @@
         <argument
             android:name="jwt"
             app:argType="string" />
+        <argument
+            android:name="firstname"
+            app:argType="string" />
+        <argument
+            android:name="lastname"
+            app:argType="string" />
+        <argument
+            android:name="memberid"
+            app:argType="integer" />
+        <argument
+            android:name="username"
+            app:argType="string" />
     </activity>
     <fragment
         android:id="@+id/signInFragment"
