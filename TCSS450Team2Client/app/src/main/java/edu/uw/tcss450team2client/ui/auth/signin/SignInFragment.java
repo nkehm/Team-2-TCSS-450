@@ -154,7 +154,7 @@ public class SignInFragment extends Fragment {
 
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
-                        .actionSignInFragmentToMainActivity(email, jwt));
+                        .actionSignInFragmentToMainActivity(email, jwt, "", "", 0, ""));
 
         //Remove THIS activity from the Task list. Pops off the backstack
         getActivity().finish();

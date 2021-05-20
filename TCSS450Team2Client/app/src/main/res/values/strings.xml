@@ -39,8 +39,6 @@
     <string name="username_hint">Username</string>
     <string name="add_text">Add</string>
 
-    <!-- Weather -->
-    <string name="title_weather">Weather</string>
 
     <!-- Chat -->
     <string name="title_chat">Chat</string>
