@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentRecoverPassword"
-        android:name="edu.uw.tcss450team2client.ui.auth.signin.FragmentRecoverPassword"
+        android:name="edu.uw.tcss450team2client.ui.auth.signin.RecoverPasswordFragment"
         android:label="FragmentRecoverPassword"
         android:layout="@layout/fragment_recover_password" >
         <argument

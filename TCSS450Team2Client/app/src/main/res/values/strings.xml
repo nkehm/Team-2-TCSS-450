@@ -56,6 +56,7 @@
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
-<!--    <string name="button_recoverPassword_cancel">Decline</string>-->
+    <string name="button_recoverPassword_cancel">Cancel</string>
+    <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 </resources>
