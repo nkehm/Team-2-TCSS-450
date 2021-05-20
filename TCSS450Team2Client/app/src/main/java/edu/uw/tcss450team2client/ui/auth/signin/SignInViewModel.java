@@ -84,6 +84,7 @@ public class SignInViewModel extends AndroidViewModel {
                 headers.put("Authorization", auth);
                 return headers;
             }
+
         };
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
