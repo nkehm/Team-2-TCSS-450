@@ -73,7 +73,7 @@
         <!-- Pushy Notification Receiver -->
         <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
         <receiver
-            android:name=".services.PushReceiver"
+            android:name="edu.uw.tcss450team2client.services.PushReceiver"
             android:exported="false">
             <intent-filter>
 
