@@ -35,7 +35,7 @@ public class ChangePasswordFragment extends Fragment {
     /**
      * Stores mChangePasswordModel variable.
      */
-    private edu.uw.tcss450team2client.ui.settings.ChangePasswordViewModel mChangePasswordModel;
+    private ChangePasswordViewModel mChangePasswordModel;
 
     /**
      * Method to validate the old password.
