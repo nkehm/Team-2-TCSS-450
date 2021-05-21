@@ -17,6 +17,12 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
+/**
+ * A recycler view for contact request
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class ContactRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<ContactRequestRecyclerViewAdapter.RequestViewHolder> {
 
@@ -64,6 +70,9 @@ public class ContactRequestRecyclerViewAdapter extends
         return mFriendRequest.size();
     }
 
+    /**
+     * Create a view holder for request tab
+     */
     public class RequestViewHolder extends RecyclerView.ViewHolder {
 
         private TextView usernameTextView;

@@ -26,6 +26,9 @@ import edu.uw.tcss450team2client.R;
 
 /**
  * A simple {@link Fragment} subclass for Contact page.
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactFragment extends Fragment {
 

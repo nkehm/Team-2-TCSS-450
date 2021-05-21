@@ -24,6 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A contact request view model
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class ContactRequestViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<FriendRequest>> mRequestList;

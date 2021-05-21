@@ -22,7 +22,10 @@ import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass for search tab.
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class SearchFragment extends Fragment {
     private ContactListViewModel mModel;

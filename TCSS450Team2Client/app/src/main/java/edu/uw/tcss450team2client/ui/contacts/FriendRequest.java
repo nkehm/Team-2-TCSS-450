@@ -2,6 +2,9 @@ package edu.uw.tcss450team2client.ui.contacts;
 
 /**
  * Friend Request Object
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class FriendRequest {
     private final String mUserName;
