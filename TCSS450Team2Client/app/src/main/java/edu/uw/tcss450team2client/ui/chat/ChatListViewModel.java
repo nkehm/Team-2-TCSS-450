@@ -28,7 +28,13 @@ import java.util.Map;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.R;
 
-
+/**
+ * A chat list view model.
+ *
+ * @author Nathan Stickler
+ * @author Nam Hoang
+ * @version 5/2021
+ */
 public class ChatListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<ChatRoom>> mChatList;

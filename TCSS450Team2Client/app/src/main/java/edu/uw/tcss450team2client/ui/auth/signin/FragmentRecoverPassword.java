@@ -29,12 +29,21 @@ import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdSpecialChar;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment for password recovery on sign in.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
  */
 public class FragmentRecoverPassword extends Fragment {
 
+    /**
+     * A binding for this fragment.
+     */
     private FragmentRecoverPasswordBinding binding;
 
+    /**
+     * A password recover view model.
+     */
     private RecoverPasswordViewModel mRecoverPasswordModel;
 
     /**

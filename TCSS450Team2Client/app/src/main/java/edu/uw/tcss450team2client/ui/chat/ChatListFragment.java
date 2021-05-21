@@ -17,17 +17,27 @@ import java.util.ArrayList;
 import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.databinding.FragmentChatListBinding;
 
+/**
+ *  A simple {@link Fragment} subclass.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
+ */
 public class ChatListFragment extends Fragment {
 
     /**
      * Chat List View Model.
      */
     private ChatListViewModel mModel;
+
     /**
      * Binding for Chat List.
      */
     private FragmentChatListBinding binding;
 
+    /**
+     * A recycler view adapter for the chat list.
+     */
     private ChatListRecyclerViewAdapter chatListRecyclerViewAdapter;
 
     /**

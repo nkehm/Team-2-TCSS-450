@@ -19,11 +19,31 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentChatCardBinding;
 
+/**
+ * A recycler view for the chat list.
+ *
+ * @author Nathan Stickler
+ * @author Nam Hoang
+ * @version 5/2021
+ */
 public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.ChatListViewHolder> {
 
+    /**
+     * A list of chat rooms.
+     */
     List<ChatRoom> mChatRooms;
+
+    /**
+     * A fragment that builds the recycler view.
+     */
     private final ChatListFragment mParent;
 
+    /**
+     * Constructor that builds the recycler view adapter from the list of chat rooms.
+     *
+     * @param chats the chat rooms
+     * @param parent the recycler view
+     */
     public ChatListRecyclerViewAdapter(List<ChatRoom> chats, ChatListFragment parent) {
         this.mChatRooms = chats;
         this.mParent = parent;
@@ -52,12 +72,20 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
         return mChatRooms.size();
     }
 
+    /**
+     * Creates a chat list holder.
+     */
     public class ChatListViewHolder extends RecyclerView.ViewHolder {
+
 
         public final View mView;
         public FragmentChatCardBinding binding;
         Observer<List<String>> mObserver;
 
+        /**
+         * Constructs a chat room view holder
+         * @param view view
+         */
         public ChatListViewHolder(View view) {
             super(view);
             mView = view;
