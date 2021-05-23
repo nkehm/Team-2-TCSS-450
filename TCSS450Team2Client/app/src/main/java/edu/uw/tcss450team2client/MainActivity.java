@@ -12,13 +12,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-<<<<<<< NamHoang
+import android.Manifest;
 
 import android.app.Notification;
 import android.content.BroadcastReceiver;
-=======
-import android.Manifest;
->>>>>>> main
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -36,12 +33,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -50,11 +47,9 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+import edu.uw.tcss450team2client.model.LocationViewModel;
 import edu.uw.tcss450team2client.databinding.ActivityMainBinding;
 import edu.uw.tcss450team2client.model.NewMessageCountViewModel;
-
-import edu.uw.tcss450team2client.model.LocationViewModel;
-
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.services.PushReceiver;
@@ -77,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    private ActivityMainBinding binding;
-
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
@@ -99,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
     //The ViewModel that will store the current location
     private LocationViewModel mLocationModel;
 
-    private UserInfoViewModel userInfoViewModel;
-
+    private ActivityMainBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
 
         mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
@@ -137,6 +130,22 @@ public class MainActivity extends AppCompatActivity {
                 mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        // location
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
+                            , Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_LOCATIONS);
+        } else {
+            //The user has already allowed the use of Locations. Get the current location.
+            requestLocation();
+        }
+
+
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
@@ -162,27 +171,12 @@ public class MainActivity extends AppCompatActivity {
                 badge.setVisible(false);
             }
         });
-        // location
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
-                            , Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_LOCATIONS);
-        } else {
-            //The user has already allowed the use of Locations. Get the current location.
-            requestLocation();
-        }
-
 
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this,
+        navController = Navigation.findNavController(this,
                 R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
@@ -353,10 +347,7 @@ public class MainActivity extends AppCompatActivity {
                         .get(UserInfoViewModel.class)
                         .getJwt()
         );
-    }
 
-    public UserInfoViewModel getUserInfoViewModel() {
-        return userInfoViewModel;
     }
 
     /**

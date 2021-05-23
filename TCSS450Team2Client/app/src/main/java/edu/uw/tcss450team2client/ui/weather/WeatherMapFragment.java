@@ -88,8 +88,8 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
     private void searchLatLong(View view) {
         NavDirections directions;
         directions = WeatherMapFragmentDirections.actionWeatherMapFragmentToWeatherListFragment();
-        /*directions.setLat(Double.toString(mLatLng.latitude));
-        directions.setLng(Double.toString(mLatLng.longitude));*/
+        //directions.setLat(Double.toString(mLatLng.latitude));
+        //directions.setLng(Double.toString(mLatLng.longitude));
         Navigation.findNavController(getView()).navigate(directions);
     }
 
@@ -102,17 +102,7 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
         model.addLocationObserver(getViewLifecycleOwner(), location -> {
             if (location != null) {
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
-                /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }*/
-                //googleMap.setMyLocationEnabled(true);
+                googleMap.setMyLocationEnabled(true);
                 final LatLng c = new LatLng(location.getLatitude(), location.getLongitude());
                 mLatLng = c;
                 //Zoom levels are from 2.0f (zoomed out) to 21.f (zoomed in)

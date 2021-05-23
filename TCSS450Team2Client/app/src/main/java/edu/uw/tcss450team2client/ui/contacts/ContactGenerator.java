@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Simple class to construct a list of Contact object
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactGenerator {
     private static final Contact[] CONTACTS;

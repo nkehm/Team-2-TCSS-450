@@ -22,6 +22,12 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 
+/**
+ * A recycler view for the list in search tab.
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class SearchRecyclerViewAdapter  extends
         RecyclerView.Adapter<SearchRecyclerViewAdapter.SearchViewHolder> implements Filterable {
 
@@ -40,8 +46,12 @@ public class SearchRecyclerViewAdapter  extends
     }
 
 
-
-
+    /**
+     * Constructor that builds the recycler view adapter use all the contact items.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -67,8 +77,9 @@ public class SearchRecyclerViewAdapter  extends
     }
 
 
-
-
+    /**
+     * Create a search list holder
+     */
     public class SearchViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameTextView;
         private final TextView usernameTextView;

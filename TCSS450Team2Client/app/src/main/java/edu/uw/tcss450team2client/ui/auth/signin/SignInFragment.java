@@ -93,14 +93,12 @@ public class SignInFragment extends Fragment {
         binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
 
 
-
         //don't allow sign in until pushy token retrieved
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(),
                 token -> binding.buttonSignIn.setEnabled(!token.isEmpty()));
 
         mPushyTokenViewModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observePushyPutResponse);
-
 
     }
 
@@ -119,7 +117,7 @@ public class SignInFragment extends Fragment {
             // created on the web service.
             if(!jwt.isExpired(0)) {
                 String email = jwt.getClaim("email").asString();
-                navigateToSuccess(email, token);
+                navigateToSuccess(email, token, "", "", 0, "");
                 return;
             }
         }
@@ -156,7 +154,6 @@ public class SignInFragment extends Fragment {
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
-
     private void navigateToSuccess(final String email, final String jwt, final String fname, final String lname, final int memberid,final String user) {
 
         if (binding.switchSignin.isChecked()) {
@@ -251,5 +248,4 @@ public class SignInFragment extends Fragment {
             }
         }
     }
-
 }

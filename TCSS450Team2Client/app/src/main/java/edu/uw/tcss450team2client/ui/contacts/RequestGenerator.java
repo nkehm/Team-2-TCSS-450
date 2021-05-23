@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Simple class to generate fake request
+ * Simple class to generate fake contact requests
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class RequestGenerator {
     private static final FriendRequest[] REQUESTS;

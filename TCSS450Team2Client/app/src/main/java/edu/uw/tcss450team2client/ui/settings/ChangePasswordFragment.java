@@ -25,6 +25,12 @@ import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdLowerCas
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdSpecialChar;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdUpperCase;
 
+/**
+ * A fragment for changing password in app.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
+ */
 public class ChangePasswordFragment extends Fragment {
 
     /**
@@ -153,7 +159,6 @@ public class ChangePasswordFragment extends Fragment {
      *
      * @param response the Response from the server
      */
-
     private void observeResponse(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {

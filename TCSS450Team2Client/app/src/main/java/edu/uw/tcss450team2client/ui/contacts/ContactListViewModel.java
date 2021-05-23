@@ -37,6 +37,12 @@ import java.util.Objects;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.io.RequestQueueSingleton;
 
+/**
+ * Contact list view model
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class ContactListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Contact>> mContactList;

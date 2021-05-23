@@ -21,6 +21,12 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+/**
+ * A view model for password change.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
+ */
 public class ChangePasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
@@ -44,7 +50,8 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     /**
      * Handles errors for connecting to a WebService endpoint.
-     * @param error
+     *
+     * @param error message
      */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -72,7 +79,7 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     /**
      * Server credential verification.
-     * *
+     *
      * @param email    string user input value, email of user
      * @param oldPassword string user input value, password to change from
      * @param newPassword string user input value, password to change to

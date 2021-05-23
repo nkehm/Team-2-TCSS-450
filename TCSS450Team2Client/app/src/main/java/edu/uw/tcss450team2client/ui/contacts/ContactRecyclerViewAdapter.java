@@ -20,6 +20,11 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
+/**
+ * A recycler view for the contact list.
+ *
+ * @version 05/2021
+ */
 public class ContactRecyclerViewAdapter extends
         RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder> {
 
@@ -69,6 +74,9 @@ public class ContactRecyclerViewAdapter extends
         return mContacts.size();
     }
 
+    /**
+     * Create a contact list holder
+     */
     public class ContactViewHolder extends RecyclerView.ViewHolder  {
         private final TextView nameTextView;
         private final TextView usernameTextView;

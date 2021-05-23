@@ -20,6 +20,9 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 /**
  * Fragment to contain the Contact List
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactListFragment extends Fragment  {
 
