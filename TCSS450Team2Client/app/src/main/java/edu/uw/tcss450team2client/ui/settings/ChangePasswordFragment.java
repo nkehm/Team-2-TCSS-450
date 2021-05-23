@@ -1,22 +1,31 @@
 package edu.uw.tcss450team2client.ui.settings;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSettingsChangepasswordBinding;
 import edu.uw.tcss450team2client.utils.PasswordValidator;
 
+import static android.widget.Toast.LENGTH_LONG;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkClientPredicate;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkExcludeWhiteSpace;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdDigit;
@@ -176,4 +185,89 @@ public class ChangePasswordFragment extends Fragment {
         }
     }
 
+//    private EditText mEmail;
+//    private EditText mCurrentPassword;
+//    private EditText mNewPassword;
+//    private EditText mRetypeNewPassword;
+//
+//    ConstraintLayout ChangePassword;
+//
+//    private ChangePasswordViewModel mChangePasswordViewModel;
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        mChangePasswordViewModel = new ViewModelProvider(getActivity())
+//                .get(ChangePasswordViewModel.class);
+//
+////        ChangePassDialog = binding.settingsLayout;
+//    }
+//
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        mChangePasswordViewModel.addResponseObserver(getViewLifecycleOwner(),
+//                this::observeResponse);
+//
+//
+//    }
+//
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        LayoutInflater inflater = getActivity().getLayoutInflater();
+//        View view = inflater.inflate(R.layout.fragment_settings_changepassword, null);
+//        builder.setView(view)
+//                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//                    }
+//                })
+//                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        String email = mEmail.getText().toString();
+//                        String currentPass = mCurrentPassword.getText().toString();
+//                        String newPass = mNewPassword.getText().toString();
+//                        String retypeNewPass = mRetypeNewPassword.getText().toString();
+//                        System.out.println(email);
+//                        System.out.println(currentPass);
+//                        System.out.println(newPass);
+//                        System.out.println((retypeNewPass));
+//                        mChangePasswordViewModel.connect(mEmail.getText().toString(),
+//                                mCurrentPassword.getText().toString(),
+//                                mNewPassword.getText().toString());
+//
+//
+//                        Toast.makeText(getActivity(), "Processing change process request" , LENGTH_LONG).show();
+//                        System.out.println("IN HERE");
+////                        listener.applyTexts(email);
+//                    }
+//                });
+//        mEmail = view.findViewById(R.id.edit_email);
+//        mCurrentPassword = view.findViewById(R.id.edit_current_pass);
+//        mNewPassword = view.findViewById(R.id.edit_new_pass);
+//        return builder.create();
+//    }
+//
+//    /**
+//     * An observer on the HTTP Response from the web server. This observer should be
+//     * attached to SignInViewModel.
+//     *
+//     * @param response the Response from the server
+//     */
+//    private void observeResponse(final JSONObject response) {
+//        if (response.length() > 0) {
+//            if (response.has("code")) {
+//                System.out.println("Failed to send email");
+//            }
+//        } else {
+//            Log.d("JSON Response", "No Response");
+//        }
+//    }
 }
