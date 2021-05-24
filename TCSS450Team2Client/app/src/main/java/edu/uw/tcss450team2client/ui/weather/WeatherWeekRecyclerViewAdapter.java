@@ -15,10 +15,7 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentWeatherWeekCardBinding;
 
-/**
- * @author David Salee
- * @version May 2020
- */
+
 public class WeatherWeekRecyclerViewAdapter extends RecyclerView.Adapter<edu.uw.tcss450team2client.ui.weather.WeatherWeekRecyclerViewAdapter.WeatherViewHolder> {
     /**
      * List of type WeatherData.
@@ -79,7 +76,26 @@ public class WeatherWeekRecyclerViewAdapter extends RecyclerView.Adapter<edu.uw.
          void setWeather(final edu.uw.tcss450team2client.ui.weather.WeatherData data) {
              LocalDate today = LocalDate.now();
             binding.textviewTime.setText(today.plusDays(data.getIncrement()).getDayOfWeek().name());
-            binding.textviewType.setText(data.getWeather());
+
+            //binding.textviewType.setText(data.getWeather());
+             String weatherType = data.getWeather();
+             if (weatherType.equals("Thunderstorm")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_thunder_art);
+             } else if (weatherType.equals("Drizzle")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_drizzle_art);
+             } else if (weatherType.equals("Rain")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_rain_art);
+             }else if (weatherType.equals("Snow")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_snow_art);
+             } else if (weatherType.equals("Mist")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_mist_art);
+             } else if (weatherType.equals("Clear")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_clear_art);
+             } else if (weatherType.equals("Clouds")){
+                 binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_clouds_art);
+             }
+
+
             if (data.getTemp() == -1|| data.getTemp() < -459) {
                 binding.textviewLowTemp.setText(String.format("%.2f", data.getTempMin()));
                 binding.textviewHighTemp.setText(String.format("%.2f", data.getTempMax()));

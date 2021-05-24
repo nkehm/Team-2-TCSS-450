@@ -2,10 +2,7 @@ package edu.uw.tcss450team2client.ui.weather;
 
 import java.io.Serializable;
 
-/**
- * @author Gordon Tran & Patrick Moy
- * @version May 2020
- */
+
 public class WeatherData implements Serializable {
 
     /**
