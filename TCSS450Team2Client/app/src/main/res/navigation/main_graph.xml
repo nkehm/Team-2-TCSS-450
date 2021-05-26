@@ -72,4 +72,9 @@
             android:id="@+id/action_addChatFragment_to_navigation_chat"
             app:destination="@id/navigation_chat" />
     </fragment>
+    <fragment
+        android:id="@+id/appearanceFragment"
+        android:name="edu.uw.tcss450team2client.ui.settings.AppearanceFragment"
+        android:label="@string/title_appearance"
+        tools:layout="@layout/fragment_appearance" />
 </navigation>

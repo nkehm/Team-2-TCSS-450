@@ -204,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
                 changePasswordDialogue();
                 break;
 
+            case R.id.action_appearance:
+                navController.navigate(R.id.appearanceFragment);
+                break;
+
             case R.id.action_sign_out:
                 signOut();
                 break;
