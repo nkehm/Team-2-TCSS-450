@@ -95,6 +95,7 @@
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
     <string name="title_activity_maps">Map</string>
+    <string name="hint_retype_new_password">Retype Password</string>
     <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSettingsChangepasswordBinding;
 import edu.uw.tcss450team2client.utils.PasswordValidator;
 
@@ -96,12 +97,12 @@ public class ChangePasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
+//        binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
 
         ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
         mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
 
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_settings_changepassword, container, false);
     }
 
     /**
