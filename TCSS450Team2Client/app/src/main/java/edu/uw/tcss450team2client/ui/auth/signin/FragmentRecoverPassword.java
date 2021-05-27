@@ -98,15 +98,15 @@ public class FragmentRecoverPassword extends Fragment {
      * Creates a dialog box that acknowledges the users input to recover password.
      */
     private void createDialogAcknowledge() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.textview_changePassword_headMessage);
-        builder.setMessage(R.string.textview_changePassword_description);
-        builder.setTitle(R.string.text_forgot_password);
-        builder.setPositiveButton(R.string.button_recoverPassword_send, (dialog, which) -> {
-            Log.d("Recovery", "Acknowledge");
-        });
-        builder.create();
-        builder.show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setMessage(R.string.textview_changePassword_headMessage);
+//        builder.setMessage(R.string.textview_changePassword_description);
+//        builder.setTitle(R.string.text_forgot_password);
+//        builder.setPositiveButton(R.string.button_recoverPassword_send, (dialog, which) -> {
+//            Log.d("Recovery", "Acknowledge");
+//        });
+//        builder.create();
+//        builder.show();
     }
 
     /**

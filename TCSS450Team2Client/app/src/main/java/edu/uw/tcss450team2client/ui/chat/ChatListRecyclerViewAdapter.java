@@ -97,7 +97,7 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
         }
 
         void setChatRoom(final ChatRoom chatRoom) throws JSONException {
-            binding.buttonDelete.setOnClickListener(view -> deleteChat(this, chatRoom));
+            binding.deleteChatRoom.setOnClickListener(view -> deleteChat(this, chatRoom));
             binding.layoutInner.setOnClickListener(view -> Navigation.findNavController(mView).navigate(ChatListFragmentDirections.actionNavigationChatToChatFragment(chatRoom)));
 
             LiveData<List<String>> liveData = chatRoom.getLiveEmailList();

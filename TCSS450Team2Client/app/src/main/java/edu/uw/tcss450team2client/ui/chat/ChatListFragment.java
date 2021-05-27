@@ -84,7 +84,14 @@ public class ChatListFragment extends Fragment {
 
     }
 
+
     public void deleteChat(final int chatId) {
         mModel.connectDeleteChat(chatId);
+//         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+//             // if (!chatList.isEmpty()) {
+//             mAdapter = new ChatListRecyclerViewAdapter(chatList, getActivity().getSupportFragmentManager());
+//             binding.listRoot.setAdapter(mAdapter);
+//             binding.layoutRoot.setVisibility(View.GONE);
+//         });
     }
 }
