@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -332,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Allows user to sign out in app.
      */
-    private void signOut() {
+    public void signOut() {
         SharedPreferences prefs =
                 getSharedPreferences(
                         getString(R.string.keys_shared_prefs),

@@ -64,14 +64,13 @@
     <string name="text_change_password">Change Password</string>
     <string name="hint_current_password">Current Password</string>
     <string name="hint_new_password">New Password</string>
-    <string name="title_changePassword">Change Password</string>
-    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
-    <string name="textview_changePassword_description">If you accept, an email will be sent containing
-        further instructions for changing your password</string>
+    <string name="hint_retype_new_password">Retype Password</string>
     <string name="button_changePassword_change">Accept</string>
     <string name="button_changePassword_cancel">Decline</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_changePassword">Change Password</string>
+    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
+<!--    <string name="textview_changePassword_description">If you accept, an email will be sent containing-->
+<!--        further instructions for changing your password</string>-->
     <string name="favorite_popup_menu">Favorite</string>
     <string name="delete">Delete</string>
     <string name="contact_icon">contact_icon</string>
@@ -95,7 +94,6 @@
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
     <string name="title_activity_maps">Map</string>
-    <string name="hint_retype_new_password">Retype Password</string>
     <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 

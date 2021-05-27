@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450team2client.MainActivity;
+import edu.uw.tcss450team2client.MainActivityArgs;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSettingsChangepasswordBinding;
 import edu.uw.tcss450team2client.utils.PasswordValidator;
@@ -97,12 +99,12 @@ public class ChangePasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
+        binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
 
         ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
         mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
 
-        return inflater.inflate(R.layout.fragment_settings_changepassword, container, false);
+        return binding.getRoot();
     }
 
     /**
@@ -115,9 +117,14 @@ public class ChangePasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+        binding.buttonChange.setOnClickListener(this::attemptChangePassword);
         mChangePasswordModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
 
+    }
+
+    private void attemptChangePassword(final View button) {
+        validateOldPassword();
     }
 
     /**
@@ -164,13 +171,16 @@ public class ChangePasswordFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
+                    Log.e("Test Log", response.getString("data"));
                     binding.editNewPass.setError("Error Authenticating: " + response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
+                Log.e("Test Log", "Success");
                 //success scenario
                 //navigateToLogin();
+                ((MainActivity) getActivity()).signOut();
             }
         } else {
             Log.d("JSON Response", "No Response");
