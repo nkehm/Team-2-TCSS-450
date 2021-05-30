@@ -156,9 +156,9 @@ public class ChangePasswordFragment extends Fragment {
     private void verifyAuthWithServer() {
         mChangePasswordModel.connect(
 
-                mEmail,
+                binding.editNewPass.getText().toString(),
                 binding.editCurrentPass.getText().toString(),
-                binding.editNewPass.getText().toString());
+                mEmail);
     }
 
     /**
