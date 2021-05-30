@@ -68,6 +68,7 @@ public class SearchRecyclerViewAdapter  extends
         holder.nameTextView.setText(currentItem.getFirstName() + " " + currentItem.getLastName());
         holder.addButton.setOnClickListener(v -> {
             holder.addButton.setVisibility(View.GONE);
+            mViewModel.addFriend(mUserModel.getJwt(), mContacts.get(position).getUserName());
         });
     }
 
