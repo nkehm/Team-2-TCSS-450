@@ -31,10 +31,8 @@
     <string name="switch_sign_in">Stay Signed in</string>
 
     <!-- Home Page -->
-    <string name="title_home">Home</string>
-    <string name="text_welcomeHome">Welcome Home</string>
-    <string name="text_currentTemp">Current Temp</string>
-    <string name="text_currentLocation">Current Location</string>
+    <string name="title_home_home">Home</string>
+    <string name="text_home_welcomeHome">Welcome Home</string>
 
 
     <!-- Contacts -->
