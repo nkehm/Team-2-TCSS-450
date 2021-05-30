@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -248,10 +249,11 @@ public class MainActivity extends AppCompatActivity {
     private void changePasswordDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.textview_changePassword_headMessage);
-        builder.setMessage(R.string.textview_changePassword_description);
+        //builder.setMessage(R.string.textview_changePassword_description);
         builder.setPositiveButton(R.string.button_changePassword_change, (dialog, which) -> {
             Log.d("ChangeP", "User wants to change password");
-            connectChangePassword();
+            //connectChangePassword();
+            navController.navigate(R.id.changePasswordFragment);
         });
         builder.setNegativeButton(R.string.button_changePassword_cancel, (dialog, which) -> {
             Log.d("changeP", "cancel change");
@@ -261,23 +263,23 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    /**
-     * Method that connects to a webservice that sends a email to change password.
-     */
-    private void connectChangePassword() {
-        String url = "https://tcss450-team2-server.herokuapp.com/changePassword";  // Need to update
-        String email = mArgs.getEmail();
-        JSONObject body = new JSONObject();
-        try {
-            body.put("email", email);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
-        request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
-    }
+//    /**
+//     * Method that connects to a webservice that sends a email to change password.
+//     */
+//    private void connectChangePassword() {
+//        String url = "https://tcss450-team2-server.herokuapp.com/changePassword";  // Need to update
+//        String email = mArgs.getEmail();
+//        JSONObject body = new JSONObject();
+//        try {
+//            body.put("email", email);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
+//        request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        //Instantiate the RequestQueue and add the request to the queue
+//        Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
+//    }
 
     /**
      * Server credential authentication error handling.
@@ -335,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Allows user to sign out in app.
      */
-    private void signOut() {
+    public void signOut() {
         SharedPreferences prefs =
                 getSharedPreferences(
                         getString(R.string.keys_shared_prefs),
