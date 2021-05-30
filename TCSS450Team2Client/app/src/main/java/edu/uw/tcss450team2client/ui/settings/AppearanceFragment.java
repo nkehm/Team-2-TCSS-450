@@ -22,9 +22,8 @@ import edu.uw.tcss450team2client.databinding.FragmentAppearanceBinding;
  * A simple {@link Fragment} subclass.
  */
 public class AppearanceFragment extends Fragment {
-    private RadioGroup mRadioGroup;
     private FragmentAppearanceBinding binding;
-    private Boolean dark_boolean;
+    private Boolean mLightMode;
 
     public AppearanceFragment() {
         // Required empty public constructor
@@ -46,34 +45,25 @@ public class AppearanceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // save theme state
-        SharedPreferences mPrefs = this.requireActivity().getSharedPreferences("DARKMODE", 0);
-        dark_boolean = mPrefs.getBoolean("dark_boolean", false);
-        if (dark_boolean) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
+        SharedPreferences mPrefs = this.requireActivity().getSharedPreferences("LIGHTMODE", 0);
+        mLightMode = mPrefs.getBoolean("lightMode", true);
+        if (mLightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
         }
 
-        // on below line we are setting on check change method for our radio group.
         binding.rgDarkmode.setOnCheckedChangeListener((group, checkedId) -> {
-            // on radio button check change
             if (checkedId == R.id.rb_darkmode_off) {
-                // on below line we are checking the radio button with id.
-                // on below line we are setting the text to text view as light mode.
-                // on below line we are changing the theme to light mode.
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                dark_boolean = false;
-//                        setTheme(R.style.Theme_ThemeSwitch);
+                mLightMode = true;
             } else  if (checkedId == R.id.rb_darkmode_on) {
-                    // this method is called when dark radio button is selected
-                    // on below line we are setting dark theme text to our text view.
-                    // on below line we are changing the theme to dark mode.
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    dark_boolean = true;
-//                        setTheme(R.style.Theme_custom);
+                mLightMode = false;
             }
             SharedPreferences.Editor mEditor = mPrefs.edit();
-            mEditor.putBoolean("dark_boolean", dark_boolean).apply();
+            mEditor.putBoolean("lightMode", mLightMode).apply();
         });
     }
 }
