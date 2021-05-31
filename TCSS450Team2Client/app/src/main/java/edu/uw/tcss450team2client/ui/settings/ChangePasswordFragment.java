@@ -18,6 +18,7 @@ import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.MainActivityArgs;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSettingsChangepasswordBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.utils.PasswordValidator;
 
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkClientPredicate;
@@ -46,6 +47,8 @@ public class ChangePasswordFragment extends Fragment {
      */
     private ChangePasswordViewModel mChangePasswordModel;
 
+    private UserInfoViewModel mUserModel;
+
     /**
      * Method to validate the old password.
      */
@@ -66,8 +69,6 @@ public class ChangePasswordFragment extends Fragment {
                     .and(checkPwdDigit())
                     .and(checkPwdLowerCase().or(checkPwdUpperCase()));
 
-    private String mEmail;
-
     /**
      * Empty public constructor.
      */
@@ -85,6 +86,9 @@ public class ChangePasswordFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mChangePasswordModel = new ViewModelProvider(getActivity())
                 .get(ChangePasswordViewModel.class);
+        mUserModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+
     }
 
     /**
@@ -102,7 +106,6 @@ public class ChangePasswordFragment extends Fragment {
         binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
 
         ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
-        mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
 
         return binding.getRoot();
     }
@@ -158,7 +161,7 @@ public class ChangePasswordFragment extends Fragment {
 
                 binding.editNewPass.getText().toString(),
                 binding.editCurrentPass.getText().toString(),
-                mEmail);
+                mUserModel.getEmail(), mUserModel.getJwt());
     }
 
     /**

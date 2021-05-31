@@ -35,8 +35,6 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    private UserInfoViewModel userInfoViewModel;
-
     public ChangePasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
@@ -90,11 +88,19 @@ public class ChangePasswordViewModel extends AndroidViewModel {
      * @param oldPassword string user input value, password to change from
      * @param newPassword string user input value, password to change to
      */
-    public void connect(final String newPassword, final String oldPassword, final String email) {
+    public void connect(final String newPassword, final String oldPassword, final String email, final String jwt) {
 
-        String url = "https://tcss450-team2-server.herokuapp.com/changepassword";
+        String url = "https://tcss450-team2-server.herokuapp.com/changePassword";
         JSONObject body = new JSONObject();
-        Map<String, String> headers = new HashMap<>();
+        try {
+            body.put("newPassword", newPassword);
+            body.put("oldPassword", oldPassword);
+            body.put("email", email);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Request request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -106,21 +112,16 @@ public class ChangePasswordViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("Authorization",  userInfoViewModel.getJwt());
+                headers.put("Authorization", "Bearer " + jwt);
                 return headers;
             }
         };
-        try {
-            body.put("newPassword", newPassword);
-            body.put("oldPassword", oldPassword);
-            body.put("email", email);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
        // Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
         request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
     }
+
+
 }
