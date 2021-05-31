@@ -97,13 +97,18 @@ public class ContactRequestRecyclerViewAdapter extends
             mRequest = request;
             usernameTextView.setText(request.getUsername());
 
-            //TODO Accept button on click listener
+            // Accept button on click listener
             acceptButton.setOnClickListener(v -> {
-
+                mViewModel.acceptRequest(mInfoModel.getJwt(), mRequest.getMemberID());
+                mFriendRequest.remove(mRequest);
+                notifyDataSetChanged();
             });
-            //TODO Decline button on click listener
+            // Decline button on click listener
             declineButton.setOnClickListener(v -> {
-
+                mViewModel.declineRequest(mInfoModel.getJwt(),
+                        usernameTextView.getText().toString());
+                mFriendRequest.remove(mRequest);
+                notifyDataSetChanged();
             });
         }
     }

@@ -110,7 +110,8 @@ public class ContactRecyclerViewAdapter extends
                 popupMenu.setForceShowIcon(true);
                 popupMenu.setOnMenuItemClickListener(item -> {
                     if (item.getItemId() == R.id.delete_pop_menu) {
-                        //TODO delete from database
+                        // delete from database
+                        mViewModel.deleteContact(mUserModel.getJwt(), mContact.getMemberID());
                         this.deleteContact();
                         return true;
                     }
