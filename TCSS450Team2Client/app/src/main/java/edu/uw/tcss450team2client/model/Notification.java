@@ -4,12 +4,6 @@ import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.ui.chat.ChatMessage;
 import edu.uw.tcss450team2client.ui.contacts.Invitation;
 
-
-/**
- * @author Tyler Lorella
- * @version June 2020
- */
-
 /**
  * Container object for store any of the three types of notifications this app currently uses.
  */
