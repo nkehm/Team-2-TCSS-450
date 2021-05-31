@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_inner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/textview_lowTemp"
+        app:layout_constraintTop_toTopOf="@+id/textview_lowTemp">
+
+        <ImageView
+            android:id="@+id/imageiconWeatherIconList"
+            android:layout_width="47dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="348dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/weather_clear_art"
+            app:layout_constraintBottom_toTopOf="@+id/textview_highLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.403"
+            app:layout_constraintStart_toEndOf="@+id/textview_currentForecast"
+            app:layout_constraintTop_toBottomOf="@+id/textview_zipData" />
+
+        <TextView
+            android:id="@+id/textview_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="hour/week" />
+
+        <TextView
+            android:id="@+id/textview_highTemp"
+            android:layout_width="96dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="220dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_time"
+            tools:text="High" />
+
+        <TextView
+            android:id="@+id/textview_lowTempList"
+            android:layout_width="96dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_time"
+            tools:text="Low" />
+
+        <TextView
+            android:id="@+id/textview_highLabel"
+            android:layout_width="85dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="316dp"
+            android:text="@string/textview_weatherWeekCard_high"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_time"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="High" />
+
+        <TextView
+            android:id="@+id/textview_LowLabel"
+            android:layout_width="85dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="136dp"
+            android:text="@string/textview_weatherWeekCard_low"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Low" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
