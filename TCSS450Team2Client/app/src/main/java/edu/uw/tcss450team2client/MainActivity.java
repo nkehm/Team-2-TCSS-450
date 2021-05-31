@@ -15,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
 
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +50,7 @@ import java.util.Objects;
 import edu.uw.tcss450team2client.model.LocationViewModel;
 import edu.uw.tcss450team2client.databinding.ActivityMainBinding;
 import edu.uw.tcss450team2client.model.NewMessageCountViewModel;
+import edu.uw.tcss450team2client.model.Notification;
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.services.PushReceiver;
@@ -382,6 +382,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("PUSHY", "Message from" + cm.getSender());
                     if (!cm.getSender().equals(userInfoViewModel.getUsername())) {
                         Log.d("PUSHY", "We didn't send this message!" + cm.getSender());
+                        notification.setData(cm);
                         userInfoViewModel.addNotifications(notification);
                     }
                 }

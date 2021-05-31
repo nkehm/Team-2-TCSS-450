@@ -1,7 +1,5 @@
 package edu.uw.tcss450team2client.model;
 
-import android.app.Notification;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
