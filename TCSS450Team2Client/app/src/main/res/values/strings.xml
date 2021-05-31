@@ -94,7 +94,7 @@
     <!-- Weather -->
     <string name="textview_weatherWeekCard_low">Low</string>
     <string name="textview_weatherWeekCard_high">High</string>
-    <string name="textview_weatherCard_temperature">Temperature</string>
+    <!--<string name="textview_weatherCard_temperature">Temperature</string>-->
     <string name="textview_weatherList_currentForecast">Current Forecast:</string>
     <string name="textview_weatherList_todayForecast">Today\'s Forecast</string>
     <string name="textview_weatherList_weeklyForecast">Weekly Forecast</string>
@@ -104,6 +104,7 @@
     <string name="fragment_weather_map">Map Selection</string>
     <string name="imagelabel_weather_weatherIconDescription">The type of current weather</string>
     <string name="title_weather">Weather</string>
+    <string name="weather_icon_description"> Weather Icon</string>
 
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>

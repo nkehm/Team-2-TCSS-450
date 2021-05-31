@@ -27,10 +27,7 @@ import java.util.Map;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
-/**
- * @author Gordon Tran & Patrick Moy
- * @version May 2020
- */
+
 public class WeatherViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<WeatherData>> mWeatherData;
@@ -145,7 +142,7 @@ public class WeatherViewModel extends AndroidViewModel {
         if (userInfoViewModel == null) {
             throw new IllegalArgumentException("No UserInfoViewModel is assigned");
         }
-        String url = "https://team5-tcss450-server.herokuapp.com/weather?zip=" + zip;
+        String url = "https://tcss450-team2-server.herokuapp.com/weather?zip=" + zip;
 
         Request request = new JsonObjectRequest(Request.Method.GET, url, null,
                 //no body for this get request
@@ -172,7 +169,7 @@ public class WeatherViewModel extends AndroidViewModel {
         if (userInfoViewModel == null) {
             throw new IllegalArgumentException("No UserInfoViewModel is assigned");
         }
-        String url = "https://team5-tcss450-server.herokuapp.com/weather?latitude=" + lat +"&longitude=" + lng;
+        String url = "https://tcss450-team2-server.herokuapp.com/weather?latitude=" + lat +"&longitude=" + lng;
 
         Request request = new JsonObjectRequest(Request.Method.GET, url, null,
                 //no body for this get request
