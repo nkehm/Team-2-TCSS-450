@@ -267,7 +267,7 @@ public class ContactListViewModel extends AndroidViewModel {
      */
     public void addFriend(final String jwt, final String username) {
 
-        String url = "https://tcss450-team2-server.herokuapp.com/contact/add";
+        String url = "https://tcss450-team2-server.herokuapp.com/contacts/add";
 
         JSONObject body = new JSONObject();
         try {
@@ -308,7 +308,7 @@ public class ContactListViewModel extends AndroidViewModel {
      * @param memberID to accept
      */
     public void acceptRequest(final String jwt, final int memberID) {
-        String url = "https://tcss450-team2-server.herokuapp.com/contact/request/" + memberID;
+        String url = "https://tcss450-team2-server.herokuapp.com/contacts/request/" + memberID;
 
         Request request = new JsonObjectRequest(
                 Request.Method.POST,
@@ -334,7 +334,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     public void declineRequest(final String jwt, final String username) {
-        String url = "https://tcss450-team2-server.herokuapp.com/contact/decline";
+        String url = "https://tcss450-team2-server.herokuapp.com/contacts/decline";
 
         JSONObject body = new JSONObject();
         try {
