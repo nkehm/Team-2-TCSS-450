@@ -49,12 +49,15 @@ import java.util.Objects;
 
 import edu.uw.tcss450team2client.model.LocationViewModel;
 import edu.uw.tcss450team2client.databinding.ActivityMainBinding;
+import edu.uw.tcss450team2client.model.NewContactRequestCountViewModel;
 import edu.uw.tcss450team2client.model.NewMessageCountViewModel;
 import edu.uw.tcss450team2client.model.PushyTokenViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.services.PushReceiver;
 import edu.uw.tcss450team2client.ui.chat.ChatMessage;
 import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
+import edu.uw.tcss450team2client.ui.contacts.Contact;
+import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
     private MainPushReceiver mPushReceiver;
 
+    private MainPushRequestReceiver mPushRequestReceiver;
+
     private NewMessageCountViewModel mNewMessageModel;
+
+    private NewContactRequestCountViewModel mNewRequestModel;
 
     private UserInfoViewModel userInfoViewModel;
 
@@ -147,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
+        mNewRequestModel = new ViewModelProvider(this).get(NewContactRequestCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_chat) {
@@ -155,11 +163,32 @@ public class MainActivity extends AppCompatActivity {
                 // multiple chat rooms.
                 mNewMessageModel.reset();
             }
+            if (destination.getId() == R.id.navigation_contacts) {
+                //When the user navigates to the chats page, reset the new message count.
+                // This will need some extra logic for your project as it should have
+                // multiple chat rooms.
+                mNewRequestModel.reset();
+            }
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
 
             BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat); //THIS WAS NAV_CHAT BEFORE I CHANGED IT
+            badge.setMaxCharacterCount(2);
+            if (count > 0) {
+                //new messages! update and show the notification badge.
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
+
+        mNewRequestModel.addContactCountObserver(this, count -> {
+
+            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_contacts); //THIS WAS NAV_CHAT BEFORE I CHANGED IT
             badge.setMaxCharacterCount(2);
             if (count > 0) {
                 //new messages! update and show the notification badge.
@@ -379,11 +408,31 @@ public class MainActivity extends AppCompatActivity {
                         userInfoViewModel.addNotifications(notification);
                     }
                 }
-
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
         }
     }
+
+    private class MainPushRequestReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Notification notification = new Notification();
+            NavController nc =
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+            NavDestination nd = nc.getCurrentDestination();
+            Log.d("PUSHY", "result: " + intent.toString());
+            if (intent.hasExtra("username")) {
+                Log.d("PUSHY", "MainActivity has received contact Invite");
+                // If the user is not on the chat screen, update the
+                // NewRequestCountView Model
+                if (nd.getId() != R.id.navigation_contacts) {
+                    mNewRequestModel.increment();
+                }
+            }
+
+        }
+    }
+
 
     /**
      * Returns UserInfoViewModel.
@@ -398,9 +447,15 @@ public class MainActivity extends AppCompatActivity {
         if (mPushReceiver == null) {
             mPushReceiver = new MainPushReceiver();
         }
+        if (mPushRequestReceiver == null) {
+            mPushRequestReceiver = new MainPushRequestReceiver();
+        }
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(PushReceiver.RECEIVED_NEW_MESSAGE);
         registerReceiver(mPushReceiver, iFilter);
+        IntentFilter iFilterRequest = new IntentFilter();
+        iFilterRequest.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
+        registerReceiver(mPushRequestReceiver, iFilterRequest);
     }
 
     @Override
@@ -408,6 +463,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if (mPushReceiver != null) {
             unregisterReceiver(mPushReceiver);
+        }
+        if (mPushRequestReceiver != null) {
+            unregisterReceiver(mPushRequestReceiver);
         }
     }
 }
