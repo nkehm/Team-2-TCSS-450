@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d("Theme", "onOptionsItemSelected");
         switch (item.getItemId()) {
 
             case R.id.navigate_button_password:
