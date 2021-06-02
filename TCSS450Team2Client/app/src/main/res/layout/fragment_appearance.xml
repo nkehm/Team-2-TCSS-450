@@ -83,7 +83,9 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="@string/button_theme_blue" />
+            android:onClick="changeColorTheme"
+            android:text="@string/button_theme_blue"
+            tools:ignore="OnClick" />
 
         <RadioButton
             android:id="@+id/rb_theme_purple"
@@ -93,7 +95,9 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="@string/button_theme_purple" />
+            android:onClick="changeColorTheme"
+            android:text="@string/button_theme_purple"
+            tools:ignore="OnClick" />
     </RadioGroup>
 
 

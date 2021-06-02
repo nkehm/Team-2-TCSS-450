@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NewMessageCountViewModel mNewMessageModel;
 
-    private UserInfoViewModel userInfoViewModel;
+    private UserInfoViewModel mUserViewModel;
 
     NavController navController;
 
@@ -101,6 +102,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        if (prefs.contains(getString(R.string.keys_prefs_themes))) {
+            int theme = prefs.getInt(getString(R.string.keys_prefs_themes), -1);
+
+            switch (theme) {
+                case 1:
+                    Log.d("main", "set purple");
+                    setTheme(R.style.Theme_Purple);
+                    break;
+                default:
+                    Log.d("main", "set blue");
+                    setTheme(R.style.Theme_Blue);
+                    break;
+            }
+        }
+
         mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -112,10 +133,11 @@ public class MainActivity extends AppCompatActivity {
         String lastName = jwt.getClaim("lastname").asString();
         int memberId = jwt.getClaim("memberid").asInt();
 
-        userInfoViewModel = new ViewModelProvider(this,
+        mUserViewModel = new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(mArgs.getEmail(), mArgs.getJwt(), mArgs.getFirstname(),
                         mArgs.getLastname(), mArgs.getMemberid(), mArgs.getUsername()))
                 .get(UserInfoViewModel.class);
+
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
@@ -356,6 +378,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Changes the color theme of the app.
+     * @param view the theme to change to
+     */
+    public void changeColorTheme(View view) {
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        Log.d("main", "view:" + view.getId() + ", theme:" + mUserViewModel.getTheme());
+        Log.d("main", "blue view:" + R.id.rb_theme_blue + ", blue theme:" + R.style.Theme_Blue);
+        Log.d("main", "purple view:" + R.id.rb_theme_purple + ", purple theme:" + R.style.Theme_Purple);
+
+        if (view.getId() == R.id.rb_theme_blue
+                && mUserViewModel.getTheme() != R.style.Theme_Blue) {
+            Log.d("main", "blue");
+            mUserViewModel.setTheme(R.style.Theme_Blue);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 0).apply();
+            recreate();
+        } else if (view.getId() == R.id.rb_theme_purple
+                && mUserViewModel.getTheme() != R.style.Theme_Purple) {
+            Log.d("main", "purple");
+            mUserViewModel.setTheme(R.style.Theme_Purple);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 1).apply();
+            Log.d("main", "view:" + view.getId() + ", theme:" + mUserViewModel.getTheme());
+
+            recreate();
+//        } else if (view.getId() == R.id.settings_color_go
+//                && mUserViewModel.getTheme() != R.style.Theme_GreyOrange) {
+//            mUserViewModel.setTheme(R.style.Theme_GreyOrange);
+//            prefs.edit().putInt(getString(R.string.keys_prefs_theme), 2).apply();
+//            recreate();
+        }
+    }
+
+    /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
     private class MainPushReceiver extends BroadcastReceiver {
@@ -377,12 +435,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //Inform the view model holding chatroom messages of the new
                 // message.
-                if (userInfoViewModel != null && userInfoViewModel.getUsername() != null) {
+                if (mUserViewModel != null && mUserViewModel.getUsername() != null) {
                     Log.d("PUSHY", "Message from" + cm.getSender());
-                    if (!cm.getSender().equals(userInfoViewModel.getUsername())) {
+                    if (!cm.getSender().equals(mUserViewModel.getUsername())) {
                         Log.d("PUSHY", "We didn't send this message!" + cm.getSender());
                         notification.setData(cm);
-                        userInfoViewModel.addNotifications(notification);
+                        mUserViewModel.addNotifications(notification);
                     }
                 }
 
@@ -395,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
      * Returns UserInfoViewModel.
      */
     public UserInfoViewModel getUserInfoViewModel() {
-        return userInfoViewModel;
+        return mUserViewModel;
     }
 
     @Override

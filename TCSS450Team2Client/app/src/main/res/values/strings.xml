@@ -84,7 +84,7 @@
     <string name="textview_themes">Themes:</string>
     <string name="button_theme_blue">Blue</string>
     <string name="button_theme_purple">Purple</string>
-
+    <string name="keys_prefs_themes">KEY_THEME</string>
 
 
 
