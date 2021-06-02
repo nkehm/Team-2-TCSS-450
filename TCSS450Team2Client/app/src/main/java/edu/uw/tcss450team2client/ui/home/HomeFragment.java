@@ -2,36 +2,20 @@ package edu.uw.tcss450team2client.ui.home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.List;
-import java.util.Objects;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentHomeBinding;
-import edu.uw.tcss450team2client.model.LocationViewModel;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
-import edu.uw.tcss450team2client.ui.weather.WeatherData;
 import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
 
 /**
@@ -40,7 +24,6 @@ import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private WeatherViewModel mWeatherModel;
-    private boolean mFirst;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,10 +40,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentHomeBinding binding =  FragmentHomeBinding.inflate(inflater);
-        if(mFirst){
-            mWeatherModel.connectGet();
-            mFirst = false;
-        }
         return binding.getRoot();
     }
 

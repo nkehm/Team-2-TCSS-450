@@ -58,6 +58,7 @@ import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Invitation;
+import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     private NewMessageCountViewModel mNewMessageModel;
 
     private UserInfoViewModel mUserViewModel;
+
+    private WeatherViewModel mWeatherModel;
 
     private NewContactRequestCountViewModel mNewRequestModel;
 
@@ -155,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
                 new UserInfoViewModel.UserInfoViewModelFactory(mArgs.getEmail(), mArgs.getJwt(), mArgs.getFirstname(),
                         mArgs.getLastname(), mArgs.getMemberid(), mArgs.getUsername()))
                 .get(UserInfoViewModel.class);
+
+        mWeatherModel = new ViewModelProvider(this).get(WeatherViewModel.class);
+        mWeatherModel.setUserInfoViewModel(mUserViewModel);
+        mWeatherModel.connectGet();
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
