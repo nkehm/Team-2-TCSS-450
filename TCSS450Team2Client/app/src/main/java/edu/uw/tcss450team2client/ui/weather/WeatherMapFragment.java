@@ -48,7 +48,9 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
     /**
      * LatLng object.
      */
-    private LatLng mLatLng;
+    static private LatLng mLatLng;
+
+    static private boolean mCheck = false;
 
     /**
      * Empty public constructor.
@@ -127,6 +129,14 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                         latLng, mMap.getCameraPosition().zoom));
         binding.textLatLong.setText("Latitude:" + Double.toString(latLng.latitude) + "\nLongitude:" + Double.toString(latLng.longitude));
         mLatLng = latLng;
+        mCheck = true;
+    }
+    static public boolean check(){return mCheck;}
+    static public String getLat(){
+        return Double.toString(mLatLng.latitude);
+    }
+    static public String getLng(){
+        return Double.toString(mLatLng.longitude);
     }
 
 }
