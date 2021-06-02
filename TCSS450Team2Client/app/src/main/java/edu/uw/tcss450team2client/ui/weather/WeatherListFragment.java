@@ -79,12 +79,9 @@ public class WeatherListFragment extends Fragment {
         FragmentWeatherListBinding binding = FragmentWeatherListBinding.bind(getView());
         binding.buttonSearch.setOnClickListener(this::searchZip);
         binding.buttonMap.setOnClickListener(this::searchMap);
-        /*WeatherListFragmentArgs args = WeatherListFragmentArgs.fromBundle(getArguments());
-
-        if (!args.getLat().equals("default") && !args.getLng().equals("default")){
-            Log.d("Lat/Long", "You got here!" + args.getLat() + "" + args.getLng());
-            mModel.connectGet(args.getLat(),args.getLng());
-        }*/
+        if(WeatherMapFragment.check() == true){
+            mModel.connectGet(WeatherMapFragment.getLat(),WeatherMapFragment.getLng());
+        }
 
         mModel.addLocationObserver(getViewLifecycleOwner(), location -> {
             if (!location.isEmpty()) {
