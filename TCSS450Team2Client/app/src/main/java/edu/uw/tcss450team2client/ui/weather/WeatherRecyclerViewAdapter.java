@@ -91,11 +91,9 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<edu.uw.tcss
             }
 
             if (data.getTemp() == -1|| data.getTemp() < -459) {
-                binding.textviewLowTempList.setText(String.format("%.2f", data.getTempMin()));
                 binding.textviewHighTemp.setText(String.format("%.2f", data.getTempMax()));
             } else {
                 binding.textviewHighTemp.setText(String.format("%.2f", data.getTemp()));
-                binding.textviewLowTempList.setText(String.format("%.2f", data.getTempMin()));
             }
         }
     }
