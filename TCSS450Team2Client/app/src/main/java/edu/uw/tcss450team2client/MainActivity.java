@@ -3,8 +3,8 @@ package edu.uw.tcss450team2client;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -27,12 +27,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -112,12 +109,16 @@ public class MainActivity extends AppCompatActivity {
 
             switch (theme) {
                 case 1:
-                    Log.d("main", "set purple");
-                    setTheme(R.style.Theme_Purple);
+                    Log.d("main", "set indigo");
+                    setTheme(R.style.Theme_Indigo);
+                    break;
+                case 2:
+                    Log.d("main", "set teal");
+                    setTheme(R.style.Theme_Teal);
                     break;
                 default:
-                    Log.d("main", "set blue");
-                    setTheme(R.style.Theme_Blue);
+                    Log.d("main", "set light blue");
+                    setTheme(R.style.Theme_LightBlue);
                     break;
             }
         }
@@ -387,29 +388,42 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.keys_shared_prefs),
                         Context.MODE_PRIVATE);
 
-        Log.d("main", "view:" + view.getId() + ", theme:" + mUserViewModel.getTheme());
-        Log.d("main", "blue view:" + R.id.rb_theme_blue + ", blue theme:" + R.style.Theme_Blue);
-        Log.d("main", "purple view:" + R.id.rb_theme_purple + ", purple theme:" + R.style.Theme_Purple);
-
-        if (view.getId() == R.id.rb_theme_blue
-                && mUserViewModel.getTheme() != R.style.Theme_Blue) {
-            Log.d("main", "blue");
-            mUserViewModel.setTheme(R.style.Theme_Blue);
+        if (view.getId() == R.id.rb_theme_lightblue
+                && mUserViewModel.getTheme() != R.style.Theme_LightBlue) {
+            mUserViewModel.setTheme(R.style.Theme_LightBlue);
             prefs.edit().putInt(getString(R.string.keys_prefs_themes), 0).apply();
             recreate();
-        } else if (view.getId() == R.id.rb_theme_purple
-                && mUserViewModel.getTheme() != R.style.Theme_Purple) {
-            Log.d("main", "purple");
-            mUserViewModel.setTheme(R.style.Theme_Purple);
+        } else if (view.getId() == R.id.rb_theme_indigo
+                && mUserViewModel.getTheme() != R.style.Theme_Indigo) {
+            mUserViewModel.setTheme(R.style.Theme_Indigo);
             prefs.edit().putInt(getString(R.string.keys_prefs_themes), 1).apply();
-            Log.d("main", "view:" + view.getId() + ", theme:" + mUserViewModel.getTheme());
-
             recreate();
-//        } else if (view.getId() == R.id.settings_color_go
-//                && mUserViewModel.getTheme() != R.style.Theme_GreyOrange) {
-//            mUserViewModel.setTheme(R.style.Theme_GreyOrange);
-//            prefs.edit().putInt(getString(R.string.keys_prefs_theme), 2).apply();
-//            recreate();
+        } else if (view.getId() == R.id.rb_theme_teal
+                && mUserViewModel.getTheme() != R.style.Theme_Teal) {
+            mUserViewModel.setTheme(R.style.Theme_Teal);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 2).apply();
+            recreate();
+        }
+    }
+
+    /**
+     * Changes the dark mode of the app.
+     * @param view the view from button clicked
+     */
+    public void changeDarkMode(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (view.getId() == R.id.rb_darkmode_off && mUserViewModel.getDMode() != 0 && checked) {
+            mUserViewModel.setDMode(0);
+            prefs.edit().putInt(getString(R.string.keys_prefs_modes), 0).apply();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (view.getId() == R.id.rb_darkmode_on && mUserViewModel.getDMode() != 1 && checked) {
+            mUserViewModel.setDMode(1);
+            prefs.edit().putInt(getString(R.string.keys_prefs_modes), 1).apply();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
     }
 

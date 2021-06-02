@@ -22,8 +22,11 @@ public class UserInfoViewModel extends ViewModel {
     private final int mMemberId;
     private final MutableLiveData<List<Notification>> mNotificationList;
 
-    /** Current Theme **/
+    // theme
     private Integer mTheme;
+
+    // dark mode
+    private Integer mDMode;
 
 
     private UserInfoViewModel(String email, String jwt, String fName,
@@ -36,7 +39,8 @@ public class UserInfoViewModel extends ViewModel {
         mMemberId = memberId;
         mNotificationList = new MutableLiveData<>();
         mNotificationList.setValue(new ArrayList<>());
-        mTheme = R.style.Theme_Blue;
+        mTheme = R.style.Theme_LightBlue;
+        mDMode = 0;
     }
 
     public void addNotifications(Notification notification) {
@@ -99,6 +103,22 @@ public class UserInfoViewModel extends ViewModel {
      */
     public void setTheme(final int theme) {
         mTheme = theme;
+    }
+
+    /**
+     * Get app dark mode.
+     * @return current mode of app
+     */
+    public int getDMode() {
+        return mDMode;
+    }
+
+    /**
+     * Set app dark mode.
+     * @param dMode mode to change to
+     */
+    public void setDMode(final int dMode) {
+        mDMode = dMode;
     }
 
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {

@@ -82,9 +82,12 @@
     <string name="button_darkmode_off">Off</string>
     <string name="button_darkmode_on">On</string>
     <string name="textview_themes">Themes:</string>
-    <string name="button_theme_blue">Blue</string>
-    <string name="button_theme_purple">Purple</string>
+    <string name="button_theme_lightBlue">Light Blue</string>
+    <string name="button_theme_indigo">Indigo</string>
+    <string name="button_theme_teal">Teal</string>
     <string name="keys_prefs_themes">KEY_THEME</string>
+    <string name="keys_prefs_modes">KEY_MODE</string>
+
 
 
 

@@ -60,45 +60,37 @@ public class AppearanceFragment extends Fragment {
             int theme = prefs.getInt(getString(R.string.keys_prefs_themes), -1);
 
             switch (theme) {
-                case 1:
-                    binding.rbThemePurple.setChecked(true);
-                    mUserViewModel.setTheme(R.style.Theme_Purple);
-                    break;
                 case 0:
                 default:
-                    binding.rbThemeBlue.setChecked(true);
-                    mUserViewModel.setTheme(R.style.Theme_Blue);
+                    binding.rbThemeLightblue.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_LightBlue);
+                    break;
+                case 1:
+                    binding.rbThemeIndigo.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_Indigo);
+                    break;
+                case 2:
+                    binding.rbThemeTeal.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_Teal);
                     break;
             }
         } else {
-            binding.rbThemeBlue.setChecked(true);
+            binding.rbThemeLightblue.setChecked(true);
         }
 
-        // save theme state
-        SharedPreferences mPrefs = this.requireActivity().getSharedPreferences("LIGHTMODE", 0);
-        mLightMode = mPrefs.getBoolean("lightMode", true);
-        if (mLightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        if (prefs.contains(getString(R.string.keys_prefs_modes))) {
+            int darkMode = prefs.getInt(getString(R.string.keys_prefs_modes), -1);
 
-        }
-
-        binding.rgDarkmode.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.rb_darkmode_off) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                mLightMode = true;
-            } else  if (checkedId == R.id.rb_darkmode_on) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                mLightMode = false;
+            if (darkMode == 0) {
+                binding.rbDarkmodeOff.setChecked(true);
+                mUserViewModel.setDMode(0);
+            } else if (darkMode == 1) {
+                binding.rbDarkmodeOn.setChecked(true);
+                mUserViewModel.setDMode(1);
+            } else {
+                binding.rbDarkmodeOff.setChecked(true);
             }
-            SharedPreferences.Editor mEditor = mPrefs.edit();
-            mEditor.putBoolean("lightMode", mLightMode).apply();
-        });
+        }
 
-//        binding.rgThemes.setOnCheckedChangeListener(((group, checkedId) -> {
-//            if (checkedId == R.id.rb_theme_blue) {
-//            }
-//        }));
     }
 }
