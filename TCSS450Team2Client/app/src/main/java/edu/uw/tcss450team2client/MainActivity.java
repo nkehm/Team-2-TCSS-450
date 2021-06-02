@@ -123,6 +123,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        int darkMode = prefs.getInt(getString(R.string.keys_prefs_modes), -1);
+        if (darkMode == 0) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (darkMode == 1) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
