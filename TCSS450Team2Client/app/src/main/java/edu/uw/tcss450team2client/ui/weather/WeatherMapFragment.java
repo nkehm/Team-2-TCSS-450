@@ -127,7 +127,7 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
-        binding.textLatLong.setText("Latitude:" + Double.toString(latLng.latitude) + "\nLongitude:" + Double.toString(latLng.longitude));
+        binding.textLatLong.setText("Latitude:" + String.format("%.2f",latLng.latitude) + "\nLongitude:" + String.format("%.2f",latLng.longitude));
         mLatLng = latLng;
         mCheck = true;
     }
