@@ -43,8 +43,7 @@ public class VerificationFragment extends Fragment {
 
         FragmentVerificationBinding binding = FragmentVerificationBinding.bind(getView());
         binding.editPersonalGreeting.setText("Hello " + args.getFirstname() + " " +
-                args.getLastname() + "! Please confirm your email at " + args.getEmail() +
-                " so you can start enjoying appName");
+                args.getLastname() + "! Please confirm your email at " + args.getEmail());
 
         binding.buttonVerify.setOnClickListener(button -> navigateToLogin(args));
     }
