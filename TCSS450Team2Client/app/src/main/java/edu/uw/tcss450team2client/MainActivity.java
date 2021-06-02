@@ -3,8 +3,8 @@ package edu.uw.tcss450team2client;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -26,12 +26,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.auth0.android.jwt.JWT;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -60,6 +58,7 @@ import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Invitation;
+import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     private NewMessageCountViewModel mNewMessageModel;
 
-    private NewContactRequestCountViewModel mNewRequestModel;
+    private UserInfoViewModel mUserViewModel;
 
-    private UserInfoViewModel userInfoViewModel;
+    private WeatherViewModel mWeatherModel;
+
+    private NewContactRequestCountViewModel mNewRequestModel;
 
     NavController navController;
 
@@ -109,6 +110,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        if (prefs.contains(getString(R.string.keys_prefs_themes))) {
+            int theme = prefs.getInt(getString(R.string.keys_prefs_themes), -1);
+
+            switch (theme) {
+                case 1:
+                    Log.d("main", "set indigo");
+                    setTheme(R.style.Theme_Indigo);
+                    break;
+                case 2:
+                    Log.d("main", "set teal");
+                    setTheme(R.style.Theme_Teal);
+                    break;
+                default:
+                    Log.d("main", "set light blue");
+                    setTheme(R.style.Theme_LightBlue);
+                    break;
+            }
+        }
+
+        int darkMode = prefs.getInt(getString(R.string.keys_prefs_modes), -1);
+        if (darkMode == 0) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (darkMode == 1) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -120,10 +154,14 @@ public class MainActivity extends AppCompatActivity {
         String lastName = jwt.getClaim("lastname").asString();
         int memberId = jwt.getClaim("memberid").asInt();
 
-        userInfoViewModel = new ViewModelProvider(this,
+        mUserViewModel = new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(mArgs.getEmail(), mArgs.getJwt(), mArgs.getFirstname(),
                         mArgs.getLastname(), mArgs.getMemberid(), mArgs.getUsername()))
                 .get(UserInfoViewModel.class);
+
+        mWeatherModel = new ViewModelProvider(this).get(WeatherViewModel.class);
+        mWeatherModel.setUserInfoViewModel(mUserViewModel);
+        mWeatherModel.connectGet();
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
@@ -227,7 +265,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d("Theme", "onOptionsItemSelected");
         switch (item.getItemId()) {
 
             case R.id.navigate_button_password:
@@ -370,6 +407,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Changes the color theme of the app.
+     * @param view the theme to change to
+     */
+    public void changeColorTheme(View view) {
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        if (view.getId() == R.id.rb_theme_lightblue
+                && mUserViewModel.getTheme() != R.style.Theme_LightBlue) {
+            mUserViewModel.setTheme(R.style.Theme_LightBlue);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 0).apply();
+            recreate();
+        } else if (view.getId() == R.id.rb_theme_indigo
+                && mUserViewModel.getTheme() != R.style.Theme_Indigo) {
+            mUserViewModel.setTheme(R.style.Theme_Indigo);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 1).apply();
+            recreate();
+        } else if (view.getId() == R.id.rb_theme_teal
+                && mUserViewModel.getTheme() != R.style.Theme_Teal) {
+            mUserViewModel.setTheme(R.style.Theme_Teal);
+            prefs.edit().putInt(getString(R.string.keys_prefs_themes), 2).apply();
+            recreate();
+        }
+    }
+
+    /**
+     * Changes the dark mode of the app.
+     * @param view the view from button clicked
+     */
+    public void changeDarkMode(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+        SharedPreferences prefs =
+                this.getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (view.getId() == R.id.rb_darkmode_off && mUserViewModel.getDMode() != 0 && checked) {
+            mUserViewModel.setDMode(0);
+            prefs.edit().putInt(getString(R.string.keys_prefs_modes), 0).apply();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (view.getId() == R.id.rb_darkmode_on && mUserViewModel.getDMode() != 1 && checked) {
+            mUserViewModel.setDMode(1);
+            prefs.edit().putInt(getString(R.string.keys_prefs_modes), 1).apply();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+    }
+
+    /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
     private class MainPushReceiver extends BroadcastReceiver {
@@ -391,12 +477,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //Inform the view model holding chatroom messages of the new
                 // message.
-                if (userInfoViewModel != null && userInfoViewModel.getUsername() != null) {
+                if (mUserViewModel != null && mUserViewModel.getUsername() != null) {
                     Log.d("PUSHY", "Message from" + cm.getSender());
-                    if (!cm.getSender().equals(userInfoViewModel.getUsername())) {
+                    if (!cm.getSender().equals(mUserViewModel.getUsername())) {
                         Log.d("PUSHY", "We didn't send this message!" + cm.getSender());
                         notification.setData(cm);
-                        userInfoViewModel.addNotifications(notification);
+                        mUserViewModel.addNotifications(notification);
                     }
                 }
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
@@ -407,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
                     mNewRequestModel.increment();
                 }
                 notification.setData(contactRequest);
-                userInfoViewModel.addNotifications(notification);
+                mUserViewModel.addNotifications(notification);
             }
         }
     }
@@ -437,7 +523,7 @@ public class MainActivity extends AppCompatActivity {
      * Returns UserInfoViewModel.
      */
     public UserInfoViewModel getUserInfoViewModel() {
-        return userInfoViewModel;
+        return mUserViewModel;
     }
 
     @Override
