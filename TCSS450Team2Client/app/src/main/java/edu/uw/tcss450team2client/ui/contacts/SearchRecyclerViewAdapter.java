@@ -35,12 +35,14 @@ public class SearchRecyclerViewAdapter  extends
     private List<Contact> mContactsFull;
     private UserInfoViewModel mUserModel;
     private ContactListViewModel mViewModel;
+    private View searchView;
 
 
     public SearchRecyclerViewAdapter(List<Contact> contacts, UserInfoViewModel userModel,
                                      ContactListViewModel viewModel) {
         this.mContacts = contacts;
         this.mContactsFull = new ArrayList<>(contacts);
+        searchFilter.filter(null);
         this.mUserModel = userModel;
         this.mViewModel = viewModel;
     }
@@ -55,9 +57,7 @@ public class SearchRecyclerViewAdapter  extends
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-
-        View searchView = inflater.inflate(R.layout.contact_search_item, parent, false);
-
+        searchView = inflater.inflate(R.layout.contact_search_item, parent, false);
         return new SearchViewHolder(searchView);
     }
 
@@ -105,19 +105,20 @@ public class SearchRecyclerViewAdapter  extends
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Contact> filteredList = new ArrayList<>();
-
+            FilterResults results = new FilterResults();
             if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(mContactsFull);
+                filteredList.clear();
+                return results;
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (Contact contact : mContactsFull) {
-                    if (contact.getFirstName().toLowerCase().contains(filterPattern) ||
-                            contact.getLastName().toLowerCase().contains(filterPattern)) {
+                    String wholeName = contact.getFirstName().toLowerCase() + " " +
+                            contact.getLastName().toLowerCase();
+                    if (wholeName.contains(filterPattern)) {
                         filteredList.add(contact);
                     }
                 }
             }
-            FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
         }
@@ -125,7 +126,9 @@ public class SearchRecyclerViewAdapter  extends
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mContacts.clear();
-            mContacts.addAll((List<Contact>) results.values);
+            if (results.values != null) {
+                mContacts.addAll((List<Contact>) results.values);
+            }
             notifyDataSetChanged();
         }
     };
