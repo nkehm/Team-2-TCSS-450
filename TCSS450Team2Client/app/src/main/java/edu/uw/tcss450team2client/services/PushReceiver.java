@@ -99,7 +99,7 @@ public class PushReceiver extends BroadcastReceiver {
                         (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
                 // Build the notification and display it
-                notificationManager.notify(1, builder.build());
+                notificationManager.notify(chatId, builder.build());
             }
         } else if (typeOfMessage.equals("contact")) {
 
@@ -154,7 +154,7 @@ public class PushReceiver extends BroadcastReceiver {
                         (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
                 // Build the notification and display it
-                notificationManager.notify(1, builder.build());
+                notificationManager.notify(-1, builder.build());
             }
         }
     }
