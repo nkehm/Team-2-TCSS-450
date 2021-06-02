@@ -8,32 +8,30 @@
     tools:context=".ui.settings.AppearanceFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/textview_themes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/textview_themes"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rg_darkmode" />
 
     <RadioGroup
         android:id="@+id/rg_darkmode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:orientation="vertical"
         android:outlineProvider="none"
         android:padding="4dp"
-        android:theme="@style/Theme.TCSS450Team2Client"
+        android:theme="@style/Theme.Blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!--radio button for light theme-->
-
-        <!--radio button for dark theme-->
+        app:layout_constraintTop_toBottomOf="@+id/textview_darkmode">
 
         <RadioButton
             android:id="@+id/rb_darkmode_off"
@@ -61,10 +59,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
         android:text="@string/textview_darkmode"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/rg_darkmode"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:outlineProvider="none"
+        android:padding="4dp"
+        android:theme="@style/Theme.Blue"
+        app:layout_constraintTop_toBottomOf="@+id/textview_themes">
+
+        <RadioButton
+            android:id="@+id/rb_theme_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="@string/button_theme_blue" />
+
+        <RadioButton
+            android:id="@+id/rb_theme_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="@string/button_theme_purple" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

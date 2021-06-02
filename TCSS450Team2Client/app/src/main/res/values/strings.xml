@@ -81,6 +81,11 @@
     <string name="textview_darkmode">Dark Mode:</string>
     <string name="button_darkmode_off">Off</string>
     <string name="button_darkmode_on">On</string>
+    <string name="textview_themes">Themes:</string>
+    <string name="button_theme_blue">Blue</string>
+    <string name="button_theme_purple">Purple</string>
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

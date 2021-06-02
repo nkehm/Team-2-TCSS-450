@@ -65,5 +65,10 @@ public class AppearanceFragment extends Fragment {
             SharedPreferences.Editor mEditor = mPrefs.edit();
             mEditor.putBoolean("lightMode", mLightMode).apply();
         });
+
+        binding.rgThemes.setOnCheckedChangeListener(((group, checkedId) -> {
+            if (checkedId == R.id.rb_theme_blue) {
+            }
+        }));
     }
 }
