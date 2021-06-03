@@ -77,6 +77,8 @@ public class ChatRoom implements Serializable {
         request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(mContext.getApplicationContext()).add(request);
+
+        Log.d("test log", "anything");
     }
 
     /**
@@ -92,6 +94,7 @@ public class ChatRoom implements Serializable {
     }
 
     private void handleResult(final JSONObject result) {
+        Log.d("test log", result.toString());
         if (!result.has("rows")) {
             throw new IllegalStateException("Unexpected response in ChatRoom: " + result);
         }
@@ -110,6 +113,8 @@ public class ChatRoom implements Serializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+
     }
 
     public int getChatId() {
@@ -124,7 +129,7 @@ public class ChatRoom implements Serializable {
         return mEmailList;
     }
 
-    ;
+
 }
 
 

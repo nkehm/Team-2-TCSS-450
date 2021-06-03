@@ -74,7 +74,8 @@ public class ChatFragment extends Fragment {
         //holds.
         rv.setAdapter(new ChatRecyclerViewAdapter(
                 mChatModel.getMessageListByChatId(mChatId),
-                mUserModel.getEmail()));
+                mUserModel.getEmail(),
+                mUserModel.getUsername()));
 
 
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
