@@ -91,7 +91,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
      * @param email registered email
      */
     public void connect(final String email) {
-        String url = "https://tcss450-team2-server.herokuapp.com";  // Does this use auth endpoint or new endpoint??
+        String url = "https://tcss450-team2-server.herokuapp.com/recovery";  // Does this use auth endpoint or new endpoint??
         JSONObject body = new JSONObject();
         try {
             body.put("email", email);

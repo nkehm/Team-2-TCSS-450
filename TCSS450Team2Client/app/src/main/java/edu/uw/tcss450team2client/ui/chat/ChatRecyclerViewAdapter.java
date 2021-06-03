@@ -1,11 +1,13 @@
 package edu.uw.tcss450team2client.ui.chat;
 
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.graphics.ColorUtils;
@@ -23,11 +25,12 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     private final List<ChatMessage> mMessages;
     private final String mEmail;
-    //private final String mUsername;
+    private final String mUsername;
 
-    public ChatRecyclerViewAdapter(List<ChatMessage> messages, String email) {
+    public ChatRecyclerViewAdapter(List<ChatMessage> messages, String email, String username) {
         this.mMessages = messages;
         mEmail = email;
+        mUsername = username;
     }
 
     @NonNull
@@ -66,27 +69,33 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             int standard = (int) res.getDimension(R.dimen.chat_margin);
             int extended = (int) res.getDimension(R.dimen.chat_margin_sided);
 
-            if (mEmail.equals(message.getSender())) {
+
+            if (mUsername.equals(message.getSender())) {
                 //This message is from the user. Format it as such
-                binding.textMessage.setText(message.getMessage());
+                binding.textMessage.setText(message.getSender() +
+                        ": " + message.getMessage());
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
                 //Set the left margin
                 layoutParams.setMargins(extended, standard, standard, standard);
                 // Set this View to the right (end) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
+                ((LinearLayout.LayoutParams) card.getLayoutParams()).gravity =
+                        Gravity.END;
+
+                binding.textviewTimestamp.setText(message.getTimeStamp());
+                ((LinearLayout.LayoutParams) binding.textviewTimestamp.getLayoutParams()).gravity =
                         Gravity.END;
 
                 card.setCardBackgroundColor(
                         ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.primaryLightColor, null),
+                                res.getColor(R.color.teal_100, null),
                                 16));
                 binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
+                        res.getColor(R.color.black, null));
 
                 card.setStrokeWidth(standard / 5);
                 card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.primaryLightColor, null),
+                        res.getColor(R.color.teal_100, null),
                         200));
 
                 //Round the corners on the left side
@@ -107,24 +116,28 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
 
+                binding.textviewTimestamp.setText(message.getTimeStamp());
+                ((LinearLayout.LayoutParams) binding.textviewTimestamp.getLayoutParams()).gravity =
+                        Gravity.START;
+
                 //Set the right margin
                 layoutParams.setMargins(standard, standard, extended, standard);
                 // Set this View to the left (start) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
+                ((LinearLayout.LayoutParams) card.getLayoutParams()).gravity =
                         Gravity.START;
 
                 card.setCardBackgroundColor(
                         ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.secondaryLightColor, null),
+                                res.getColor(R.color.cyan_400, null),
                                 16));
 
                 card.setStrokeWidth(standard / 5);
                 card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.secondaryLightColor, null),
+                        res.getColor(R.color.cyan_400, null),
                         200));
 
                 binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
+                        res.getColor(R.color.black, null));
 
                 //Round the corners on the right side
                 card.setShapeAppearanceModel(
