@@ -105,9 +105,9 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
                 if (strings.isEmpty()) {
                     return;
                 }
-                String email = strings.get(1);
+                String emails = String.join(", ", strings);
                 Log.d("test log", strings.toString());
-                binding.textMessageName.setText(email);
+                binding.textMessageName.setText(emails);
             };
 
             if (mObserver != null){
