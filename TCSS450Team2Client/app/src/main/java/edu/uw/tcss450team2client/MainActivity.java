@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainPushReceiver mPushReceiver;
 
-//    private MainPushRequestReceiver mPushRequestReceiver;
+    private MainPushRequestReceiver mPushRequestReceiver;
 
     private NewMessageCountViewModel mNewMessageModel;
 
@@ -503,25 +503,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private class MainPushRequestReceiver extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            Notification notification = new Notification();
-//            NavController nc =
-//                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-//            NavDestination nd = nc.getCurrentDestination();
-//            Log.d("PUSHY", "result: " + intent.toString());
-//            if (intent.hasExtra("username")) {
-//                Log.d("PUSHY", "MainActivity has received contact Invite");
-//                // If the user is not on the chat screen, update the
-//                // NewRequestCountView Model
-//                if (nd.getId() != R.id.navigation_contacts) {
-//                    mNewRequestModel.increment();
-//                }
-//            }
-//
-//        }
-//    }
+    private class MainPushRequestReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Notification notification = new Notification();
+            NavController nc =
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+            NavDestination nd = nc.getCurrentDestination();
+            Log.d("PUSHY", "result: " + intent.toString());
+            if (intent.hasExtra("username")) {
+                Log.d("PUSHY", "MainActivity has received contact Invite");
+                // If the user is not on the chat screen, update the
+                // NewRequestCountView Model
+                if (nd.getId() != R.id.navigation_contacts) {
+                    mNewRequestModel.increment();
+                }
+            }
+
+        }
+    }
 
 
     /**
@@ -537,16 +537,16 @@ public class MainActivity extends AppCompatActivity {
         if (mPushReceiver == null) {
             mPushReceiver = new MainPushReceiver();
         }
-//        if (mPushRequestReceiver == null) {
-//            mPushRequestReceiver = new MainPushRequestReceiver();
-//        }
+        if (mPushRequestReceiver == null) {
+            mPushRequestReceiver = new MainPushRequestReceiver();
+        }
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(PushReceiver.RECEIVED_NEW_MESSAGE);
         iFilter.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
         registerReceiver(mPushReceiver, iFilter);
-//        IntentFilter iFilterRequest = new IntentFilter();
-//        iFilterRequest.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
-//        registerReceiver(mPushRequestReceiver, iFilterRequest);
+        IntentFilter iFilterRequest = new IntentFilter();
+        iFilterRequest.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
+        registerReceiver(mPushRequestReceiver, iFilterRequest);
     }
 
     @Override
@@ -555,8 +555,8 @@ public class MainActivity extends AppCompatActivity {
         if (mPushReceiver != null) {
             unregisterReceiver(mPushReceiver);
         }
-//        if (mPushRequestReceiver != null) {
-//            unregisterReceiver(mPushRequestReceiver);
-//        }
+        if (mPushRequestReceiver != null) {
+            unregisterReceiver(mPushRequestReceiver);
+        }
     }
 }
