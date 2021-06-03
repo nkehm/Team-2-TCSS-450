@@ -159,6 +159,7 @@ public class ChatListViewModel extends AndroidViewModel {
         String url = getApplication().getResources().getString(R.string.base_url) + "chats"
                 + "?chatId=" + chatId
                 + "&email=" + userInfoViewModel.getEmail();
+        Log.d("test log", url);
 
         Request request = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 this::handleDeleteResult, this::handleError) {
@@ -195,7 +196,6 @@ public class ChatListViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public void connectAddChat(String nameOfChat, ArrayList<String> usernames) {

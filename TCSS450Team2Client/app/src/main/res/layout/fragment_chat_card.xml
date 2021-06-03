@@ -29,7 +29,9 @@
 
         <TextView
             android:id="@+id/textMessageName"
-            android:layout_width="wrap_content"
+            tools:text="Chat Room 1"
+            android:layout_width="0dp"
+            android:ellipsize="end"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"

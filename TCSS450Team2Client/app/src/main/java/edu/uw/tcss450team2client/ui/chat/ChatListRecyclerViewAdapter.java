@@ -102,8 +102,12 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             LiveData<List<String>> liveData = chatRoom.getLiveEmailList();
             Observer<List<String>> observer = strings -> {
-                String emails = String.join(", ", strings);
-                binding.textMessageRecent.setText("Chat Room : #: " + emails);
+                if (strings.isEmpty()) {
+                    return;
+                }
+                String email = strings.get(1);
+                Log.d("test log", strings.toString());
+                binding.textMessageName.setText(email);
             };
 
             if (mObserver != null){
@@ -111,8 +115,8 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
             }
             liveData.observe(mParent, observer);
             mObserver = observer;
-            String emails = String.join(", ", liveData.getValue());
-            binding.textMessageRecent.setText("Chat Room: #: " + emails);
+//            String emails = String.join(", ", liveData.getValue());
+//            binding.textMessageName.setText("Chat Room: #: " + emails);
         }
 
 //        private void navigateToChat() {

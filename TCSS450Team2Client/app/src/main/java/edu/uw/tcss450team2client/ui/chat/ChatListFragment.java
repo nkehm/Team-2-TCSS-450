@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class ChatListFragment extends Fragment {
 
 
     public void deleteChat(final int chatId) {
+        Log.d("test log", "anything");
         mModel.connectDeleteChat(chatId);
 //         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
 //             // if (!chatList.isEmpty()) {
