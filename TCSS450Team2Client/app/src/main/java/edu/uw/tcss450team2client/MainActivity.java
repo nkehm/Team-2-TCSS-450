@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private UserInfoViewModel mUserViewModel;
 
     private WeatherViewModel mWeatherModel;
+    private static boolean mFirstConnect = true;
 
     private NewContactRequestCountViewModel mNewRequestModel;
 
@@ -161,7 +162,11 @@ public class MainActivity extends AppCompatActivity {
 
         mWeatherModel = new ViewModelProvider(this).get(WeatherViewModel.class);
         mWeatherModel.setUserInfoViewModel(mUserViewModel);
-        mWeatherModel.connectGet();
+
+        if (mFirstConnect) {
+            mWeatherModel.connectGet();
+            mFirstConnect  = false;
+        }
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
