@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -155,7 +156,7 @@
         android:layout_marginTop="4dp"
         android:background="#00FFFFFF"
         android:src="@android:drawable/ic_dialog_map"
-        android:tint="#000000"
+        android:tint="?attr/colorControlNormal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textview_zipData"
         app:layout_constraintTop_toBottomOf="@+id/button_search" />

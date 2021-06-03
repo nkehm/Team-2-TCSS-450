@@ -26,6 +26,7 @@
     <string name="action_forgot_password">Forgot Password</string>
     <string name="text_forgot_password_description">Enter the email associated with your account.</string>
     <string name="text_email_reset">A link will be sent to your email to reset your password.</string>
+    <string name="textview_forgotPassword_description">A link will be sent to your email to update your password.</string>
     <string name="text_forgot_password">Recover Password</string>
     <string name="button_recoverPassword_send">Send</string>
     <string name="switch_sign_in">Stay Signed in</string>
@@ -81,6 +82,14 @@
     <string name="textview_darkmode">Dark Mode:</string>
     <string name="button_darkmode_off">Off</string>
     <string name="button_darkmode_on">On</string>
+    <string name="textview_themes">Themes:</string>
+    <string name="button_theme_lightBlue">Light Blue</string>
+    <string name="button_theme_indigo">Indigo</string>
+    <string name="button_theme_teal">Teal</string>
+    <string name="keys_prefs_themes">KEY_THEME</string>
+    <string name="keys_prefs_modes">KEY_MODE</string>
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

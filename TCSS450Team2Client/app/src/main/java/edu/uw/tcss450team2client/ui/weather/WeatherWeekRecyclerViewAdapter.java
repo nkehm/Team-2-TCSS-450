@@ -76,8 +76,6 @@ public class WeatherWeekRecyclerViewAdapter extends RecyclerView.Adapter<edu.uw.
          void setWeather(final edu.uw.tcss450team2client.ui.weather.WeatherData data) {
              LocalDate today = LocalDate.now();
             binding.textviewTime.setText(today.plusDays(data.getIncrement()).getDayOfWeek().name());
-
-            //binding.textviewType.setText(data.getWeather());
              String weatherType = data.getWeather();
              if (weatherType.equals("Thunderstorm")){
                  binding.imageiconWeatherIconWeek.setImageResource(R.drawable.weather_thunder_art);

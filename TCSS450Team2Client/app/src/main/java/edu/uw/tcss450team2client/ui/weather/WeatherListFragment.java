@@ -2,6 +2,11 @@ package edu.uw.tcss450team2client.ui.weather;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,12 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import java.util.List;
 
 import edu.uw.tcss450team2client.MainActivity;
@@ -43,7 +42,6 @@ public class WeatherListFragment extends Fragment {
      */
     private List<WeatherData> dayList;
 
-    private static boolean mFirst = true;
     /**
      * Empty public constructor.
      */
@@ -66,10 +64,6 @@ public class WeatherListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentWeatherListBinding.inflate(inflater);
-        if(mFirst){
-            mModel.connectGet();
-            mFirst = false;
-        }
         return binding.getRoot();
     }
 
@@ -79,12 +73,9 @@ public class WeatherListFragment extends Fragment {
         FragmentWeatherListBinding binding = FragmentWeatherListBinding.bind(getView());
         binding.buttonSearch.setOnClickListener(this::searchZip);
         binding.buttonMap.setOnClickListener(this::searchMap);
-        /*WeatherListFragmentArgs args = WeatherListFragmentArgs.fromBundle(getArguments());
-
-        if (!args.getLat().equals("default") && !args.getLng().equals("default")){
-            Log.d("Lat/Long", "You got here!" + args.getLat() + "" + args.getLng());
-            mModel.connectGet(args.getLat(),args.getLng());
-        }*/
+        if(WeatherMapFragment.check() == true){
+            mModel.connectGet(WeatherMapFragment.getLat(),WeatherMapFragment.getLng());
+        }
 
         mModel.addLocationObserver(getViewLifecycleOwner(), location -> {
             if (!location.isEmpty()) {

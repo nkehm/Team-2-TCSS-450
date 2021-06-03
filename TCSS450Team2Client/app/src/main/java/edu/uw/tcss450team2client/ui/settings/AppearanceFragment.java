@@ -1,5 +1,6 @@
 package edu.uw.tcss450team2client.ui.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +19,14 @@ import java.util.Objects;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentAppearanceBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AppearanceFragment extends Fragment {
     private FragmentAppearanceBinding binding;
+    private UserInfoViewModel mUserViewModel;
     private Boolean mLightMode;
 
     public AppearanceFragment() {
@@ -32,6 +36,7 @@ public class AppearanceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUserViewModel = (new ViewModelProvider(getActivity())).get(UserInfoViewModel.class);
     }
 
     @Override
@@ -44,26 +49,48 @@ public class AppearanceFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // save theme state
-        SharedPreferences mPrefs = this.requireActivity().getSharedPreferences("LIGHTMODE", 0);
-        mLightMode = mPrefs.getBoolean("lightMode", true);
-        if (mLightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        super.onViewCreated(view, savedInstanceState);
 
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        if (prefs.contains(getString(R.string.keys_prefs_themes))) {
+            int theme = prefs.getInt(getString(R.string.keys_prefs_themes), -1);
+
+            switch (theme) {
+                case 0:
+                default:
+                    binding.rbThemeLightblue.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_LightBlue);
+                    break;
+                case 1:
+                    binding.rbThemeIndigo.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_Indigo);
+                    break;
+                case 2:
+                    binding.rbThemeTeal.setChecked(true);
+                    mUserViewModel.setTheme(R.style.Theme_Teal);
+                    break;
+            }
+        } else {
+            binding.rbThemeLightblue.setChecked(true);
         }
 
-        binding.rgDarkmode.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.rb_darkmode_off) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                mLightMode = true;
-            } else  if (checkedId == R.id.rb_darkmode_on) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                mLightMode = false;
+        if (prefs.contains(getString(R.string.keys_prefs_modes))) {
+            int darkMode = prefs.getInt(getString(R.string.keys_prefs_modes), -1);
+
+            if (darkMode == 0) {
+                binding.rbDarkmodeOff.setChecked(true);
+                mUserViewModel.setDMode(0);
+            } else if (darkMode == 1) {
+                binding.rbDarkmodeOn.setChecked(true);
+                mUserViewModel.setDMode(1);
+            } else {
+                binding.rbDarkmodeOff.setChecked(true);
             }
-            SharedPreferences.Editor mEditor = mPrefs.edit();
-            mEditor.putBoolean("lightMode", mLightMode).apply();
-        });
+        }
+
     }
 }

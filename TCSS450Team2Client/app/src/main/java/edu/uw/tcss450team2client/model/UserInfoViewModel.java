@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uw.tcss450team2client.R;
+
 public class UserInfoViewModel extends ViewModel {
 
     private final String mEmail;
@@ -19,6 +21,12 @@ public class UserInfoViewModel extends ViewModel {
     private final String mUsername;
     private final int mMemberId;
     private final MutableLiveData<List<Notification>> mNotificationList;
+
+    // theme
+    private Integer mTheme;
+
+    // dark mode
+    private Integer mDMode;
 
 
     private UserInfoViewModel(String email, String jwt, String fName,
@@ -31,6 +39,8 @@ public class UserInfoViewModel extends ViewModel {
         mMemberId = memberId;
         mNotificationList = new MutableLiveData<>();
         mNotificationList.setValue(new ArrayList<>());
+        mTheme = R.style.Theme_LightBlue;
+        mDMode = 0;
     }
 
     public void addNotifications(Notification notification) {
@@ -77,6 +87,38 @@ public class UserInfoViewModel extends ViewModel {
 
     public String getUsername() {
         return mUsername;
+    }
+
+    /**
+     * Get app theme.
+     * @return current theme of app
+     */
+    public int getTheme() {
+        return mTheme;
+    }
+
+    /**
+     * Set app theme.
+     * @param theme theme to change to
+     */
+    public void setTheme(final int theme) {
+        mTheme = theme;
+    }
+
+    /**
+     * Get app dark mode.
+     * @return current mode of app
+     */
+    public int getDMode() {
+        return mDMode;
+    }
+
+    /**
+     * Set app dark mode.
+     * @param dMode mode to change to
+     */
+    public void setDMode(final int dMode) {
+        mDMode = dMode;
     }
 
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {

@@ -84,29 +84,29 @@ public class FragmentRecoverPassword extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
+        binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
 
         mRecoverPasswordModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
 
         FragmentRecoverPasswordArgs args = FragmentRecoverPasswordArgs.fromBundle(getArguments());
 
-        //binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
     }
 
     /**
      * Creates a dialog box that acknowledges the users input to recover password.
      */
     private void createDialogAcknowledge() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setMessage(R.string.textview_changePassword_headMessage);
-//        builder.setMessage(R.string.textview_changePassword_description);
-//        builder.setTitle(R.string.text_forgot_password);
-//        builder.setPositiveButton(R.string.button_recoverPassword_send, (dialog, which) -> {
-//            Log.d("Recovery", "Acknowledge");
-//        });
-//        builder.create();
-//        builder.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.textview_forgotPassword_description);
+        builder.setTitle(R.string.text_forgot_password);
+        builder.setPositiveButton(R.string.button_recoverPassword_send, (dialog, which) -> {
+            Log.d("Recovery", "Acknowledge");
+        });
+        navigateToLogin();
+        builder.create();
+        builder.show();
     }
 
     /**
