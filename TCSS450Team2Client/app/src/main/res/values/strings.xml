@@ -118,6 +118,7 @@
     <!-- Server Base URL -->
     <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
     <string name="title_activity_maps">Map</string>
+    <string name="toChat_pop_menu">Send Message</string>
     <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 

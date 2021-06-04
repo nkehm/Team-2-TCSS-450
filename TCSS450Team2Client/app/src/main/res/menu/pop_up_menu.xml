@@ -6,6 +6,11 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="100"
         android:title="@string/delete_popup_menu" />
+    <item
+
+        android:id="@+id/send_pop_menu"
+        android:icon="@drawable/ic_menu_chat"
+        android:title="@string/toChat_pop_menu" />
 
 
 </menu>
