@@ -57,6 +57,9 @@ import edu.uw.tcss450team2client.ui.chat.ChatMessage;
 import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
+import edu.uw.tcss450team2client.ui.contacts.ContactRecyclerViewAdapter;
+import edu.uw.tcss450team2client.ui.contacts.ContactRequestRecyclerViewAdapter;
+import edu.uw.tcss450team2client.ui.contacts.ContactRequestViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Invitation;
 import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
 
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private MainPushReceiver mPushReceiver;
 
     private MainPushRequestReceiver mPushRequestReceiver;
+
+    private MainPushRequestAcceptedReceiver mPushRequestAcceptedReceiver;
 
     private NewMessageCountViewModel mNewMessageModel;
 
@@ -82,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityArgs mArgs;
 
     private MutableLiveData<JSONObject> mResponse;
+
+    private ContactRequestViewModel mContactRequestViewModel;
+
+    private ContactListViewModel mContactListViewModel;
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
@@ -104,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private LocationViewModel mLocationModel;
 
     private ActivityMainBinding binding;
+
 
 
     @Override
@@ -200,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
         mNewRequestModel = new ViewModelProvider(this).get(NewContactRequestCountViewModel.class);
+        mContactRequestViewModel = new ViewModelProvider(this).get(ContactRequestViewModel.class);
+        mContactListViewModel = new ViewModelProvider(this).get(ContactListViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_chat) {
@@ -517,6 +529,27 @@ public class MainActivity extends AppCompatActivity {
                 // NewRequestCountView Model
                 if (nd.getId() != R.id.navigation_contacts) {
                     mNewRequestModel.increment();
+                } else {
+                    mContactRequestViewModel.connectGet(mUserViewModel.getJwt());
+                }
+            }
+        }
+    }
+
+    private class MainPushRequestAcceptedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Notification notification = new Notification();
+            NavController nc =
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+            NavDestination nd = nc.getCurrentDestination();
+            Log.d("PUSHY", "result: " + intent.toString());
+            if (intent.hasExtra("usernameAccepted")) {
+                Log.d("PUSHY", "MainActivity has received contact Invite accepted");
+                // If the user is not on the chat screen, update the
+                // NewRequestCountView Model
+                if (nd.getId() == R.id.navigation_contacts) {
+                    mContactListViewModel.connectGet(mUserViewModel.getJwt());
                 }
             }
 
@@ -540,13 +573,20 @@ public class MainActivity extends AppCompatActivity {
         if (mPushRequestReceiver == null) {
             mPushRequestReceiver = new MainPushRequestReceiver();
         }
+        if (mPushRequestAcceptedReceiver == null) {
+            mPushRequestAcceptedReceiver = new MainPushRequestAcceptedReceiver();
+        }
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(PushReceiver.RECEIVED_NEW_MESSAGE);
         iFilter.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
+
         registerReceiver(mPushReceiver, iFilter);
         IntentFilter iFilterRequest = new IntentFilter();
+        IntentFilter iFilterRequestAccepted = new IntentFilter();
         iFilterRequest.addAction(PushReceiver.RECEIVED_NEW_CONTACT_REQUEST);
+        iFilterRequestAccepted.addAction(PushReceiver.RECEIVED_NEW_CONTACT_ACCEPTED);
         registerReceiver(mPushRequestReceiver, iFilterRequest);
+        registerReceiver(mPushRequestAcceptedReceiver, iFilterRequestAccepted);
     }
 
     @Override
@@ -557,6 +597,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (mPushRequestReceiver != null) {
             unregisterReceiver(mPushRequestReceiver);
+        }
+        if (mPushRequestAcceptedReceiver != null) {
+            unregisterReceiver(mPushRequestAcceptedReceiver);
         }
     }
 }
