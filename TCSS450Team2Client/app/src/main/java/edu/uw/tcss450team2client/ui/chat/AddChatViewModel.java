@@ -32,7 +32,13 @@ public class AddChatViewModel extends AndroidViewModel {
         if (mContactList.getValue() == "") {
             mContactList.setValue(username);
         } else {
-            mContactList.setValue(mContactList.getValue() + "," + username);
+            if(!mContactList.getValue().contains(username)) {
+                mContactList.setValue(mContactList.getValue() + "," + username);
+            }
         }
+    }
+
+    public void clearText() {
+        mContactList.setValue("");
     }
 }

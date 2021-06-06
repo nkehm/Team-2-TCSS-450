@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -99,6 +101,7 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
                             getChildFragmentManager(), mInfoModel, mContactListModel, mChatID, mThroughChat, mAddChatViewModel));
             Log.d("Contact list in chat", "Setting adapter");
         });
+
         mAddChatViewModel.addChatUserListObserver(getViewLifecycleOwner(), chatUser -> {
             binding.editTextEnterUser.setText(chatUser);
         });
