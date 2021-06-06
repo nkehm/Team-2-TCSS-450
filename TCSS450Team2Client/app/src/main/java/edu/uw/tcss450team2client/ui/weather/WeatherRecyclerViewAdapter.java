@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentWeatherCardBinding;
@@ -70,7 +72,10 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<edu.uw.tcss
           * Method that sets weather data.
           */
         void setWeather(final edu.uw.tcss450team2client.ui.weather.WeatherData data) {
-            binding.textviewTime.setText(String.valueOf(data.getIncrement()) + ":00");
+            int hour = (Calendar.getInstance().getTime().getHours() + data.getIncrement()) % 24;
+
+
+            binding.textviewTime.setText(hour + ":00");
             //binding.textviewType.setText(data.getWeather());
 
             String weatherType = data.getWeather();

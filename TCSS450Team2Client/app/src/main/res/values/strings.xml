@@ -72,7 +72,7 @@
     <!-- Weather -->
     <string name="textview_weatherWeekCard_low">Low</string>
     <string name="textview_weatherWeekCard_high">High</string>
-    <!--<string name="textview_weatherCard_temperature">Temperature</string>-->
+    <string name="textview_weather_map_search">Search</string>
     <string name="textview_weatherList_currentForecast">Current Forecast:</string>
     <string name="textview_weatherList_todayForecast">Today\'s Forecast</string>
     <string name="textview_weatherList_weeklyForecast">Weekly Forecast</string>
