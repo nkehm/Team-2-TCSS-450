@@ -109,6 +109,7 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
 
         binding.editTextEnterChatNameAddchatfragment.setOnClickListener(this);
         binding.imageButtonAddChatAddchatfragment.setOnClickListener(this);
+        binding.imageButtonClearChatAddchatfragment.setOnClickListener(this);
 
     }
 
@@ -159,7 +160,7 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if (chatNameValidation(binding.editTextEnterChatNameAddchatfragment.getText().toString()) &&
-                usernameValidation(parseUsername(binding.editTextEnterUser.getText().toString())))
+                usernameValidation(parseUsername(binding.editTextEnterUser.getText().toString()))) {
 
             if (v == binding.imageButtonAddChatAddchatfragment) {
                 mModel.connectAddChat(
@@ -175,7 +176,10 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
 
                 Navigation.findNavController(getView()).navigate(AddChatFragmentDirections.actionAddChatFragmentToNavigationChat());
             }
-
+        }
+        if (v == binding.imageButtonClearChatAddchatfragment) {
+            mAddChatViewModel.clearText();
+        }
     }
 }
 
