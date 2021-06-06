@@ -66,8 +66,8 @@
     <fragment
         android:id="@+id/addChatFragment"
         android:name="edu.uw.tcss450team2client.ui.chat.AddChatFragment"
-        android:label="fragment_add_chat"
-        tools:layout="@layout/fragment_add_chat" >
+        android:label="@string/textview_addchatroom"
+        tools:layout="@layout/fragment_add_chat">
         <action
             android:id="@+id/action_addChatFragment_to_navigation_chat"
             app:destination="@id/navigation_chat" />

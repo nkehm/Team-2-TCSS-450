@@ -51,6 +51,7 @@
     <string name="string_chat_messageEntryDescription">Message</string>
     <string name="text_delete">Delete</string>
 
+    <string name="textview_addchatroom">Add a Chat Room</string>
     <string name="editText_addChat">Enter a Chat Name</string>
     <string name="textview_addchatname">CHAT NAME ENTRY:</string>
     <string name="textview_addusername">USERNAME ENTRY:</string>
