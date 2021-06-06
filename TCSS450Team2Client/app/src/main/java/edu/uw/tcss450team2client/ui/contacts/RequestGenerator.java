@@ -16,9 +16,6 @@ public class RequestGenerator {
 
     static {
         REQUESTS = new FriendRequest[COUNT];
-//        for (int i = 5; i < CONTACTS.length; i++) {
-//            CONTACTS[i] = new Contact("fname", "lname", "email", "username", i);
-//        }
         REQUESTS[0] = new FriendRequest("Nathan",  0);
         REQUESTS[1] = new FriendRequest("Nam", 1);
     }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,24 +42,17 @@ public class ContactRecyclerViewAdapter extends
     private final FragmentManager mFragMan;
     private final UserInfoViewModel mUserModel;
     private final ContactListViewModel mViewModel;
-    private final int mChatID;
-    private final boolean mThroughChat;
-    private AddChatFragment mAddChatFragment;
     private AddChatViewModel mAddChatViewModel;
 
 
     public ContactRecyclerViewAdapter(List<Contact> contacts, Context context, FragmentManager fm,
                                       UserInfoViewModel userModel,
-                                      ContactListViewModel viewModel,
-                                      int chatID,
-                                      boolean throughChat, AddChatViewModel mAddChatViewModel) {
+                                      ContactListViewModel viewModel, AddChatViewModel mAddChatViewModel) {
         this.mContacts = contacts;
         this.mContext = context;
         this.mFragMan = fm;
         this.mUserModel = userModel;
         this.mViewModel = viewModel;
-        this.mChatID = chatID;
-        this.mThroughChat = throughChat;
         this.mAddChatViewModel = mAddChatViewModel;
     }
 
@@ -97,22 +91,21 @@ public class ContactRecyclerViewAdapter extends
         private Contact mContact;
         private ContactItemBinding binding;
 
-
         public ContactViewHolder(View v) {
             super(v);
             nameTextView = v.findViewById(R.id.contact_name);
             usernameTextView = v.findViewById(R.id.contact_username);
             moreButtonView = v.findViewById(R.id.contact_more_button);
             binding = ContactItemBinding.bind(v);
-
-            //TODO
-//            addChatBinding = FragmentAddChatBinding.bind(v.findViewById(R.id.add_chat));
         }
 
+        /**
+         * Pass contact to Add chat view model to update the add user text edit
+         * @param mContacts Contact to pass
+         */
         private void setClickPassUsername(Contact mContacts) {
             binding.layoutInner.setOnClickListener(v -> {
                 Log.d("Contact list", mContacts.getUserName() + " Contact card clicked");
-//                addChatBinding.editTextEnterUser.setText(mContacts.getUserName());
                 mAddChatViewModel.updateContactListText(mContacts.getUserName());
             });
         }
@@ -146,6 +139,9 @@ public class ContactRecyclerViewAdapter extends
             });
         }
 
+        /**
+         * Delete contact from recycler view
+         */
         public void deleteContact(){
             mContacts.remove(mContact);
             notifyDataSetChanged();
