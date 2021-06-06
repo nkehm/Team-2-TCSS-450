@@ -29,12 +29,21 @@ import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdSpecialChar;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment for password recovery on sign in.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
  */
 public class FragmentRecoverPassword extends Fragment {
 
+    /**
+     * A binding for this fragment.
+     */
     private FragmentRecoverPasswordBinding binding;
 
+    /**
+     * A password recover view model.
+     */
     private RecoverPasswordViewModel mRecoverPasswordModel;
 
     /**
@@ -75,14 +84,14 @@ public class FragmentRecoverPassword extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
+        binding.buttonSendRecover.setOnClickListener(this::attemptRecovery);
 
         mRecoverPasswordModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
 
         FragmentRecoverPasswordArgs args = FragmentRecoverPasswordArgs.fromBundle(getArguments());
 
-        //binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
     }
 
     /**
@@ -90,12 +99,12 @@ public class FragmentRecoverPassword extends Fragment {
      */
     private void createDialogAcknowledge() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.textview_changePassword_headMessage);
-        builder.setMessage(R.string.textview_changePassword_description);
+        builder.setMessage(R.string.textview_forgotPassword_description);
         builder.setTitle(R.string.text_forgot_password);
         builder.setPositiveButton(R.string.button_recoverPassword_send, (dialog, which) -> {
             Log.d("Recovery", "Acknowledge");
         });
+        navigateToLogin();
         builder.create();
         builder.show();
     }

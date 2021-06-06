@@ -19,8 +19,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
+
+/**
+ * A view model for password change.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
+ */
 public class ChangePasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
@@ -44,7 +54,8 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     /**
      * Handles errors for connecting to a WebService endpoint.
-     * @param error
+     *
+     * @param error message
      */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -72,25 +83,45 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     /**
      * Server credential verification.
-     * *
+     *
      * @param email    string user input value, email of user
      * @param oldPassword string user input value, password to change from
      * @param newPassword string user input value, password to change to
      */
-    public void connect(final String email, final String oldPassword, final String newPassword) {
-        //TODO fix url
-        String url = "https://tcss450-team2-server.herokuapp.com/auth";
+    public void connect(final String newPassword, final String oldPassword, final String email, final String jwt) {
+
+        String url = "https://tcss450-team2-server.herokuapp.com/changePassword";
         JSONObject body = new JSONObject();
         try {
-            body.put("email", email);
-            body.put("oldPassword", oldPassword);
             body.put("newPassword", newPassword);
+            body.put("oldPassword", oldPassword);
+            body.put("email", email);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
+
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body, //push token found in the JSONObject body
+                mResponse::setValue, // we get a response but do nothing with it
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", "Bearer " + jwt);
+                return headers;
+            }
+        };
+
+       // Request request = new JsonObjectRequest(Request.Method.POST, url, body, mResponse::setValue, this::handleError);
         request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
     }
+
+
 }

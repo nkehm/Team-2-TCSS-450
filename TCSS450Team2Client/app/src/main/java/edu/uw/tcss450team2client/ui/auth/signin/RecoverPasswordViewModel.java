@@ -21,10 +21,24 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+/**
+ * A view model for password recovery.
+ *
+ * @author Nathan Stickler
+ * @versin 5/2021
+ */
 public class RecoverPasswordViewModel extends AndroidViewModel {
 
+    /**
+     * Mutable live data for registration.
+     */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for initializing JSON object and setting the value.
+     *
+     * @param application
+     */
     public RecoverPasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
@@ -44,6 +58,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
     /**
      * Handles errors for connecting to a WebService endpoint.
+     *
      * @param error
      */
     private void handleError(final VolleyError error) {
@@ -76,7 +91,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
      * @param email registered email
      */
     public void connect(final String email) {
-        String url = "https://tcss450-team2-server.herokuapp.com";  // Does this use auth endpoint or new endpoint??
+        String url = "https://tcss450-team2-server.herokuapp.com/recovery";  // Does this use auth endpoint or new endpoint??
         JSONObject body = new JSONObject();
         try {
             body.put("email", email);

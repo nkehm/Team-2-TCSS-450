@@ -17,16 +17,19 @@ import edu.uw.tcss450team2client.MainActivity;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentContactListBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import edu.uw.tcss450team2client.ui.chat.AddChatViewModel;
 
 /**
  * Fragment to contain the Contact List
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactListFragment extends Fragment  {
 
     private ContactListViewModel mModel;
     private UserInfoViewModel mInfoModel;
-    private int mChatID;
-    private boolean mThroughChat;
+    private AddChatViewModel mAddChatViewModel;
 
     public ContactListFragment() {
         // empty constructor
@@ -38,6 +41,7 @@ public class ContactListFragment extends Fragment  {
         mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         mInfoModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
         mModel.connectGet(mInfoModel.getJwt());
+        mAddChatViewModel = new ViewModelProvider(getActivity()).get(AddChatViewModel.class);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class ContactListFragment extends Fragment  {
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             binding.listRoot.setAdapter(
                     new ContactRecyclerViewAdapter(contactList, this.getContext(),
-                            getChildFragmentManager(), mInfoModel, mModel, mChatID, mThroughChat));
+                            getChildFragmentManager(), mInfoModel, mModel, mAddChatViewModel));
         });
     }
 }

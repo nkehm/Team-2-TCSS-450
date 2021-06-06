@@ -4,12 +4,6 @@
 
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="Settings"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/navigate_button_password"
         android:title="@string/buttons_setting_changePassword"
         app:showAsAction="never"></item>
@@ -19,6 +13,9 @@
         android:orderInCategory="100"
         android:title="Sign Out"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_appearance"
+        android:title="@string/buttons_setting_appearance" />
     <!--    <item-->
     <!--        android:id="@+id/action_change_password"-->
     <!--        android:orderInCategory="100"-->

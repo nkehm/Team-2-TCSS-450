@@ -12,6 +12,11 @@
     <string name="hint_password_again">Retype Password</string>
     <string name="action_register_short">Register</string>
 
+    <!-- Verification -->
+    <string name="action_verify">Back To Sign In</string>
+    <string name="text_verify_warning">If you did not register with this account, you can ignore this email.</string>
+    <string name="text_verify">Verify your email</string>
+
     <!-- Sign In -->
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_signin">Sign In</string>
@@ -21,15 +26,14 @@
     <string name="action_forgot_password">Forgot Password</string>
     <string name="text_forgot_password_description">Enter the email associated with your account.</string>
     <string name="text_email_reset">A link will be sent to your email to reset your password.</string>
+    <string name="textview_forgotPassword_description">A link will be sent to your email to update your password.</string>
     <string name="text_forgot_password">Recover Password</string>
     <string name="button_recoverPassword_send">Send</string>
     <string name="switch_sign_in">Stay Signed in</string>
 
     <!-- Home Page -->
-    <string name="title_home">Home</string>
-    <string name="text_welcomeHome">Welcome Home</string>
-    <string name="text_currentTemp">Current Temp</string>
-    <string name="text_currentLocation">Current Location</string>
+    <string name="title_home_home">Home</string>
+    <string name="text_home_welcomeHome">Welcome Home</string>
 
 
     <!-- Contacts -->
@@ -39,6 +43,7 @@
     <string name="username_hint">Username</string>
     <string name="add_text">Add</string>
 
+
     <!-- Chat -->
     <string name="title_chat">Chat</string>
     <string name="title_chat_room">Chat room</string>
@@ -46,20 +51,47 @@
     <string name="string_chat_messageEntryDescription">Message</string>
     <string name="text_delete">Delete</string>
 
+    <string name="textview_addchatroom">Add a Chat Room</string>
+    <string name="editText_addChat">Enter a Chat Name</string>
+    <string name="textview_addchatname">CHAT NAME ENTRY:</string>
+    <string name="textview_addusername">USERNAME ENTRY:</string>
+    <string name="editText_addusername">Enter username(s).</string>
+    <string name="textview_userentryinstructions">Please use commas when entering more than one user.</string>
+
+    <string name="dialog_chatListRecycler_title">Confirm Delete?</string>
+    <string name="dialog_chatListRecycler_message">Do you wish to delete this conversation from your history? The chat may still exist
+    but you will no longer be a part of it.</string>
+    <string name="dialog_chatListRecycler_positive">Confirm</string>
+    <string name="dialog_chatListRecycler_negative">Cancel</string>
+
     <!-- Settings -->
     <string name="buttons_setting_changePassword">Change Password</string>
     <string name="text_change_password">Change Password</string>
     <string name="hint_current_password">Current Password</string>
     <string name="hint_new_password">New Password</string>
-    <string name="title_changePassword">Change Password</string>
-    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
-    <string name="textview_changePassword_description">If you accept, an email will be sent containing
-        further instructions for changing your password</string>
+    <string name="hint_retype_new_password">Retype Password</string>
     <string name="button_changePassword_change">Accept</string>
     <string name="button_changePassword_cancel">Decline</string>
+    <string name="title_changePassword">Change Password</string>
+    <string name="textview_changePassword_headMessage">Do you want to change your password?</string>
+<!--    <string name="textview_changePassword_description">If you accept, an email will be sent containing-->
+<!--        further instructions for changing your password</string>-->
 
-    <!-- Server Base URL -->
-    <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+    <!-- Appearance -->
+    <string name="title_appearance">Appearance</string>
+    <string name="buttons_setting_appearance">Appearance</string>
+    <string name="textview_darkmode">Dark Mode:</string>
+    <string name="button_darkmode_off">Off</string>
+    <string name="button_darkmode_on">On</string>
+    <string name="textview_themes">Themes:</string>
+    <string name="button_theme_lightBlue">Light Blue</string>
+    <string name="button_theme_indigo">Indigo</string>
+    <string name="button_theme_teal">Teal</string>
+    <string name="keys_prefs_themes">KEY_THEME</string>
+    <string name="keys_prefs_modes">KEY_MODE</string>
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -84,6 +116,11 @@
     <string name="title_weather">Weather</string>
     <string name="weather_icon_description"> Weather Icon</string>
 
+    <!-- Server Base URL -->
+    <string name="base_url">https://tcss450-team2-server.herokuapp.com/</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="toChat_pop_menu">Send Message</string>
+    <!--    <string name="button_recoverPassword_cancel">Decline</string>-->
 
 
 </resources>

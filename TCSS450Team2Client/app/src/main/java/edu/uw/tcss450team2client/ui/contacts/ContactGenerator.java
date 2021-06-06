@@ -5,11 +5,13 @@ import java.util.List;
 
 /**
  * Simple class to construct a list of Contact object
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactGenerator {
     private static final Contact[] CONTACTS;
     public static final int COUNT = 10;
-
 
     static {
         CONTACTS = new Contact[COUNT];
@@ -21,7 +23,6 @@ public class ContactGenerator {
         CONTACTS[2] = new Contact("Caleb", "Chang", "nstick@fake.com", "caleb",2);
         CONTACTS[3] = new Contact("Noah", "Kehm", "nstick@fake.com", "noah",3);
         CONTACTS[4] = new Contact("Daniel", "Ty", "nstick@fake.com", "Daniel",4);
-
     }
 
     public static List<Contact> getContactList() {

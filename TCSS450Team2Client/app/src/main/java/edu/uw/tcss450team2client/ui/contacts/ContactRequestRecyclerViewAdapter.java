@@ -17,6 +17,12 @@ import java.util.List;
 import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
+/**
+ * A recycler view for contact request
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class ContactRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<ContactRequestRecyclerViewAdapter.RequestViewHolder> {
 
@@ -64,6 +70,9 @@ public class ContactRequestRecyclerViewAdapter extends
         return mFriendRequest.size();
     }
 
+    /**
+     * Create a view holder for request tab
+     */
     public class RequestViewHolder extends RecyclerView.ViewHolder {
 
         private TextView usernameTextView;
@@ -88,13 +97,18 @@ public class ContactRequestRecyclerViewAdapter extends
             mRequest = request;
             usernameTextView.setText(request.getUsername());
 
-            //TODO Accept button on click listener
+            // Accept button on click listener
             acceptButton.setOnClickListener(v -> {
-
+                mViewModel.acceptRequest(mInfoModel.getJwt(), mRequest.getMemberID());
+                mFriendRequest.remove(mRequest);
+                notifyDataSetChanged();
             });
-            //TODO Decline button on click listener
+            // Decline button on click listener
             declineButton.setOnClickListener(v -> {
-
+                mViewModel.declineRequest(mInfoModel.getJwt(),
+                        usernameTextView.getText().toString());
+                mFriendRequest.remove(mRequest);
+                notifyDataSetChanged();
             });
         }
     }

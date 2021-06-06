@@ -22,6 +22,12 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Contact;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
 
+/**
+ * A recycler view for the list in search tab.
+ *
+ * @author Caleb Chang
+ * @version 05/2021
+ */
 public class SearchRecyclerViewAdapter  extends
         RecyclerView.Adapter<SearchRecyclerViewAdapter.SearchViewHolder> implements Filterable {
 
@@ -29,25 +35,29 @@ public class SearchRecyclerViewAdapter  extends
     private List<Contact> mContactsFull;
     private UserInfoViewModel mUserModel;
     private ContactListViewModel mViewModel;
+    private View searchView;
 
 
     public SearchRecyclerViewAdapter(List<Contact> contacts, UserInfoViewModel userModel,
                                      ContactListViewModel viewModel) {
         this.mContacts = contacts;
         this.mContactsFull = new ArrayList<>(contacts);
+        searchFilter.filter(null);
         this.mUserModel = userModel;
         this.mViewModel = viewModel;
     }
 
 
-
-
+    /**
+     * Constructor that builds the recycler view adapter use all the contact items.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-
-        View searchView = inflater.inflate(R.layout.contact_search_item, parent, false);
-
+        searchView = inflater.inflate(R.layout.contact_search_item, parent, false);
         return new SearchViewHolder(searchView);
     }
 
@@ -58,6 +68,7 @@ public class SearchRecyclerViewAdapter  extends
         holder.nameTextView.setText(currentItem.getFirstName() + " " + currentItem.getLastName());
         holder.addButton.setOnClickListener(v -> {
             holder.addButton.setVisibility(View.GONE);
+            mViewModel.addFriend(mUserModel.getJwt(), mContacts.get(position).getUserName());
         });
     }
 
@@ -67,8 +78,9 @@ public class SearchRecyclerViewAdapter  extends
     }
 
 
-
-
+    /**
+     * Create a search list holder
+     */
     public class SearchViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameTextView;
         private final TextView usernameTextView;
@@ -93,19 +105,20 @@ public class SearchRecyclerViewAdapter  extends
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Contact> filteredList = new ArrayList<>();
-
+            FilterResults results = new FilterResults();
             if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(mContactsFull);
+                filteredList.clear();
+                return results;
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (Contact contact : mContactsFull) {
-                    if (contact.getFirstName().toLowerCase().contains(filterPattern) ||
-                            contact.getLastName().toLowerCase().contains(filterPattern)) {
+                    String wholeName = contact.getFirstName().toLowerCase() + " " +
+                            contact.getLastName().toLowerCase();
+                    if (wholeName.contains(filterPattern)) {
                         filteredList.add(contact);
                     }
                 }
             }
-            FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
         }
@@ -113,7 +126,9 @@ public class SearchRecyclerViewAdapter  extends
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mContacts.clear();
-            mContacts.addAll((List<Contact>) results.values);
+            if (results.values != null) {
+                mContacts.addAll((List<Contact>) results.values);
+            }
             notifyDataSetChanged();
         }
     };

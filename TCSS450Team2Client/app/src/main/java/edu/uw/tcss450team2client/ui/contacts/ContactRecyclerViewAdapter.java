@@ -3,6 +3,7 @@ package edu.uw.tcss450team2client.ui.contacts;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,27 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450team2client.R;
+import edu.uw.tcss450team2client.databinding.ContactItemBinding;
+import edu.uw.tcss450team2client.databinding.FragmentAddChatBinding;
+import edu.uw.tcss450team2client.databinding.FragmentContactRequestCardBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import edu.uw.tcss450team2client.ui.chat.AddChatFragment;
+import edu.uw.tcss450team2client.ui.chat.AddChatViewModel;
+import edu.uw.tcss450team2client.ui.chat.ChatListViewModel;
 
+/**
+ * A recycler view for the contact list.
+ *
+ * @version 05/2021
+ */
 public class ContactRecyclerViewAdapter extends
         RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder> {
 
@@ -28,22 +42,18 @@ public class ContactRecyclerViewAdapter extends
     private final FragmentManager mFragMan;
     private final UserInfoViewModel mUserModel;
     private final ContactListViewModel mViewModel;
-    private final int mChatID;
-    private final boolean mThroughChat;
+    private AddChatViewModel mAddChatViewModel;
 
 
     public ContactRecyclerViewAdapter(List<Contact> contacts, Context context, FragmentManager fm,
                                       UserInfoViewModel userModel,
-                                      ContactListViewModel viewModel,
-                                      int chatID,
-                                      boolean throughChat) {
+                                      ContactListViewModel viewModel, AddChatViewModel mAddChatViewModel) {
         this.mContacts = contacts;
         this.mContext = context;
         this.mFragMan = fm;
         this.mUserModel = userModel;
         this.mViewModel = viewModel;
-        this.mChatID = chatID;
-        this.mThroughChat = throughChat;
+        this.mAddChatViewModel = mAddChatViewModel;
     }
 
     @NonNull
@@ -62,6 +72,8 @@ public class ContactRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
+        holder.setClickPassUsername(mContacts.get(position));
+
     }
 
     @Override
@@ -69,20 +81,34 @@ public class ContactRecyclerViewAdapter extends
         return mContacts.size();
     }
 
+    /**
+     * Create a contact list holder
+     */
     public class ContactViewHolder extends RecyclerView.ViewHolder  {
         private final TextView nameTextView;
         private final TextView usernameTextView;
         private final ImageButton moreButtonView;
         private Contact mContact;
+        private ContactItemBinding binding;
 
         public ContactViewHolder(View v) {
             super(v);
             nameTextView = v.findViewById(R.id.contact_name);
             usernameTextView = v.findViewById(R.id.contact_username);
             moreButtonView = v.findViewById(R.id.contact_more_button);
+            binding = ContactItemBinding.bind(v);
         }
 
-
+        /**
+         * Pass contact to Add chat view model to update the add user text edit
+         * @param mContacts Contact to pass
+         */
+        private void setClickPassUsername(Contact mContacts) {
+            binding.layoutInner.setOnClickListener(v -> {
+                Log.d("Contact list", mContacts.getUserName() + " Contact card clicked");
+                mAddChatViewModel.updateContactListText(mContacts.getUserName());
+            });
+        }
 
         /**
          * Sets the contact name and username
@@ -102,7 +128,8 @@ public class ContactRecyclerViewAdapter extends
                 popupMenu.setForceShowIcon(true);
                 popupMenu.setOnMenuItemClickListener(item -> {
                     if (item.getItemId() == R.id.delete_pop_menu) {
-                        //TODO delete from database
+                        // delete from database
+                        mViewModel.deleteContact(mUserModel.getJwt(), mContact.getMemberID());
                         this.deleteContact();
                         return true;
                     }
@@ -112,6 +139,9 @@ public class ContactRecyclerViewAdapter extends
             });
         }
 
+        /**
+         * Delete contact from recycler view
+         */
         public void deleteContact(){
             mContacts.remove(mContact);
             notifyDataSetChanged();

@@ -14,7 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450team2client.MainActivity;
+import edu.uw.tcss450team2client.MainActivityArgs;
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentSettingsChangepasswordBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.utils.PasswordValidator;
 
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkClientPredicate;
@@ -25,6 +29,12 @@ import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdLowerCas
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdSpecialChar;
 import static edu.uw.tcss450team2client.utils.PasswordValidator.checkPwdUpperCase;
 
+/**
+ * A fragment for changing password in app.
+ *
+ * @author Nathan Stickler
+ * @version 5/2021
+ */
 public class ChangePasswordFragment extends Fragment {
 
     /**
@@ -36,6 +46,8 @@ public class ChangePasswordFragment extends Fragment {
      * Stores mChangePasswordModel variable.
      */
     private ChangePasswordViewModel mChangePasswordModel;
+
+    private UserInfoViewModel mUserModel;
 
     /**
      * Method to validate the old password.
@@ -57,8 +69,6 @@ public class ChangePasswordFragment extends Fragment {
                     .and(checkPwdDigit())
                     .and(checkPwdLowerCase().or(checkPwdUpperCase()));
 
-    private String mEmail;
-
     /**
      * Empty public constructor.
      */
@@ -76,6 +86,9 @@ public class ChangePasswordFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mChangePasswordModel = new ViewModelProvider(getActivity())
                 .get(ChangePasswordViewModel.class);
+        mUserModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+
     }
 
     /**
@@ -93,7 +106,6 @@ public class ChangePasswordFragment extends Fragment {
         binding = FragmentSettingsChangepasswordBinding.inflate(inflater, container, false);
 
         ChangePasswordFragmentArgs args = ChangePasswordFragmentArgs.fromBundle(getArguments());
-        mEmail = args.getEmail().equals("default") ? "" : args.getEmail();
 
         return binding.getRoot();
     }
@@ -108,9 +120,14 @@ public class ChangePasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+        binding.buttonChange.setOnClickListener(this::attemptChangePassword);
         mChangePasswordModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
 
+    }
+
+    private void attemptChangePassword(final View button) {
+        validateOldPassword();
     }
 
     /**
@@ -142,9 +159,9 @@ public class ChangePasswordFragment extends Fragment {
     private void verifyAuthWithServer() {
         mChangePasswordModel.connect(
 
-                mEmail,
+                binding.editNewPass.getText().toString(),
                 binding.editCurrentPass.getText().toString(),
-                binding.editNewPass.getText().toString());
+                mUserModel.getEmail(), mUserModel.getJwt());
     }
 
     /**
@@ -153,18 +170,20 @@ public class ChangePasswordFragment extends Fragment {
      *
      * @param response the Response from the server
      */
-
     private void observeResponse(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
+                    Log.e("Test Log", response.getString("data"));
                     binding.editNewPass.setError("Error Authenticating: " + response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
+                Log.e("Test Log", "Success");
                 //success scenario
                 //navigateToLogin();
+                ((MainActivity) getActivity()).signOut();
             }
         } else {
             Log.d("JSON Response", "No Response");

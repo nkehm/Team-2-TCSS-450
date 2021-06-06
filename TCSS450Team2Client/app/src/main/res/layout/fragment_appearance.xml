@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.AppearanceFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textview_themes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/textview_themes"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_darkmode" />
+
+    <RadioGroup
+        android:id="@+id/rg_darkmode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:outlineProvider="none"
+        android:padding="4dp"
+        android:theme="@style/Theme.LightBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_darkmode">
+
+        <RadioButton
+            android:id="@+id/rb_darkmode_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:onClick="changeDarkMode"
+            android:text="@string/button_darkmode_off"
+            tools:ignore="OnClick" />
+
+        <RadioButton
+            android:id="@+id/rb_darkmode_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:onClick="changeDarkMode"
+            android:text="@string/button_darkmode_on"
+            tools:ignore="OnClick" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textview_darkmode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/textview_darkmode"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:outlineProvider="none"
+        android:padding="4dp"
+        android:theme="@style/Theme.LightBlue"
+        app:layout_constraintTop_toBottomOf="@+id/textview_themes">
+
+        <RadioButton
+            android:id="@+id/rb_theme_lightblue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:onClick="changeColorTheme"
+            android:text="@string/button_theme_lightBlue"
+            tools:ignore="OnClick" />
+
+        <RadioButton
+            android:id="@+id/rb_theme_indigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:onClick="changeColorTheme"
+            android:text="@string/button_theme_indigo"
+            tools:ignore="OnClick" />
+
+        <RadioButton
+            android:id="@+id/rb_theme_teal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:onClick="changeColorTheme"
+            android:text="@string/button_theme_teal"
+            tools:ignore="OnClick" />
+
+
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

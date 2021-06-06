@@ -26,6 +26,9 @@ import edu.uw.tcss450team2client.R;
 
 /**
  * A simple {@link Fragment} subclass for Contact page.
+ *
+ * @author Caleb Chang
+ * @version 05/2021
  */
 public class ContactFragment extends Fragment {
 
@@ -42,11 +45,11 @@ public class ContactFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
+        return view;
     }
 
     @Override

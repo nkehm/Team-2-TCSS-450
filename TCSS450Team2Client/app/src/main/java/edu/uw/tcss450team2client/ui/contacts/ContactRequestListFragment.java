@@ -17,8 +17,9 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ContactRequestListFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Use the factory method to create an instance of this fragment.
+ *
+ * @version 05/2021
  */
 public class ContactRequestListFragment extends Fragment {
 
@@ -34,6 +35,7 @@ public class ContactRequestListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(ContactRequestViewModel.class);
 
         UserInfoViewModel model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        mModel.connectGet(model.getJwt());
 
     }
 
