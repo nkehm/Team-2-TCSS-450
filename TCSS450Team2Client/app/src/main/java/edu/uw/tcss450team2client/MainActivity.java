@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +47,8 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+import edu.uw.tcss450team2client.databinding.FragmentContactBinding;
+import edu.uw.tcss450team2client.databinding.FragmentContactListBinding;
 import edu.uw.tcss450team2client.model.LocationViewModel;
 import edu.uw.tcss450team2client.databinding.ActivityMainBinding;
 import edu.uw.tcss450team2client.model.NewContactRequestCountViewModel;
@@ -55,10 +59,8 @@ import edu.uw.tcss450team2client.model.UserInfoViewModel;
 import edu.uw.tcss450team2client.services.PushReceiver;
 import edu.uw.tcss450team2client.ui.chat.ChatMessage;
 import edu.uw.tcss450team2client.ui.chat.ChatViewModel;
-import edu.uw.tcss450team2client.ui.contacts.Contact;
+import edu.uw.tcss450team2client.ui.contacts.ContactFragment;
 import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
-import edu.uw.tcss450team2client.ui.contacts.ContactRecyclerViewAdapter;
-import edu.uw.tcss450team2client.ui.contacts.ContactRequestRecyclerViewAdapter;
 import edu.uw.tcss450team2client.ui.contacts.ContactRequestViewModel;
 import edu.uw.tcss450team2client.ui.contacts.Invitation;
 import edu.uw.tcss450team2client.ui.weather.WeatherViewModel;
@@ -114,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private FragmentContactBinding contactBinding;
+
 
 
     @Override
@@ -157,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         mArgs = MainActivityArgs.fromBundle(getIntent().getExtras());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        contactBinding = FragmentContactBinding.inflate(getLayoutInflater());
+        setContentView(contactBinding.getRoot());
         setContentView(binding.getRoot());
 
         JWT jwt = new JWT(mArgs.getJwt());
@@ -182,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         mResponse.setValue(new JSONObject());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
@@ -224,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 //When the user navigates to the chats page, reset the new message count.
                 // This will need some extra logic for your project as it should have
                 // multiple chat rooms.
-                mNewRequestModel.reset();
+//                mNewRequestModel.reset();
             }
         });
 
@@ -252,10 +259,21 @@ public class MainActivity extends AppCompatActivity {
                 badge.setNumber(count);
                 badge.setVisible(true);
             } else {
-                //user did some action to clear the new messages, remove the badge
+                //user did some action to clear the new contact request, remove the badge
                 badge.clearNumber();
                 badge.setVisible(false);
             }
+//            BadgeDrawable badgeDrawable = contactBinding.tabLayout.getTabAt(0).getOrCreateBadge();
+//            if (count > 0) {
+//                //new messages! update and show the notification badge.
+//                badgeDrawable.setNumber(count);
+//                badgeDrawable.setVisible(true);
+//            } else {
+//                //user did some action to clear the new contact request, remove the badge
+//                badgeDrawable.clearNumber();
+//                badgeDrawable.setVisible(false);
+//            }
+
         });
 
     }
@@ -529,6 +547,8 @@ public class MainActivity extends AppCompatActivity {
                 // NewRequestCountView Model
                 if (nd.getId() != R.id.navigation_contacts) {
                     mNewRequestModel.increment();
+
+
                 } else {
                     mContactRequestViewModel.connectGet(mUserViewModel.getJwt());
                 }

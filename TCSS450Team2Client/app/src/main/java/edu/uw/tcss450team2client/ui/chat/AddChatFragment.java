@@ -6,9 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +24,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.uw.tcss450team2client.MainActivity;
+import edu.uw.tcss450team2client.R;
 import edu.uw.tcss450team2client.databinding.FragmentAddChatBinding;
+import edu.uw.tcss450team2client.databinding.FragmentContactBinding;
+import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import edu.uw.tcss450team2client.ui.contacts.Contact;
+import edu.uw.tcss450team2client.ui.contacts.ContactFragment;
+import edu.uw.tcss450team2client.ui.contacts.ContactListFragment;
+import edu.uw.tcss450team2client.ui.contacts.ContactListViewModel;
+import edu.uw.tcss450team2client.ui.contacts.ContactRecyclerViewAdapter;
+import edu.uw.tcss450team2client.ui.contacts.ContactRequestRecyclerViewAdapter;
 
 
 /**
@@ -35,6 +47,15 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
     private FragmentAddChatBinding binding;
 
     private ArrayList<String> userNames;
+
+    private ContactListFragment mContactListFragment;
+    private ContactRecyclerViewAdapter mContactRecyclerViewAdapter;
+
+    private ContactListViewModel mContactListModel;
+    private AddChatViewModel mAddChatViewModel;
+    private UserInfoViewModel mInfoModel;
+    private int mChatID;
+    private boolean mThroughChat;
 
 
     public AddChatFragment() {
@@ -50,6 +71,12 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
             MainActivity activity = (MainActivity) getActivity();
             mModel.setUserInfoViewModel(activity.getUserInfoViewModel());
         }
+
+        mContactListFragment = new ContactListFragment();
+        mContactListModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
+        mInfoModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        mContactListModel.connectGet(mInfoModel.getJwt());
+        mAddChatViewModel = new ViewModelProvider(getActivity()).get(AddChatViewModel.class);
     }
 
     @Override
@@ -64,6 +91,17 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        mContactListModel.addContactListObserver(getViewLifecycleOwner(), contacts -> {
+            binding.listRoot.setLayoutManager(manager);
+            binding.listRoot.setAdapter(
+                    new ContactRecyclerViewAdapter(contacts, this.getContext(),
+                            getChildFragmentManager(), mInfoModel, mContactListModel, mChatID, mThroughChat, mAddChatViewModel));
+            Log.d("Contact list in chat", "Setting adapter");
+        });
+        mAddChatViewModel.addChatUserListObserver(getViewLifecycleOwner(), chatUser -> {
+            binding.editTextEnterUser.setText(chatUser);
+        });
 
 
         binding.editTextEnterChatNameAddchatfragment.setOnClickListener(this);
@@ -107,6 +145,10 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
         userNames = new ArrayList<String>(Arrays.asList(str.trim().split("\\s*,\\s*")));
 
         return userNames;
+    }
+
+    public void addUsername(String username) {
+        binding.editTextEnterUser.setText(username);
     }
 
 

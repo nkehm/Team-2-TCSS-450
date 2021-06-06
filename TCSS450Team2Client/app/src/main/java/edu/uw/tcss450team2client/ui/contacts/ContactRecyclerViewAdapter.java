@@ -3,6 +3,7 @@ package edu.uw.tcss450team2client.ui.contacts;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450team2client.R;
+import edu.uw.tcss450team2client.databinding.ContactItemBinding;
+import edu.uw.tcss450team2client.databinding.FragmentAddChatBinding;
+import edu.uw.tcss450team2client.databinding.FragmentContactRequestCardBinding;
 import edu.uw.tcss450team2client.model.UserInfoViewModel;
+import edu.uw.tcss450team2client.ui.chat.AddChatFragment;
+import edu.uw.tcss450team2client.ui.chat.AddChatViewModel;
+import edu.uw.tcss450team2client.ui.chat.ChatListViewModel;
 
 /**
  * A recycler view for the contact list.
@@ -35,13 +43,15 @@ public class ContactRecyclerViewAdapter extends
     private final ContactListViewModel mViewModel;
     private final int mChatID;
     private final boolean mThroughChat;
+    private AddChatFragment mAddChatFragment;
+    private AddChatViewModel mAddChatViewModel;
 
 
     public ContactRecyclerViewAdapter(List<Contact> contacts, Context context, FragmentManager fm,
                                       UserInfoViewModel userModel,
                                       ContactListViewModel viewModel,
                                       int chatID,
-                                      boolean throughChat) {
+                                      boolean throughChat, AddChatViewModel mAddChatViewModel) {
         this.mContacts = contacts;
         this.mContext = context;
         this.mFragMan = fm;
@@ -49,6 +59,7 @@ public class ContactRecyclerViewAdapter extends
         this.mViewModel = viewModel;
         this.mChatID = chatID;
         this.mThroughChat = throughChat;
+        this.mAddChatViewModel = mAddChatViewModel;
     }
 
     @NonNull
@@ -67,6 +78,8 @@ public class ContactRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
+        holder.setClickPassUsername(mContacts.get(position));
+
     }
 
     @Override
@@ -82,15 +95,27 @@ public class ContactRecyclerViewAdapter extends
         private final TextView usernameTextView;
         private final ImageButton moreButtonView;
         private Contact mContact;
+        private ContactItemBinding binding;
+
 
         public ContactViewHolder(View v) {
             super(v);
             nameTextView = v.findViewById(R.id.contact_name);
             usernameTextView = v.findViewById(R.id.contact_username);
             moreButtonView = v.findViewById(R.id.contact_more_button);
+            binding = ContactItemBinding.bind(v);
+
+            //TODO
+//            addChatBinding = FragmentAddChatBinding.bind(v.findViewById(R.id.add_chat));
         }
 
-
+        private void setClickPassUsername(Contact mContacts) {
+            binding.layoutInner.setOnClickListener(v -> {
+                Log.d("Contact list", mContacts.getUserName() + " Contact card clicked");
+//                addChatBinding.editTextEnterUser.setText(mContacts.getUserName());
+                mAddChatViewModel.updateContactListText(mContacts.getUserName());
+            });
+        }
 
         /**
          * Sets the contact name and username
