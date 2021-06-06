@@ -29,8 +29,6 @@ public class ContactListFragment extends Fragment  {
 
     private ContactListViewModel mModel;
     private UserInfoViewModel mInfoModel;
-    private int mChatID;
-    private boolean mThroughChat;
     private AddChatViewModel mAddChatViewModel;
 
     public ContactListFragment() {
@@ -62,7 +60,7 @@ public class ContactListFragment extends Fragment  {
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             binding.listRoot.setAdapter(
                     new ContactRecyclerViewAdapter(contactList, this.getContext(),
-                            getChildFragmentManager(), mInfoModel, mModel, mChatID, mThroughChat, mAddChatViewModel));
+                            getChildFragmentManager(), mInfoModel, mModel, mAddChatViewModel));
         });
     }
 }

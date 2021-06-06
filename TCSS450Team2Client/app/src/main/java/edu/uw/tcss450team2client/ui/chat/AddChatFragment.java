@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -43,27 +45,16 @@ import edu.uw.tcss450team2client.ui.contacts.ContactRequestRecyclerViewAdapter;
  */
 public class AddChatFragment extends Fragment implements View.OnClickListener {
 
-
     private ChatListViewModel mModel;
-
     private FragmentAddChatBinding binding;
-
     private ArrayList<String> userNames;
-
-    private ContactListFragment mContactListFragment;
-    private ContactRecyclerViewAdapter mContactRecyclerViewAdapter;
-
     private ContactListViewModel mContactListModel;
     private AddChatViewModel mAddChatViewModel;
     private UserInfoViewModel mInfoModel;
-    private int mChatID;
-    private boolean mThroughChat;
-
 
     public AddChatFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +65,6 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
             mModel.setUserInfoViewModel(activity.getUserInfoViewModel());
         }
 
-        mContactListFragment = new ContactListFragment();
         mContactListModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         mInfoModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
         mContactListModel.connectGet(mInfoModel.getJwt());
@@ -98,7 +88,7 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
             binding.listRoot.setLayoutManager(manager);
             binding.listRoot.setAdapter(
                     new ContactRecyclerViewAdapter(contacts, this.getContext(),
-                            getChildFragmentManager(), mInfoModel, mContactListModel, mChatID, mThroughChat, mAddChatViewModel));
+                            getChildFragmentManager(), mInfoModel, mContactListModel, mAddChatViewModel));
             Log.d("Contact list in chat", "Setting adapter");
         });
 
@@ -106,11 +96,9 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
             binding.editTextEnterUser.setText(chatUser);
         });
 
-
         binding.editTextEnterChatNameAddchatfragment.setOnClickListener(this);
         binding.imageButtonAddChatAddchatfragment.setOnClickListener(this);
         binding.imageButtonClearChatAddchatfragment.setOnClickListener(this);
-
     }
 
     public Boolean chatNameValidation(String str) {
@@ -145,21 +133,15 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
     }
 
     public List<String> parseUsername(String str) {
-
         userNames = new ArrayList<String>(Arrays.asList(str.trim().split("\\s*,\\s*")));
-
         return userNames;
     }
 
-    public void addUsername(String username) {
-        binding.editTextEnterUser.setText(username);
-    }
-
-
     @Override
     public void onClick(View v) {
-
-        if (chatNameValidation(binding.editTextEnterChatNameAddchatfragment.getText().toString()) &&
+        if (v == binding.imageButtonClearChatAddchatfragment) {
+            mAddChatViewModel.clearText();
+        } else if (chatNameValidation(binding.editTextEnterChatNameAddchatfragment.getText().toString()) &&
                 usernameValidation(parseUsername(binding.editTextEnterUser.getText().toString()))) {
 
             if (v == binding.imageButtonAddChatAddchatfragment) {
@@ -176,9 +158,6 @@ public class AddChatFragment extends Fragment implements View.OnClickListener {
 
                 Navigation.findNavController(getView()).navigate(AddChatFragmentDirections.actionAddChatFragmentToNavigationChat());
             }
-        }
-        if (v == binding.imageButtonClearChatAddchatfragment) {
-            mAddChatViewModel.clearText();
         }
     }
 }

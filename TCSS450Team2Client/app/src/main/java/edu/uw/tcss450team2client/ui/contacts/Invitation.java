@@ -17,7 +17,6 @@ public class Invitation implements Serializable {
         this.mSenderUsername = senderUsername;
     }
 
-    //TODO: utilize or remove
     /**
      * Static factory method to turn a properly formatted JSON String into a
      * Invitation object.
@@ -31,8 +30,7 @@ public class Invitation implements Serializable {
     }
 
     /**
-     * Provides equality solely based on
-     *
+     * Check if invites are equal
      * @param other the other object to check for equality
      * @return true if other username matches this username, false otherwise
      */

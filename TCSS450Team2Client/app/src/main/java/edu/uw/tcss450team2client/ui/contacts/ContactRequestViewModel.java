@@ -60,6 +60,10 @@ public class ContactRequestViewModel extends AndroidViewModel {
         mRequestList.observe(owner, observer);
     }
 
+    /**
+     * Connect to webserver by sending HTTP request to get the contact request
+     * @param jwt User's jwt
+     */
     public void connectGet(final String jwt) {
         String url = "https://tcss450-team2-server.herokuapp.com/contacts/requestlist";
         Request request = new JsonObjectRequest(
@@ -85,7 +89,10 @@ public class ContactRequestViewModel extends AndroidViewModel {
                 .add(request);
     }
 
-
+    /**
+     * Handle task when success getting response from server
+     * @param result JSON object from server
+     */
     private void handleSuccess(final JSONObject result) {
         ArrayList<FriendRequest> temp = new ArrayList<>();
         try {
