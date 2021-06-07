@@ -1,18 +1,26 @@
 package edu.uw.tcss450team2client.ui.weather;
 
 import android.content.Context;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
@@ -42,6 +50,13 @@ public class WeatherListFragment extends Fragment {
      */
     private List<WeatherData> dayList;
 
+    private FusedLocationProviderClient fusedLocationClient;
+
+    private double lat = -404;
+    private double lng = -404;
+    private boolean nope = false;
+    private boolean check = false;
+
     /**
      * Empty public constructor.
      */
@@ -52,7 +67,30 @@ public class WeatherListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         mModel = new ViewModelProvider(getActivity()).get(WeatherViewModel.class);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null&& nope == false && check == false) {
+                                lat = location.getLatitude();
+                                lng = location.getLongitude();
+
+                                if(lat != 0 && lng != 0 && nope == false && WeatherMapFragment.check() == false){
+                                    mModel.connectGet(String.valueOf(lat),String.valueOf(lng));
+                                }
+
+                            }
+                        }
+                    });
+        }else{
+                Boolean nope = true;
+        }
+
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         if (getActivity() instanceof MainActivity) {
             MainActivity activity = (MainActivity) getActivity();
@@ -74,6 +112,7 @@ public class WeatherListFragment extends Fragment {
         binding.buttonSearch.setOnClickListener(this::searchZip);
         binding.buttonMap.setOnClickListener(this::searchMap);
         if(WeatherMapFragment.check() == true){
+            check = true;
             mModel.connectGet(WeatherMapFragment.getLat(),WeatherMapFragment.getLng());
         }
 
@@ -120,7 +159,9 @@ public class WeatherListFragment extends Fragment {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        mModel.connectGet(binding.textviewZipData.getText().toString());
+        nope = true;
+        String s = binding.textviewZipData.getText().toString();
+        mModel.connectGet(s);
     }
 
     private void searchMap(View view) {

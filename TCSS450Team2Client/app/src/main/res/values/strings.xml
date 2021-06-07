@@ -104,13 +104,13 @@
     <!-- Weather -->
     <string name="textview_weatherWeekCard_low">Low</string>
     <string name="textview_weatherWeekCard_high">High</string>
-    <string name="textview_weather_map_search">Search</string>
+    <string name="textview_weather_map_search">Look Up</string>
     <string name="textview_weatherList_currentForecast">Current Forecast:</string>
     <string name="textview_weatherList_todayForecast">Today\'s Forecast</string>
     <string name="textview_weatherList_weeklyForecast">Weekly Forecast</string>
     <string name="textview_weatherList_location">Location:</string>
     <string name="textview_weatherList_textDefault">Getting Data...</string>
-    <string name="label_location">Current location:</string>
+    <string name="label_location">Please Select a Location</string>
     <string name="fragment_weather_map">Map Selection</string>
     <string name="imagelabel_weather_weatherIconDescription">The type of current weather</string>
     <string name="title_weather">Weather</string>

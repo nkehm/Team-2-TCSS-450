@@ -115,7 +115,8 @@ public class WeatherViewModel extends AndroidViewModel {
         if (userInfoViewModel == null) {
             throw new IllegalArgumentException("No UserInfoViewModel is assigned");
         }
-        String url = getApplication().getResources().getString(R.string.base_url) +
+        boolean entered = false;
+        String url= getApplication().getResources().getString(R.string.base_url) +
                 "weather?zip=98402";
 
         Request request = new JsonObjectRequest(Request.Method.GET, url, null,
